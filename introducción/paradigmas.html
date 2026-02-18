@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradigmas de programación</title>
+</head>
+
+<body>
+    <main>
+        <h1>Paradigmas de programación</h1>
+        <p>
+            Como dice el dicho, una línea de código vale más que mil palabras. ¡Vamos a comparar rápidamente
+            las diferencias entre un desarrollo en un lenguaje imperativo como Python y uno declarativo
+            como Prolog!
+        </p>
+        <section>
+            <h2>Desarrollo imperativo</h2>
+            <p>
+                Podríamos plantear un metáfora sobre la manera de operar de diferentes personas frente
+                a una tarea, como podría ser hacer una tarta.
+            </p>
+            <p>
+                Primero vamos a pensar en una persona “normal”. Cuando se le asigna una tarea como esta,
+                definirá una serie de pasos de la A a la G e irá realizando cada uno de ellos de manera
+                secuencial, sin variar el orden bajo ninguna circunstancia.
+            </p>
+            <ol type="A">
+                <li>Batir huevos.</li>
+                <li>Mezclar los ingredientes secos.</li>
+                <li>Mezclar los ingredientes húmedos.</li>
+                <li>Echar la mezcla en un molde.</li>
+                <li>Meter la tarta en el horno a 180 ºC.</li>
+                <li>Sacar la tarta a los 20 minutos.</li>
+                <li>Decorar y servir.</li>
+            </ol>
+            <p>
+                Ahora bien, ¿qué ocurre si no hay huevos? ¿O si al mezclar los ingredientes nos falta
+                leche? ¿Y si el horno de repente no funciona? Esto es lo que conocemos como <strong>excepciones</strong>.
+                Posibilidades no contempladas en el flujo original.
+            </p>
+            <p>
+                En este caso, la excepción se podrá tratar de varias maneras una vez ocurra, pidiendo
+                ingredientes al vecino, sustituyendo elementos, yendo a comprar o tirando con enfado
+                la tarta a medio hacer por la ventana y pasando del tema. El problema fundamental de
+                esta aproximación consiste en que hay que tener muy claras todas las posibles desviaciones
+                que pueden aparecer durante la ejecución, ya que una excepción no contemplada nos puede
+                generar que el programa simplemente deje de funcionar.
+            </p>
+            <p>
+                Sin embargo, si ponemos a una persona con TDAH a hacer la misma tarta, esta persona primero
+                revisará que tiene todo lo que necesita para realizar la tarta, negándose siquiera a
+                empezar en caso de que le faltara la cosa más nimia, y en caso de tener todo disponible
+                procederá a preparar la tarta.
+            </p>
+            <p>
+                Llevando esto a código, si nosotros quisiéramos hacer un sandwich, podríamos definir
+                una función en Python de la siguiente manera:
+            </p>
+<pre><code>class Sandwich:
+    def __init__(self, pan1, pan2, relleno):
+        self.pan1 = pan1
+        self.pan2 = pan2
+        self.relleno = relleno
+
+    def __str__(self):
+        return f"{self.pan1} {self.relleno} {self.pan2}"
+
+    def hacer_sandwich(pan1, pan2, relleno):
+        sandwich = Sandwich(pan1, pan2, relleno)
+        return f"Sándwich pa ti, campeón: {sandwich}"</code></pre>
+            <p>
+                Que tendría el siguiente output:
+            </p>
+            <button>¡Haz clic para hacer un sándwich!</button>
+            <p>
+                El flujo es tremendamente sencillo. El programa espera que se le proporcionen dos panes
+                y un relleno para el sándwich, y una vez se le da esto simplemente encierra el relleno
+                entre los dos panes y lo presenta al usuario.
+            </p>
+            <p>
+                ¿Cuál es el problema aquí? Pues podemos hacer una prueba. ¿Qué ocurriría si se nos antoja
+                hacer un sándwich con dos alpargatas y medio kilo de arena de gato, dos cubos de basura
+                y un calcetín sudao o lo que se nos ocurra?
+            </p>
+            <button>¡Haz clic para hacer un sándwich!</button>
+            <p>
+                Pues efectivamente, para nuestra desgracia tendríamos el sándwich menos apetecible de
+                la historia sin mayor alternativa.
+            </p>
+            <p>
+                Claramente, una de las cuestiones a tratar aquí es establecer que, por ejemplo, el pan
+                sea pan y el relleno sea comestible, excluyendo cualquier otra entrada que nos proporcionen
+                en caso de que no se cumplan estas condiciones, lo cual nos lleva al eterno problema
+                de la programación. El cliente no siempre tendrá la razón, pero siempre encontrará maneras
+                de reventar el programa que al desarrollador no se le habrían ocurrido en sueños.
+            </p>
+        </section>
+        <section>
+            <h2>Desarrollo declarativo</h2>
+            <p>
+                Sin embargo, si quisiéramos hacer lo mismo con Prolog, el código sería el siguiente:
+            </p>
+<pre><code>pan(rebanada).
+relleno(jamon_y_queso).
+relleno(salchicha_y_queso).
+relleno(huevo_y_bacon).
+relleno(carne_picada).
+
+hacer_sandwich(Sandwich) :-
+    rebanada_de_pan(Rebanada1),
+    rebanada_de_pan(Rebanada2),
+    relleno(Relleno),
+    Sandwich = [Rebanada1, Relleno, Rebanada2].</code></pre>
+            <p>
+                Esto, al ejecutarse nos devuelve lo siguiente:
+            </p>
+            <button>Deja que Prolog haga su cosa</button>
+            <p>
+                Una cosa a recalcar con Prolog es que hay muchas maneras de interactuar con un programa
+                escrito en Prolog.
+            </p>
+            <p>
+                Nosotros podemos realizar una consulta a este programa sin especificarle nada, y en este
+                caso Prolog nos construirá primorosamente un sándwich para nuestro deleite.
+            </p>
+            <p>
+                No obstante, también podemos optar por especificarle qué cosas queremos en nuestro sándwich,
+                y Prolog intentará hacer un sándwich a partir de esto unificando lo especificado con
+                los hechos en nuestra base de conocimiento y dándonos el ok si puede hacer un sandwich
+                con lo que le proporcionamos, a diferencia de Python que cogerá los ingredientes, los
+                pondrá uno encima del otro y lo llamará sándwich sin atender a si tiene sentido o no.
+            </p>
+            <p>
+                Es decir, nuestro enfoque debe ser ver cómo interacionan los elementos entre sí a lo
+                largo del ciclo de vida del programa, no establecer una serie de pasos a cumplir y programar
+                posibles desviaciones y excepciones para este patrón.
+            </p>
+            <p>
+                Nuestro trabajo consistirá en definir las relaciones de nuestro dominio, en lugar de
+                crear un flujo y tratar la infinidad de errores que pueden surgir por el camino.
+            </p>
+            <p>
+                Cualquier consulta que tenga como parámetros cualquier elemento que no haya sido considerado
+                por el experto que ha establecido las reglas de nuestro dominio nos devolverá un Falso
+                como resultado, en lugar de tener una excepción.
+            </p>
+            <button>¡Haz clic para hacer un sándwich!</button>
+        </section>
+        <section>
+            <h2>Cambio de Paradigma</h2>
+            <p>
+                Ahora mismo estoy oyendo lo que piensas.
+            </p>
+            <p>
+                <q>
+                    Vale, sí, esto es todo muy bonito, ¿pero qué carajo es un paradigma y cómo dejo de
+                    pensar en imperativo?
+                </q>
+            </p>
+            <p>
+                Y tienes toda la razón, quizás me he calentado un poquillo. En el mundo de la programación
+                llamamos “paradigmas” a los distintos enfoques sobre cómo resolver un problema. Son <strong>marcos</strong>
+                sobre los que desarrollar la solución, cada uno con una serie de convenciones que los definen.
+            </p>
+            <p>
+                Cada paradigma ofrece una manera diferente de pensar y resolver problemas en programación,
+                y el uso de uno u otro puede depender del tipo de problema que se desea abordar, de las
+                preferencias personales o de desarrollo.
+            </p>
+            <p>
+                Por desgracia, todo lo que hayas aprendido de programación (imperativa u orientada a
+                objetos) hasta ahora no solo no te servirá para Prolog, muy probablemente que te supondrá
+                un obstáculo: Intentarás resolver los problema en Prolog “imperativamente” y fracasarás
+                estrepitosamente (mientras se empiezan a oir tus lloros, oraciones y gritos y tu teclado
+                sufre las consecuencias de tus decisiones).
+            </p>
+            <p>
+                En un lenguaje imperativo, tú conduces (controlas la ejecución), decidiendo cómo llegar
+                a tu destino, En Prolog, conduce Prolog (su motor de inferencia) y a ti te toca hacer
+                toda la hoja de ruta, asegurándote de que el tráiler con una bomba nuclear lógica no
+                se cae por un terraplén.
+            </p>
+            <p>
+                El paradigma imperativo propone <strong>cómo</strong> se deben hacer las cosas. Nosotros
+                determinamos el flujo de ejecución, teniendo el control y definiendo el mismo mediante
+                instrucciones y estructuras de control (If/else, bucles For, etc...) y es nuestra responsabilidad
+                que éste se cumpla.
+            </p>
+            <p>
+                El paradigma declarativo propone <strong>qué</strong> se quiere conseguir, definiendo
+                el resultado y abstrayéndonos de cómo se consigue, siendo un <strong>motor de ejecución</strong>
+                el que lleva a cabo la ejecución sin intervención directa ni control explícito del flujo
+                de ejecución por nuestra parte. Uno de los primeros shocks aquí es que primero necesitamos
+                comprender el funcionamiento del motor de ejecución (en caso de Prolog, el motor de inferencia)
+                para poder plantear las reglas que definirán nuestro dominio.
+            </p>
+            <p>
+                Puede que no hayas oído hablar de paradigmas en profundidad, pero con total seguridad
+                tienes experiencia tanto en lenguajes imperativos (Java, Python, C/++/+-...) como en
+                declarativos (SQL), y si no la tienes, tampoco pasa nada.
+            </p>
+            <p>
+                Por proponer un pequeño ejemplo para aquellos que hayáis trabajado en SQL, ¿qué hacemos
+                en SQL?
+            </p>
+            <p>
+                Preguntar por lo que queremos. Desarrollamos una consulta específicando qué, de dónde
+                y bajo qué condiciones queremos obtener el resultado y nos abstraemos totalmente de cómo
+                se devuelve. En Prolog haremos esencialmente lo mismo, dejando todos los puntos necesarios
+                para poder generar la respuesta.
+            </p>
+        </section>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="sbr.html">Siguiente apartado - Sistemas basados en reglas</a></li>
+                <li><a href="beneficios.html">Apartado anterior - Beneficios de Prolog</a></li>
+                <li><a href="../index.html">Volver al índice</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+
+</html>
