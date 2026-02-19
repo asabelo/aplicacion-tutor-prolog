@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posología de Prolog</title>
+</head>
+
+<body>
+    <main>
+        <h1>Composición de Prolog, o ¿cómo monto yo esta cosa?</h1>
+        <p>
+            Vamos a recapitular un momento.<br>
+            Hemos visto qué componentes tiene de fondo Prolog.<br>
+            Hemos visto los elementos básicos de Prolog y cómo escribir predicados básicos.<br>
+            Acabamos de aprender cómo utilizar consultas en Prolog.<br>
+            ¿Qué nos falta?
+        </p>
+        <p>
+            <s>Llorar</s> <strong>Practicar</strong>.
+        </p>
+        <p>
+            Vamos a escribir tu primer programa en Prolog. No te preocupes, ¡estaré a tu lado y el búho
+            promete no reírse!
+        </p>
+        <p>
+            Imagina que una empresa de márketing nos pide ayuda para organizar su agenda de clientes
+            y determinar potenciales compradores de sus nuevos y demoledores productos, el <strong>PeinaPelos 3000X</strong>
+            y el <strong>AbrillantaBombillas Turbo 5000</strong>. En esta empresa, por desgracia, los
+            vendedores no tienen el suficiente carisma como para venderle un peine a un calvo y agradecerían
+            tener un sistema que automatice el proceso de selección de clientes para las dos secciones
+            de ventas, una especializada en productos para pelo y la otra en productos para pelones en
+            función del departamento del vendedor y el tipo de cliente.
+        </p>
+        <p>
+            Los datos de que disponemos son los siguientes:
+        </p>
+        <ul>
+            <li>Ramon y Javier trabajan en el departamento de melenas.</li>
+            <li>Alberto y Sara trabajan en el departamento de bombillas.</li>
+            <li>
+                Actualmente, sabemos que Melinda, Ana y Bruno tienen pelo Pantene, mientras que Guillermo,
+                Álvaro y Antonio cuentan con un tremendo tobogán de piojos.
+            </li>
+        </ul>
+        <p>
+            Te he adelantado la tarea un poco, tengo hecho esto:
+        </p>
+<pre><code>% Departamentos y empleados
+trabaja_en(javier, melenas).
+trabaja_en(alberto, bombillas).
+
+% Clientes
+tiene_pelo(ana).
+tiene_pelo(bruno).
+no_tiene_pelo(alvaro).
+no_tiene_pelo(antonio).
+
+% Regla para determinar si un vendedor puede vender productos a un cliente con pelo
+puede_vender(Vendedor, Cliente) :-
+    trabaja_en(Vendedor, melenas),
+    tiene_pelo(Cliente).</code></pre>
+        <p>
+            Solo faltaría añadir a nuestra base de conocimiento a Ramón, Sara, Melinda y Guillermo. ¿Podrías
+            crear los hechos que faltan? Que me cierra el Mercadona y no me queda hummus. Recuerda, para
+            crear un hecho <strong>no</strong> usamos mayúsculas.
+        </p>
+        <button>[...]</button>
+        <p>
+            ¡Perfecto, bien hecho! Yo tengo hummus y tú tienes la base de hechos terminada. Me acabo
+            de dar cuenta de que falta una regla para verificar que los vendedores del AbrillantaBombillas
+            están tratando con el cliente correcto. ¿Podrías rellenar lo que falta cogiendo la otra regla
+            puede_vender como ejemplo?
+        </p>
+<pre><code>puede_vender(Vendedor, Cliente) :-
+    trabaja_en(Vendedor, _______),
+    no_tiene_pelo(______).</code></pre>
+        <button>[...]</button>
+        <p>
+            ¡Genial! Ahora podemos hacer las pruebas que queramos y verificar que está todo correcto:
+        </p>
+        <label>
+            Consulta: <input>
+        </label>
+        <p>
+            Me acaban de llamar de la empresa, su productividad ha subido un 35 % y la horda de hippies
+            peludos que les monta una manifestación cada vez que le ofrecían crema de calva a un melenas
+            ha levantado el piquete semipermanente que tenían a la entrada de sus oficinas. ¡Buen trabajo!
+        </p>
+        <p>
+            Han quedado muy contentos.
+        </p>
+        <p>
+            Tremendamente contentos.
+        </p>
+        <p>
+            Tan contentos que se ha corrido la voz sobre las maravillas de Prolog y ahora mismo tengo
+            otros 15 proyectos encima de la mesa. Tienes dos minutos para coger un café, <strong>hay que trabajar</strong>.
+        </p>
+        <p>
+            Vamos con nuestro siguiente proyecto. Un ayuntamiento del estado de Alabama, cansado de líos
+            entre árboles genealógicos, desea automatizar el sistema y detectar casos <strong>peculiares</strong>
+            entre cónyuges para aliviar la carga de trabajo del personal laboral. Por suerte, ya nos
+            han adelantado la base de conocimiento con todos los miembros del condado, así que solo nos
+            falta diseñar las reglas para determinar si dos individuos pueden casarse sin consecuencias
+            <strong>catastróficas</strong>. Aquí tenemos unos pocos casos de muestra:
+        </p>
+<pre><code>% Primera generación
+padre(ferdinand, john).
+padre(ferdinand, james).
+
+% Segunda generación
+
+padre(john, harry).
+
+madre(mary, harry).
+padre(john, william).
+
+madre(mary, william).
+
+padre(james, emily).
+
+madre(susan, emily).
+padre(james, margaret).
+madre(susan, margaret).
+padre(james, oliver).
+madre(susan, oliver).
+
+% Tercera generación
+padre(harry, jim).
+
+madre(emily, jim).
+padre(harry, sophie).
+madre(emily, sophie).
+
+padre(william, sebastian).
+madre(margaret, sebastian).
+padre(william, charlotte).
+madre(margaret, charlotte).
+
+padre(oliver, george).
+
+madre(emma, george).
+padre(oliver, lily).
+madre(emma, lily).
+
+padre(sebastian, ella).
+
+madre(claire, ella).
+padre(sebastian, jack).
+madre(claire, jack).</code></pre>
+        <p>
+            Te he quitado parte del curro y he definido todas las relaciones familiares, pero falta establecer
+            las reglas. Desde el ayuntamiento nos dicen que no pueden casarse dos personas con tercer
+            grado de consanguinidad o menos (padres e hijos, hermanos, abuelos y nietos, tíos y sobrinos)
+            pero además, <strong>por si acaso</strong>, quieren prohibir el matrimonio entre primos cuyos
+            padres también sean primos. Acaba lo que me queda que yo tengo que salir un segundo a por
+            tabaco.
+        </p>
+<pre><code>grado3(P1, P2) :- padre(P1, P2).
+grado3(P1, P2) :- madre(P1, P2).
+grado3(P1, P2) :- hermano(P1, P2).
+grado3(P1, P2) :- ¿?(P1, P2).
+grado3(P1, P2) :- abuela(P1, P2).
+grado3(P1, P2) :- ¿?(P1, P2).
+grado3(P1, P2) :- tia(P1, P2).
+
+no_matrimonio_primos(P1, P2) :-
+    ¿?(P1, P2),
+    padre(¿?, P1),
+    padre(¿?, P2),
+    primo(Padre1, Padre2).
+
+no_matrimonio_primos(P1, P2) :-
+    primo(P1, P2),
+    madre(Madre1, P1),
+    madre(Madre2, P2),
+    primo(¿?, ¿?).</code></pre>
+        <button>[...]</button>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="operadores.html">Siguiente apartado - Operadores de Prolog</a></li>
+                <li><a href="predicados.html">Apartado anterior - Predicados</a></li>
+                <li><a href="../index.html">Volver al índice</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+
+</html>

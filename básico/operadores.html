@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operadores de comparación y de unificación</title>
+</head>
+
+<body>
+    <main>
+        <h1>Operadores de comparación y operadores de unificación</h1>
+        <p>
+            Le hemos perdido ya un poco el miedo a Prolog, ¿verdad?
+        </p>
+        <p>
+            MAL.
+        </p>
+        <p>
+            ¡Vamos a recuperarlo! ¿Qué mejor para ello que profundizar un poco más en la sintaxis y hacernos
+            la picha un lío con los operadores que se parecen a los que ya conocemos?
+        </p>
+        <p>
+            <strong>Al lío.</strong>
+        </p>
+        <p>
+            Quizás te hayas dado cuenta de que, hasta ahora, no hemos unificado nada nosotros, sino que
+            el motor de inferencia lo ha hecho en nuestro lugar. En Prolog, el operador de unificación
+            es el siguiente: (parada dramática)
+        </p>
+        <h2>=</h2>
+        <p>
+            Efectivamente, la misma cosa que utilizamos para asignar valores en el resto de lenguajes.
+            Pero aquí <strong>no</strong> estamos asignando cosas. Estamos haciendo <strong>comparaciones</strong>,
+            y este operador devolverá verdadero si puede unificar dos términos.
+        </p>
+        <p>
+            Prolog es absurdamente literal. Como ya comentamos en capítulos anteriores, los átomos se
+            interpretan <strong>tal cual</strong>. Esto da lugar a situaciones absurdas como la siguiente:
+        </p>
+        <p>
+            <em>Es falso que 3+2 sea igual que cinco.</em>
+        </p>
+        <p>
+            El operador de unificación lee las cosas tal cual están. Podrías plantarle delante un plato
+            de huevos con patatas y un cesto con patatas fritas y dos huevos fritos en un platito y te
+            diría que no son el mismo plato.
+        </p>
+        <p>
+            ¿Cómo afrontamos esto?
+        </p>
+        <p>
+            Con el operador <strong>is</strong>.
+        </p>
+        <h2>is</h2>
+        <p>
+            Este operador <strong>sí</strong> resuelve las operaciones aritméticas que se le planteen
+            antes de intentar unificar. Pero vuelvo a repetir:<br>
+            <strong>NO</strong><br>
+            <strong>HACE</strong><br>
+            <strong>ASIGNACIONES</strong><br>
+            <strong>EN PROLOG NO TENEMOS ASIGNACIONES</strong><br>
+            <strong>ES EL MOTOR DE INFERENCIA EL QUE DETERMINA SI UNA VARIABLE LIGA CON UN TÉRMINO</strong>
+        </p>
+        <p>
+            Una variable puede unificarse con un valor concreto. X = 5 devolverá <strong>true</strong>,
+            pero X no tiene un valor "asignado" como tal que se pueda reemplazar a voluntad. Una vez
+            que una variable liga con otro término, esa ligadura es inquebrantable.
+        </p>
+        <p>
+            Ahora podemos probar diferentes operaciones y comprobar que, efectivamente, Prolog es capaz
+            de determinar si 3+2 es lo mismo que 5.
+        </p>
+        <label>
+            Consulta: <input placeholder="¡Dale chicha, majo!">
+        </label>
+        <p>
+            ¿Qué más operadores tenemos?
+        </p>
+        <p>
+            Por una parte tenemos los operadores aritméticos (+,-,*,/,//(División entera),mod,^) y comparadores
+            (&lt;,=&lt;,&gt;,&gt;=) "clásicos", pero también hay que explicar algunos operadores nuevos.
+            Ponte el cinturón, que se vienen curvas.
+        </p>
+        <h2>==</h2>
+        <p>
+            Este es el operador de igualdad sintáctica. Hay que tener cuidado con él y no confundirlo
+            con el operador de unificación. Podemos verlo en el siguiente ejemplo:
+        </p>
+<pre><code>X == 5 false.
+X = 5 true.
+X == 5 true.</code></pre>
+        <p>
+            Este operador puede hacer una comparación entre términos <strong>sin</strong> unificar. Si
+            la variable X no ha unificado con nada anteriormente, la comparación fallará.
+        </p>
+        <h2>\==</h2>
+        <p>
+            Operador de desigualdad sintáctica.
+        </p>
+        <h2>\=</h2>
+        <p>
+            Este operador se comporta como la negación de la unificación. Fallará y devolverá false si
+            dos elementos logran unificarse.
+        </p>
+        <h2>,</h2>
+        <p>
+            Operador de conjunción. Es un Y/AND lógico. Quizás lo hayas deducido en ejemplos anteriores,
+            pero por si acaso vamos a recalcarlo.
+        </p>
+        <h2>;</h2>
+        <p>
+            Operación de disyunción. Es un O/OR lógico. Como comentamos anteriormente, este operador
+            debería entenderse como un recurso ocasional y no como un elemento de programación habitual.
+            Mantengamos las buenas prácticas y usemos cláusulas de Horn siempre que sea posible.
+        </p>
+        <h2>\+</h2>
+        <p>
+            Honestamente, este no es un operador como tal, si no un <strong>predicado de control</strong>.
+        </p>
+        <p>
+            Si, lo de que no tenemos ningún tipo de control sobre el flujo de ejecución era mentira.
+            Pero de momento tú haz como que no has oído nada.
+        </p>
+        <p>
+            Lo podemos llamar también "No se puede demostrar". Evalúa si un objetivo no puede ser probado
+            verdadero, y de ser así devuelve true. Sin embargo, hay que tener en cuenta que <strong>NO</strong>
+            es un operador de negación. En lógica, la negación implica demostrar que algo es falso. El
+            "No se puede demostrar" simplemente comprueba que no se puede probar que un predicado sea
+            verdadero y por tanto asume que es falso. En cierto modo, lo podemos entender como la <strong>presunción de inocencia</strong>.
+        </p>
+        <p>
+            Podríamos acusar a una persona de roncar, pero de no ser consciente de ello porque no tiene
+            un volumen tan absurdo como para despertar a alguien y por ello no es consciente de sus berreas
+            de ciervo en celo. Si quisiéramos negar que dicha persona no ronca (negación lógica) tendríamos
+            que presentarnos con una grabadora en la habitación de esta persona y comprobar in situ si
+            hay o no hay ronquidos. Por otra parte, haciendo uso del "No se puede demostrar", al no haber
+            testigos despertados por motosierras nocturnas podemos afirmar que, dado que no se ha probado
+            cierto que dicha persona ronque, esta persona no ronca y es inocente de las perversas acusaciones
+            que caen sobre su cabeza.
+        </p>
+        <label>
+            Consulta: <input placeholder="¡Dale chicha, majo!">
+        </label>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="../intermedio/variables.html">Siguiente apartado - Variables en Prolog</a></li>
+                <li><a href="elementos.html">Apartado anterior - Posología de Prolog</a></li>
+                <li><a href="../index.html">Volver al índice</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+
+</html>
