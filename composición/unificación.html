@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unificación</title>
+</head>
+
+<body>
+    <main>
+        <h1>Unificación</h1>
+        <p>
+            Estoy seguro de que llevas un buen rato preguntándote qué es eso de la unificación. No te
+            preocupes, ¡vamos a hacer que desees no haberte hecho esa pregunta!
+        </p>
+        <p>
+            El mecanismo de unificación en el ámbito de la programación lógica consiste, simplemente,
+            en buscar una “asignación” (no es una asignación en el sentido estricto de la palabra en
+            otros paradigmas de programación) que permita que dos términos se vuelvan idénticos.
+        </p>
+        <p>
+            ¿Qué son los términos, dices? Pues vamos con ello.
+        </p>
+        <p>
+            Los términos en Prolog son el “todo”. No tenemos estructuras de datos. <strong>Todo</strong>
+            son términos. Las variables, los hechos, las reglas, los números, carácteres, listas, strings...
+            Aunque pueda parecer contrario a la programación (puede parecer poco modular el meter todos
+            los tipos de datos en el mismo saco), que todo este a un mismo “nivel” es lo que nos permite
+            utilizar la unificación de manera efectiva.
+        </p>
+        <p>
+            Diferenciamos dos tipos de términos fundamentalmente, los términos <strong>atómicos</strong>
+            y los términos <strong>compuestos</strong>.
+        </p>
+        <h3>Términos atómicos</h3>
+        <h4>Átomos</h4>
+        <p>
+            En Prolog, los átomos son un concepto paraguas que engloba secuencias de caracteres entendidas
+            como una única unidad sin significado inherente, que empiezan por una letra minúscula. Por
+            ejemplo: abc, a123....
+        </p>
+        <h4>Números</h4>
+        <p>
+            Los números son términos conformados por los enteros y los números de coma flotante. No son
+            átomos porque si tienen un significado inherente per se sin necesidad de “observar” al propio
+            número (Representar una cantidad) y pueden formar parte de expresiones aritméticas.
+        </p>
+        <h4>Variables</h4>
+        <p>
+            Las variables, al igual que los números, tienen un significado inherente por el mero hecho
+            de ser variables, y están formadas por caracteres, cifras incluidas, y empiezan por una letra
+            mayúcula. Por ejemplo: Abc, A123…
+        </p>
+        <p>
+            Las variables pueden “contener” cualquier término, incluido otras variables. Mucho cuidado
+            con las variables: más que “algo” que contiene un valor, son “algo” que puede contener un
+            valor. Este valor será un término que la ejecución del motor de Prolog determinará cuál puede
+            ser.
+        </p>
+        <h4>Términos compuestos</h4>
+        <p>
+            Sin entrar en formalismos y por simplificar la cuestión, los términos compuestos se construyen
+            a partir de un átomo e incorporan una serie de argumentos que, a su vez, son términos como
+            pueden ser “padre(luis, maria)”, “recta2D(punto(X1, Y1), punto(X2, Y2))”... El fin principal
+            de los mismos es representar estructuras.
+        </p>
+        <p>
+            Las listas, por ejemplo, son un tipo de término compuesto, siendo los elementos de la lista
+            los argumentos. Los hechos <strong>son términos compuestos</strong>, y las reglas se definen
+            con términos compuestos.
+        </p>
+        <p>
+            ¿Cómo interpretamos esta información?
+        </p>
+        <p>
+            Este es un punto importante. De manera natural, cualquier persona entenderá que “5” y “3+2”
+            son equivalentes, pero cuando trabajamos con unificación la comparación se hace a machete.
+            Si tratamos de unificar (es decir, comprobar si nuestros dos términos pueden ser equivalentes)
+            “5” y “3+2”, el resultado será <strong>falso</strong>, dado que la comparación es literalmente
+            entre un <strong>átomo</strong> (el número 5), y un <strong>término compuesto</strong> (la
+            suma “3+2”), dado que Prolog NO evalúa este término (no resuelve la operación aritmética)
+            salvo instrucción expresa. En el momento de unificar, si alguno de los dos términos es una
+            variable, le asocia (“asigna”) el otro término. ¿Qué ocurre si el otro término también es
+            una variable? También lo asocia, aunque dicha variable aún no tenga asociado (“asignado”)
+            ningún valor. Una variable, en el contexto de la unificación, se puede ver como un “lugar”
+            que contiene, o contendrá, un valor. No te cortes, ¡pruébalo!
+        </p>
+        <form>
+            <label>
+                Consulta: <input>
+            </label>
+        </form>
+        <p>
+            Es fundamental tener este ejemplo en mente en todo momento, dado que en un futuro podemos
+            tener un error en nuestro código que aparentemente no exista, pero nos impida el correcto
+            funcionamiento de nuestros programas.
+        </p>
+        <h2>Cláusulas de Horn</h2>
+        <p>
+            Las cláusulas de Horn son fórmulas en lógica de primer orden con una característica particular:
+            son una serie de conjunciones con a lo sumo un literal positivo que desembocan en una conclusión.
+        </p>
+        <p>
+            Para que nos entendamos, son un chorrazo de ANDs que acaban en una implicación con un simbolito
+            así → en donde si se cumple el chorrazo entonces el → es verdadero.
+        </p>
+        <p>
+            ¿Cómo interpretamos esto? Pues muy sencillo: frente a un problema determinado, tenemos que
+            determinar las premisas por las cuales el problema puede resolverse. Vamos a suponer que
+            queremos coger un vuelo a Londres.
+        </p>
+        <p>
+            Objetivo: Coger avión a Londres.
+        </p>
+        <p>
+            Premisas:
+        </p>
+        <ol>
+            <li>
+                Si llego con una hora y media de margen al avión, me da igual todo lo que ocurra pues
+                tengo tiempo de sobra, puedo coger el vuelo.
+            </li>
+            <li>
+                Si llego con 40 minutos de margen al aeropuerto, si el aeropuerto es pequeño me da igual
+                que me paren en el control de seguridad, puedo coger el vuelo.
+            </li>
+            <li>
+                Si llego con 40 minutos de margen al aeropuerto, si el aeropuerto es muy grande y me
+                paran en el control de seguridad, tengo que correr para poder coger el vuelo.
+            </li>
+            <li>
+                Si llego con 40 minutos de margen al aeropuerto, el aeropuerto es muy grande, me paran
+                en el control de seguridad y decido no correr, el vuelo tiene que salir con retraso para
+                poder coger el vuelo.
+            </li>
+        </ol>
+        <p>
+            Ahora todo lo que tenemos que hacer es traducir esto:
+        </p>
+        <ol>
+            <li>Tiempo(1h30m) → Vuelo(londres).</li>
+            <li>Tiempo(40m) ∧ Aeropuerto(pequeño) → Vuelo(londres).</li>
+            <li>Tiempo(40m) ∧ Aeropuerto(grande) ∧ Correr(sí) → Vuelo(londres).</li>
+            <li>Tiempo(40m) ∧ Aeropuerto(grande) ∧ Correr(no) ∧ Retraso(sí) → Vuelo(londres).</li>
+        </ol>
+        <p>
+            Puedo oír voces disidentes preguntando, ¿Pero por qué no utilizamos disyunciones? Pues vale.
+            Vamos a utilizar disyunciones:
+        </p>
+        <ol>
+            <li>
+                <strong>
+                    (Tiempo(1h30m) ∨ Tiempo(40m)) ∨ (Aeropuerto(pequeño) ∧ Tiempo(40m) ∧ Aeropuerto(grande)
+                    ∧ Correr(sí)) ∨ (Tiempo(40m) ∧ Aeropuerto(grande) ∧ Correr(no) ∧ Retraso(sí)) →
+                    Vuelo(londres).
+                </strong>
+            </li>
+        </ol>
+        <p>
+            Queda más o menos claro, ¿no? El problema del uso de las disyunciones lógicas es que genera
+            reglas de proporciones bíblicas mucho más difíciles de comprender(Francamente, no descarto
+            haberla liado con los paréntesis del ejemplo después de haberlos revisado 20 veces) e infinitamente
+            más difíciles de debuggear en caso de haber un problema. No solo va en contra de los principios
+            básicos de programación, en donde buscamos modularizar lo máximo posible, sino que además
+            va en contra de tus propios intereses. Los principios KISS (Keep It Stupid Simple) en programación
+            declarativa no son una recomendación de buenas prácticas, son un manual de supervivencia.
+        </p>
+        <h2>Proceso de unificación</h2>
+        <p>
+            Como ya hemos dicho, la unificación es el proceso fundamental que el motor de inferencia
+            usa para igualar términos en Prolog. Cuando se realiza una consulta, el motor intenta unificar
+            la consulta con los hechos y reglas del programa, siguiendo un proceso con una serie de características
+            muy particulares:
+        </p>
+        <ul>
+            <li>
+                Dados dos términos cualesquiera, <code>t1</code> y <code>t2</code>:
+                <ul>
+                    <li>
+                        Para que se unifiquen en Prolog, al menos uno de ellos debe ser una variable
+                        no instanciada.
+                    </li>
+                    <li>
+                        Al final, la variable no instanciada “tomará” el valor del otro término.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Una variable siempre unifica con un término:
+                <ul>
+                    <li>La variable queda ligada al término.</li>
+                    <li>
+                        Sean la variable <code>A</code> y el término <code>t1</code>, entonces <code>A</code>
+                        unifica con <code>t1</code>.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Dos variables siempre unifican entre sí:
+                <ul>
+                    <li>
+                        Cuando una de ellas se liga a un término, todas las que unifican con ella también
+                        se ligan a dicho término.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Para que dos términos unifiquen:
+                <ul>
+                    <li>Deben tener el mismo functor y la misma aridad.</li>
+                    <li>
+                        Después, se comprueba que los argumentos unifican uno a uno, manteniendo las
+                        ligaduras que se produzcan en cada uno.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si dos términos no unifican:
+                <ul>
+                    <li>Ninguna variable queda ligada.</li>
+                </ul>
+            </li>
+            <li>
+                Si ambos términos son compuestos:
+                <ul>
+                    <li>
+                        La unificación se realiza sobre sus componentes:
+                        <ul>
+                            <li>¿pepe(A,rojo)==jose(B,rojo)? Pepe!=Jose → No unifica</li>
+                            <li>
+                                ¿pepe(A,rojo)==pepe(Z,rojo)? pepe=pepe, A=Z por que no estan instanciados
+                                a nada y rojo = rojo → Sí unifican.
+                            </li>
+                            <li>
+                                El motor de inferencia ejecuta el algoritmo <strong>Robinson</strong>
+                                para realizar las unificaciones, la explicación formal del mismo es la
+                                siguiente: La unificación se realiza siguiendo el algortimo Robinson
+                                el cual, dicho en pocas palabras, sigue el siguiente esquema que te enseñará
+                                el señor majo de abajo a cambio de un par de caricias. ¡Míralo qué majo!
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <figure>
+            <img src="eufrasio">
+        </figure>
+        <p>
+            Jaja.
+        </p>
+        <p>
+            Te has asustado eh.
+        </p>
+        <p>
+            Tranqui, que ahora lo explico.
+        </p>
+        <p>
+            El algoritmo Robinson sigue esta serie de pasos:
+        </p>
+        <ol>
+            <li>
+                Si R = S, entonces R y S son unificables.
+                <ul>
+                    <li>
+                        Este es el caso más sencillo en el proceso de unificación. Si dos términos R
+                        y S son exactamente iguales, significa que sus estructuras, funtores, aridad
+                        (número de argumentos) y los argumentos correspondientes coinciden completamente.
+                        Dado que no hay diferencias entre ellos, se concluye que R y S son unificables
+                        sin necesidad de realizar ninguna sustitución.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si no, localizamos el símbolo más a la izquierda de R que se diferencia de su homólogo
+                en S
+                <ul>
+                    <li>
+                        Si R y S no son iguales, debemos encontrar el punto exacto donde difieren. Prolog
+                        compara los términos de izquierda a derecha. Por lo tanto, la primera diferencia
+                        entre R y S se identificará en el símbolo más a la izquierda donde los términos
+                        no coinciden. Este símbolo puede ser un functor, un predicado o uno de los argumentos,
+                        como podría ser pepe(A,rojo) = pepe(B,rojo) o pepe(A,rojo) = jose(B,rojo).
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si es el primero (predicado), entonces R y S no son unificables.
+                <ul>
+                    <li>
+                        Si la primera diferencia detectada es en el predicado o functor (el nombre de
+                        la función o relación en Prolog), entonces R y S no son unificables. Esto se
+                        debe a que para que dos términos sean unificables, deben tener el mismo functor
+                        con la misma aridad. Si los predicados o funtores son diferentes, no puede haber
+                        unificación posible, como es el caso de pepe(A,rojo) = jose(B,rojo) o pepe(A,rojo)
+                        = jose(B,rojo,azul, amarillo).
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si es uno de los argumentos, entonces sean t1, t2 los términos en los que difieren.
+                <ul>
+                    <li>
+                        Si la diferencia no está en el functor, sino en uno de los argumentos de la estructura,
+                        identificamos los términos específicos t1 y t2 en los que R y S difieren. Estos
+                        términos son los componentes de los argumentos en esa posición específica que
+                        no coinciden.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si ninguno de los dos (t1, t2) es una variable, entonces las cláusulas no son unificables.
+                <ul>
+                    <li>
+                        Para que t1 y t2 sean unificables, al menos uno de ellos debe ser una variable.
+                        Si ambos términos son constantes, estructuras complejas o funtores diferentes,
+                        no son iguales(Como ya comentamos en el punto 1) y ninguno de ellos es una variable,
+                        entonces no hay forma de unificarlos, como pasaría en este ejemplo pepe(azul)
+                        = pepe(rojo).
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si t1 es una variable X, entonces haremos la sustitución: s ={X/t2}
+                <ul>
+                    <li>
+                        Si uno de los términos en el que difieren es una variable, supongamos t1 = X,
+                        entonces se puede realizar una unificación mediante sustitución. En este caso,
+                        sustituimos la variable X por el término t2. Esta sustitución se denota como
+                        s = {X/t2}, lo que significa que en todas las ocurrencias futuras de X, se usará
+                        t2 en su lugar. Esta sustitución nos permite continuar el proceso de unificación
+                        con los términos modificados de la siguiente forma.
+                        <ul>
+                            <li>
+                                pepe(A,rojo) = pepe(azul,rojo) -> pepe(azul,rojo) = pepe(azul,rojo).
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Mientras haya elementos por unificar, volver al paso 1.
+            </li>
+        </ol>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="../básico/predicados.html">Siguiente capítulo - Cómo utilizar Prolog</a></li>
+                <li><a href="backtracking.html">Apartado anterior - Backtracking</a></li>
+                <li><a href="../index.html">Volver al índice</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+
+</html>
