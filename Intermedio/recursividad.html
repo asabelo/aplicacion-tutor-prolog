@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursividad en Prolog</title>
+</head>
+
+<body>
+    <main>
+        <h1>Recursividad</h1>
+        <p>
+            Recursividad.
+        </p>
+        <p>
+            Qué bonita palabra.
+        </p>
+        <p>
+            Seguro que ninguno de vosotros os habéis tirado el suelo en posición fetal mientras os balanceáis
+            de un lado a otro.
+        </p>
+        <p>
+            ¡Pero es normal! A todo el mundo le pasa. Vamos a darle una segunda oportunidad, porque de
+            verdad que no es tan terrible como pudiera parecer en primera instancia.
+        </p>
+        <h2>Iteración vs Recursión</h2>
+        <p>
+            En un lenguaje imperativo poseemos estructuras de control, como los bucles for, que nos permiten
+            repetir nuestro código un número establecido de veces según lo que nos interese. Cada una
+            de estas repeticiones dentro de nuestro método es una iteración. Un proceso iterativo suele
+            implicar un crecimiento en el ámbito de la solución, construyéndola paso a paso desde 0 concluyendo
+            la ejecución tras el último paso.
+        </p>
+        <p>
+            La recursividad, por contra, implica un método que, mediante sucesivas llamadas a sí mismo,
+            va poco a poco fragmentando el problema hasta llegar a un caso trivial (una situación que
+            podemos afirmar de partida para cualquier problema que planteemos), también conocido como
+            "caso base". Una vez llegamos al <strong>caso base</strong>, y teniendo esa solución trivial,
+            vamos resolviendo las llamadas y procesos pendientes hasta llegar a ese punto. Es decir,
+            partiendo del problema completo, lo reducimos hasta su mínima expresión antes de intentar
+            resolverlo sobre esa mínima expresión, dejando todos los pasos necesarios para ello "pendientes".
+        </p>
+        <p>
+            ¿Qué importancia tiene esto? ¿De qué manera <strong>TE</strong> afecta la recursividad?
+        </p>
+        <p>
+            En mucho más de lo que desearías. Por desgracia para ti, en Prolog, como en muchos lenguajes
+            declarativos, buena parte de la resolución del problema se gestiona totalmente mediante llamadas
+            recursivas. No podemos iterar de ninguna manera, no hay bucles que nos puedan salvar el cuello
+            aquí. ¿Recuerdas las variables del capítulo anterior? Toman un papel fundamental aquí, ya
+            que cuando trabajamos en ámbitos recursivos necesitamos hacer un uso intensivo de acumuladores/variables
+            auxiliares. Vamos con un ejemplo sencillo para que veas las dos formas de operar.
+        </p>
+        <p>
+            La manera iterativa de resolver el factorial de un número sería la siguiente:
+        </p>
+        <form>
+            <label>
+                Número (iterativo) <input>
+            </label>
+            <button>Calcular factorial (iterativo)</button>
+        </form>
+        <p>
+            Por otra parte, la manera recursiva sería esta:
+        </p>
+        <form>
+            <label>
+                Número (recursivo) <input>
+            </label>
+            <button>Calcular factorial (recursivo)</button>
+        </form>
+        <p>
+            Como puedes ver, en el caso recursivo la resolución de las llamadas sucesivas van quedando
+            "pendientes" hasta que llegamos al caso base, al punto en el que conocemos la respuesta independientemente
+            del número que se nos haya dado, momento en que se resuelven en orden inverso, la primera
+            llamada será la última en resolverse, y la última será la primera, similar a una pila (último
+            en llegar, primero en salir).
+        </p>
+        <p>
+            Por decirlo de otra manera, de manera iterativa nosotros podemos plantear un <strong>bucle</strong>
+            que vaya desde 0 hasta el número objetivo. El problema es que las llamadas recursivas no
+            tienen mayor control que el caso base, la condición de parada, y no podemos modificar la
+            condición de parada de manera dinámica. Por tanto, en lugar de decir que vamos de 0 a X,
+            vamos reduciendo el tamaño del problema desde X hasta 0(condición de parada), que es donde
+            sabemos que debería terminar <strong>todo</strong> problema.
+        </p>
+        <p>
+            Vamos a ver unos ejemplos más analizando el código de Prolog que ejecutaría estos programas
+            y el flujo que sigue. El código en Prolog para resolver el factorial sería el siguiente:
+        </p>
+<pre><code>% CASO BASE
+    factorial(0, 1).
+% CASO RECURSIVO
+factorial(N, Result) :-
+    N > 0,
+    N1 is N - 1,
+    factorial(N1, Result1),
+    Result is N * Result1.</code></pre>
+        <p>
+            <strong>No te asustes.</strong>
+        </p>
+        <p>
+            <strong>Vamos a ir línea por línea.</strong>
+        </p>
+        <p>
+            <strong>No te voy a lanzar a la piscina a lo bruto</strong>
+        </p>
+        <p>
+            <strong>Todo está bajo control</strong>
+        </p>
+        <p>
+            En primer lugar tenemos el caso base:
+        </p>
+<pre><code>% CASO BASE
+factorial(0, 1).</code></pre>
+        <p>
+            Esta es la situación trivial. Sabemos que el factorial de 0 es 1 (por oscuros motivos de
+            la matemática discreta que <strong>no</strong> vamos a exponer aquí), por tanto siempre que
+            N sea 0 podremos decir directamente y sin más comprobación que el resultado es 1.
+        </p>
+        <p>
+            La sintaxis de esto es ligeramente particular, dado que hemos definido un <strong>hecho</strong>,
+            no una <strong>regla</strong>. Lo que ocurre es que si nosotros hacemos la consulta "factorial(0, X).",
+            Prolog realizará la unificación sobre la variable X <strong>directamente</strong> en el hecho.
+            Esto también sucedería si hiciéramos una llamada con "factorial(X, Y)". Simplemente unificaría
+            X con 0 e Y con 1.
+        </p>
+        <p>
+            Como vimos antes, en Prolog la consulta se puede usar para preguntar por un resultado, por
+            el valor que nos llevaría a un resultado, por todas las posibles soluciones... Y esto con
+            el mismo código para <strong>todo</strong>. <s>Chúpate esa, Java 21.</s>
+        </p>
+        <p>
+            Ahora tenemos la lógica del caso recursivo, que irá "desmenuzando" el problema para poder
+            resolverlo:
+        </p>
+<pre><code>% CASO RECURSIVO
+factorial(N, Result) :-
+    N > 0,
+    N1 is N - 1,
+    factorial(N1, Result1),
+    Result is N * Result1.</code></pre>
+        <p>
+            Analicemos la primera línea, "factorial(N, Result) :-". Esta es la "cabecera" del predicado.
+            Tiene dos variables como argumentos, <strong>N</strong> y <strong>Result</strong>, las cuales
+            pueden ser utilizadas de la siguiente manera:
+            <ul>
+                <li>
+                    <strong>N</strong> es una variable y <strong>Result</strong> es una variable también.
+                    La consulta "factorial(N, Result)." unificaría con el caso base directamente y devolvería
+                    <strong>N = 0, Result = 1</strong>.
+                </li>
+                <li>
+                    <strong>N</strong> es una variable y <strong>Result</strong> es un número. La consulta
+                    "factorial(N, 12)." en este caso nos devolvería un error, ya que en este caso concreto
+                    (no en todos) hemos programado el factorial de manera que permite obtener un resultado
+                    de un número, pero no permite obtener el número que lleve a ese resultado.
+                </li>
+                <li>
+                    <strong>N</strong> es un número y <strong>Result</strong> es una variable. Este es
+                    el caso más típico de uso del factorial. La consulta "factorial(4, Result)." resolverá
+                    el problema de manera recursiva siguiendo las reglas que hemos establecido.
+                </li>
+                <li>
+                    <strong>N</strong> es un número y <strong>Result</strong> es un número también. La
+                    consulta "factorial(1, 12)." devolverá falso, ya que intentará unificar esta consulta
+                    con el hecho "factorial(0, 1)." presente en la base de conocimiento.
+                </li>
+            </ul>
+        </p>
+        <p>
+            La consulta del caso más típico sería de la siguiente forma: "<strong>factorial(9,X)</strong>",
+            en donde N es 9, el número del que queremos saber su factorial, y X la variable que contendrá
+            la solución (la nomenclatura de las variables no tiene por qué ser la misma entre regla y
+            consulta).
+        </p>
+        <p>
+            <strong>N &gt; 0</strong> se explica solo; es la condición fundamental para permanecer en
+            el caso recursivo, pero a continuación tenemos <strong>N1 is N - 1</strong>, una situación
+            peliaguda.
+        </p>
+        <p>
+            ¿De dónde sale <strong>N1</strong>? Es una variable que acabamos de "declarar", una <strong>variable
+            auxiliar</strong>. En Prolog podemos "declarar" variables donde queramos y, dado que no tenemos
+            tipos como tal, la mera aparición de la misma ya constituye su declaración. En esta línea
+            unificaremos <strong>N1</strong>, variable recién declarada y que, por tanto, puede ser <strong>cualquier
+            cosa</strong> con la operación aritmética <strong>N - 1</strong> con el operador <strong>is</strong>
+            que, recordemos, <strong>SÍ</strong> resuelve operaciones antes de intentar unificar.
+        </p>
+        <p>
+            Tras esto, hacemos una llamada recursiva al predicado factorial con <strong>N1</strong> y
+            <strong>Result1</strong>, OTRA variable auxiliar que acabamos de declarar en la misma llamada
+            recursiva. Recuerda, <strong>la mera aparición de una variable ya constituye su declaración,
+            por lo que se pueden declarar en todas partes</strong>. <strong>N1</strong> habrá unificado
+            con el valor de N - 1, pero <strong>Result1</strong> todavía no habrá unificado con nada.
+        </p>
+        <p>
+            Por último, tenemos el código que quedará a la "espera" de que el programa llegue al caso
+            base para continuar su ejecución, <strong>Result is N * Result1.</strong> Vamos a plantear
+            por un momento un flujo a mano para el factorial de 3:
+        </p>
+        <figure>
+            <img src="factorial de tres :)">
+        </figure>
+        <p>
+            Después de este chorrón de información brutalmente dolorosa, vamos con algo un poco más ligero.
+            Queremos hacer un programa en Prolog para calcular el <strong>sumatorio</strong> de todo
+            lo que haya entre dos números que nos proporcione un usuario (es decir, la suma de todos
+            los números entre el límite inferior y el superior).
+        </p>
+        <p>
+            Primero vamos a empezar definiendo el caso base, la circunstancia trivial. ¿Bajo qué circunstancia
+            nosotros podemos dar una respuesta sin necesidad de aplicar ninguna lógica? ¿Cuándo es trivial
+            la suma de todos los números entre dos números proporcionados?
+        </p>
+        <p>
+            Perfecto, vamos ahora con el caso recursivo. Esto va a doler un poco más, pero no te preocupes,
+            que te iré echando una mano. Para empezar, el predicado con el que trabajaremos será el siguiente:
+        </p>
+<pre><code>sumatorio(Inferior, Superior, Total).</code></pre>
+        <p>
+            En donde <strong>Total</strong> será el acumulador con el resultado. ¿Cuál será la primera
+            condición a cumplir?
+        </p>
+        <p>
+            ¡Bien! Una vez definidas las condiciones de ambos casos, podemos desarrollar el resto del problema:
+        </p>
+<pre><code>% Caso base: si los límites son iguales, la suma es simplemente el número.
+sumatorio(L, L, L).
+
+% Caso recursivo: Mientras el límite inferior esté por debajo del límite superior, suma el número actual con el sumatorio del siguiente número.
+sumatorio(L, U, S) :-
+    L < U,
+    L1 is L + 1,
+    sumatorio(L1, U, S1),
+    S is L + S1.</code></pre>
+        <p>
+            Y ya un último ejemplo antes de dejar los números hasta nuevo aviso. También podemos representar
+            funciones haciendo uso de la recursividad, y en un mismo cuerpo puede haber más de una llamada
+            recursiva. Por ejemplo, si tomamos la siguiente función:
+        </p>
+        <p>
+            f_1(x) = \begin{cases} 2 + x & \text{si } x \leq 1 \\ f_1(x - 1) + f_1(x - 2) & \text{si } x > 1 \end{cases}
+        </p>
+        <p>
+            Podríamos representar dicha función de la siguiente manera en Prolog:
+        </p>
+<pre><code>f1(Numero, Resultado) :-
+    Numero &lt; 1,
+    Resultado is 2 + Numero.
+
+f1(Numero, Resultado) :-
+    Numero > 1,
+    PrimeraX is Numero - 1,
+    SegundaX is Numero - 2,
+    f1(PrimeraX, Acumulador1),
+    f1(SegundaX, Acumulador2),
+    Resultado is Acumulador1 + Acumulador2.</code></pre>
+        <p>
+            El primer predicado será nuestro caso base, si X es menor que 1, el resultado será X + 2.
+            Si X es mayor que 1, en nuestro caso recursivo se producirán dos llamadas recursivas a la
+            función <strong>f1</strong>, siendo la primera <strong>f1(X-1)</strong> y la segunda <strong>f1(X-2)</strong>.
+            Las variables Acumulador1 y Acumulador2 irán almacenando el resultado, unificándose en el
+            caso base y construyendo el resultado a partir de ahí de igual manera que ocurría en el ejemplo
+            del factorial. Vamos a probar a ejecutar éste código con <strong>f1(4,X).</strong> y observar
+            la traza.
+        </p>
+        <p>
+            ¿Te duele la cabeza? <strong>Es normal</strong>. Vete a un por un poco de agua, que vamos
+            a seguir con algo un <strong>poco</strong> más ligero. Ánimo, que no queda nada.
+        </p>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="estructuras.html">Siguiente apartado - Estructuras de datos</a></li>
+                <li><a href="variables.html">Apartado anterior - Variables</a></li>
+                <li><a href="../index.html">Volver al índice</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+
+</html>
