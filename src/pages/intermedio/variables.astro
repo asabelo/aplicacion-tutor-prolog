@@ -1,0 +1,117 @@
+---
+import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+---
+
+<DiseñoBásico>
+    <Fragment slot="head">
+        <title>Variables en Prolog</title>
+    </Fragment>
+
+    <h1>Variables en Prolog</h1>
+    <p>
+        ¿Cómo funcionan las variables en Prolog? Muy sencillo, cualquier cosa que empiece por una
+        letra mayúscula o le preceda un guión bajo tendrá la consideración de variable en Prolog,
+        como por ejemplo "Constante" o "_constante". "variable" no sería una variable en Prolog,
+        mientras que este "Prolog" que acabo de escribir si lo sería.
+        ¿Confuso? No te queda nada, meu.
+    </p>
+    <p>
+        En lenguajes "normales" como Java o C, las variables y las constantes son elementos de almacenamiento
+        y gestión de datos. Las constantes representan una posición en memoria que será igual durante
+        todo el ciclo de vida del programa, con un valor hardcodeado que no puede ser alterado. Las
+        variables, por su parte, podrán almacenar distintos valores y sólo representarán una posicición
+        en memoria durante su ciclo de vida (si fueran liberadas y luego reasignadas, probablemente
+        ocupen otro lugar). Otro concepto fundamental al respecto de esto son las variables inmutables,
+        las cuales toman un valor a lo largo de la ejecución que no puede ser alterado posteriormente.
+    </p>
+    <p>
+        En Prolog tenemos "Variables".
+    </p>
+    <p>
+        <q>¿Variables?</q>
+    </p>
+    <p>
+        <strong>Sí.</strong>
+    </p>
+    <p>
+        <strong>"Variables".</strong>
+    </p>
+    <p>
+        ¡Bienvenido a tu primera hostia de realidad lógica! Las variables de Prolog se llaman variables
+        por decir algo, pero ni son variables, ni son constantes, ni son variables inmutables. Son
+        el arroz con cosas de la programación. Una variable en Prolog tendrá un valor desconocido
+        hasta que se unifique con algo, momento a partir del cual no mutará su valor bajo ninguna
+        circunstancia.
+    </p>
+    <p>
+        <q>Oye pero esto que me dices suena mucho a una variable inmutable, ¿no?</q>
+    </p>
+    <p>
+        Sí. Pero no. Pero sí. Pero tampoco. No es una variable porque siempre va a tomar el <em>primer</em>
+        valor que convierta nuestra hipótesis en verdadera. Más que como una variable inmutable,
+        podríamos hablar de una constante "por definir", dado que si esa variable siempre unificará
+        con el primer hecho que haga al predicado verdadero.
+    </p>
+    <p>
+        Además, una cosa a tener <strong>muy</strong> en consideración es que las variables de Prolog
+        NO se asignan a un valor. Simplemente Prolog "asume" que pueden ser el elemento con el que
+        se está unificando y dándolo por bueno.
+    </p>
+    <p>
+        Porque, recordemos, el proceso de unificación es una <strong>pregunta</strong>. Fundamentalmente
+        estamos preguntando si una cosa puede o no ser otra.
+    </p>
+    <p>
+        Si a Prolog le preguntamos si una patata y un tomate pueden ser lo mismo, Prolog nos dará
+        una simbólica colleja, nos preguntará si estamos tontos entre dientes y, después de respirar
+        un poco, nos dirá que no, que una patata y un tomate no pueden ser lo mismo.
+    </p>
+    <p>
+        No obstante, si le preguntamos sin un elemento totalmente indefinido, abstracto e inefable
+        puede ser una patata, no se lo pensará dos veces antes de decir que sí, ¿por qué no?
+    </p>
+    <p>
+        Este es un punto importante, así que vamos a repetirlo. Las variables de Prolog pueden ser
+        cualquier cosa, pero una vez que asumimos que son algo y realizamos comparaciones al respecto,
+        no podemos cambiar de idea. De ahí la comparación con variables inmutables.
+    </p>
+    <p>
+        Para terminar, hay que hacer una mención especial a la variable anónima en Prolog. El <strong>_</strong>.
+    </p>
+    <p>
+        El guion bajo en Prolog por sí mismo representa una variable anónima, una variable que <strong>no</strong>
+        nos importa el valor que tenga en ese momento y que no necesitamos unificar en ese momento
+        (porque puede haberse unificado en otro punto del programa). Esto es útil cuando no queremos
+        dejar variables "huérfanas" en nuestro código y que el búho nos venga llorando porque tenemos
+        variables <strong>Singleton</strong> (una única aparición).
+    </p>
+    <p>
+        Ahora que sabemos que una variable representa un valor válido al que se ha unificado durante
+        el proceso de búsqueda en la base de conocimientos de la respuesta a la pregunta objetivo
+        que le hicimos a Prolog, lo siguiente es recordar lo que hace el motor de inferencia cuando
+        llega a una solución o a una rama del árbol de resolución que no puede continuar.
+    </p>
+    <p>
+        ¿Recuerdas qué era el backtracking? Sí, la vuelta hacia atrás en el árbol de resolución.
+        Esto incluye deshacer cualquier unificación que Prolog hubiera hecho. En otras palabras,
+        la “variable” vuelve a su estado anterior (no unificada) y el motor de Prolog buscará otra
+        posible unificación.
+    </p>
+    <p>
+        Ojo, esto no significa que la variable se “reasigne”, como diríamos en lenguajes <s>menos
+        sofisticados</s> imperativos. Con el backtracking, todo lo que se hubiera andado se desanda,
+        incluida la unificación. Empiezas de nuevo en ese punto: borrón y cuenta nueva (sin dejar
+        rastro del derrape).
+    </p>
+    <p>
+        Y para acabar, vamos con un puñado de ejemplos para que se te quede grabado.
+    </p>
+
+    <nav slot="footer">
+        <ul>
+            <li><a href="recursividad.html">Siguiente apartado - <strong>Más</strong> variables y recursividad</a></li>
+            <li><a href="../básico/operadores.html">Capítulo anterior - Operadores de Prolog</a></li>
+            <li><a href="../index.html">Volver al índice</a></li>
+        </ul>
+    </nav>
+</DiseñoBásico>

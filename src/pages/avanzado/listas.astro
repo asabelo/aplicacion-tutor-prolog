@@ -1,0 +1,126 @@
+---
+import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+---
+
+<DiseñoBásico>
+    <Fragment slot="head">
+        <title>Listas en Prolog</title>
+        <meta name="description" content="Aprende sobre listas en Prolog, la estructura de datos más importante del lenguaje. Descubre cómo descomponer listas en cabeza y cola, recorrerlas recursivamente, e implementar predicados como member y nth_element.">
+    </Fragment>
+
+    <h1>Listas</h1>
+    <p>
+        Vamos a dedicar este capítulo a la estructura más importante de Prolog. Tan importante, que
+        es la <strong>única</strong> estructura de datos como tal que encontramos definida expresamente
+        en Prolog. La ilustre <strong>lista</strong>.
+    </p>
+    <p>
+        En Prolog, una lista es una secuencia ordenada de elementos delimitada por corchetes ([ ]).
+        Los elementos de una lista pueden ser cualquier término en Prolog, átomos, números, variables,
+        otras listas, estructuras de datos...
+    </p>
+    <p>
+        En cualquier lista <strong>no vacía</strong> pueden distinguirse dos partes fundamentales:
+    </p>
+    <dl>
+        <dt>Cabeza</dt>
+        <dd>
+            El primer elemento de la lista, normalmente referido en inglés como <strong>Head</strong>/<strong>H</strong>.
+        </dd>
+        <dt>Cola</dt>
+        <dd>
+            Una lista que contiene el resto de elementos excepto la cabeza, normalmente referida
+            en inglés como <strong>Tail</strong>/<strong>T</strong>. Un dato <strong>muy</strong>
+            importante a tener en cuenta es que la lista vacía <strong>también</strong> es una lista
+            y, por tanto, una lista de un solo elemento (una lista con un número tal que [1]) puede
+            descomponerse en cabeza y cola de la forma (1,[]).
+        </dd>
+    </dl>
+    <h2>Cómo operar con listas en Prolog</h2>
+    <p>
+        En lenguajes imperativos como Java, Python, etc. tenemos la suerte de contar con índices
+        para poder acceder a elementos de nuestras listas. Esto no ocurre con Prolog. Cualquier acceso
+        a un elemento de una lista, salvo el primer elemento, implica recorrer la lista hasta encontrar
+        y unificar el elemento que nos interesa. Vamos a ver primero cómo recorrer una lista en Prolog:
+    </p>
+<pre><code>% Caso base, la lista está vacía y no hay nada que recorrer.
+recorrer_lista([]).
+
+% Caso recursivo, la lista contiene al menos un elemento.
+recorrer_lista([H|T]):-
+    write('Elemento en la cabeza '),
+    write(H),
+    recorrer_lista(T).</code></pre>
+    <p>
+        En el caso recursivo lo que hacemos es recibir una lista como parámetro y en nuestra llamada
+        recursiva simplemente pasamos como argumento <strong>la cola</strong> de la lista, descartando
+        la cabeza. Si ejecutamos el código con una lista, por ejemplo, de números ordenados del 1
+        al 5 obtendremos lo siguiente:
+    </p>
+    <button>Ejecutar</button>
+    <p>
+        Otro caso de estudio interesante es el hacer a mano el metapredicado <strong>member</strong>,
+        y buscar un elemento en una lista nosotros mismos:
+    </p>
+<pre><code>% Buscar elemento en lista
+% Caso base, el elemento en la cabeza de la lista coincide con el elemento que buscamos.
+miembro(Element, [Element|_]).
+% Caso recursivo, ignoramos la cabeza de la lista y avanzamos en la lista.
+miembro(Element, [_|T]) :-
+    miembro(Element, T).</code></pre>
+    <p>
+        Si esto lo probamos con el siguiente ejemplo(miembro(5,[1,2,3,4,5,1,2]).) nos devolverá lo
+        siguiente:
+    </p>
+    <button>Dale chicha</button>
+    <p>
+        Podríamos implementar miles de ejemplos. Otro podría ser, mismamente, un método que nos devuelva
+        el N elemento de una lista:
+    </p>
+<pre><code>% Caso base: Si N es 1, el primer elemento es la cabeza de la lista.
+nth_element([H|_], 1, H).
+
+% Caso recursivo: Decrementamos N y llamamos recursivamente con la cola de la lista.
+nth_element([_|T], N, Elemento) :-
+    N &gt; 1,
+    N1 is N - 1,
+    nth_element(T, N1, Elemento).</code></pre>
+    <button>Dale chicha</button>
+    <p>
+        Y no acaba aquí la fiesta de las listas, pero como lo mucho aburre, vamos a terminar este
+        apartado con un pequeño resumen antes de hacer el último examen del tutorial:
+    </p>
+    <h2>Características fundamentales de listas en Prolog</h2>
+    <h3>Sintaxis de listas</h3>
+    <p>
+        Las listas en Prolog se escriben entre corchetes [] y sus elementos se separan por comas.
+        Por ejemplo, [a, b, c] es una lista de tres elementos. Una lista vacía se representa con
+        [].
+    </p>
+    <h3>Elementos de una lista</h3>
+    <p>
+        Cualquier término válido puede formar parte de una lista, incluyendo otras listas.
+    </p>
+    <h3>Notación y unificación de listas</h3>
+    <p>
+        La notación [H|T] permite dividir una lista en su primer elemento (H) y una lista de
+        los elementos restantes (T). No obstante, se pueden separar más términos si fuera necesario
+        (por ejemplo, [H1|H2|T]). Prolog unificará H con el primer término de la lista, y T con
+        el resto de la lista. Para la lista [a, b, c], por ejemplo, tendríamos H = a y T = [b, c],
+        pero si hubíeramos hecho [H1|H2|T], entonces tendríamos H1 = a, H2 = b y T = [c]. Recuerda
+        que T SIEMPRE es una lista.
+    </p>
+    <h3>Inmutabilidad</h3>
+    <p>
+        Las listas en Prolog son inmutables. Para añadir o eliminar un elemento debemos crear una
+        lista nueva.
+    </p>
+
+    <nav slot="footer">
+        <ul>
+            <li><a href="sermón.html">Siguiente apartado - Buenas prácticas, complejidad y eficiencia en Prolog</a></li>
+            <li><a href="meta.html">Apartado anterior - Metapredicados y predicados de control</a></li>
+            <li><a href="../index.html">Volver al índice</a></li>
+        </ul>
+    </nav>
+</DiseñoBásico>

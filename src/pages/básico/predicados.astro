@@ -1,0 +1,147 @@
+---
+import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+---
+
+<DiseñoBásico>
+    <Fragment slot="head">
+        <title>Predicados</title>
+        <meta name="description" content="Aprende sobre predicados en Prolog: hechos, reglas, consultas y buenas prácticas de eficiencia. Guía completa sobre la sintaxis y funcionamiento de predicados lógicos.">
+    </Fragment>
+
+    <h1>Predicados, o ¿cómo funciona esta cosa?</h1>
+    <p>
+        Bueno. Llegó el momento. Lo que diferencia a los polluelos de los búhos. Vamos a hablar de
+        <strong>predicados</strong>.
+    </p>
+    <p>
+        En Prolog, los predicados son la manera en que expresamos relaciones y hechos dentro del
+        programa. Un predicado puede ser visto como una función lógica que puede ser verdadera o
+        falsa dependiendo de sus argumentos.
+    </p>
+    <p>
+        Como ya hemos mencionado anteriormente, la base de conocimiento de Prolog se compone de <strong>hechos</strong>
+        y <strong>reglas</strong>.
+    </p>
+    <p>
+        Los <strong>hechos</strong> son una declaración básica sobre algo indiscutiblemente verdadero.
+        La definición de un hecho en Prolog es muy sencilla, simplemente lo declaramos con un nombre
+        que empiece por minúscula, seguido de sus argumentos(La cantidad de los cuáles se denomina
+        <strong>aridad</strong>) entre paréntesis y separados por comas, finalizando con un punto
+        (en lugar de punto y coma, como en C, Java, etc...). Por ejemplo, el predicado <strong>animal(gato).</strong>
+        declara que un gato es un animal, y cualquier consulta sobre el predicado animal con el argumento
+        gato será verdadero sin más consideración.
+    </p>
+    <p>
+        Las <strong>reglas</strong>, por su parte, son predicados que se definen en términos de otros
+        predicados. Tienen una <strong>cabeza</strong>, con una sintaxis muy similar a la de los
+        hechos, y un <strong>cuerpo</strong>, compuesto de un conjunto de llamadas a otras reglas
+        y hechos en forma de cláusulas de Horn que se deben cumplir para que la cabeza sea verdadera.
+        Por ejemplo, podríamos plantear la siguiente regla:
+    </p>
+<pre><code>pez(X) :-
+branquias(X),
+escamas(X),
+aletas(X).</code></pre>
+    <p>
+        ¿Qué hemos hecho aquí? Hemos definido una regla en función de otros tres hechos. Si X, el
+        elemento que queremos evaluar, tiene branquias, escamas y aletas, entonces será verdadero
+        que es un pez.
+    </p>
+    <p>
+        No obstante, pueden ocurrir situaciones particulares. Por ejemplo, podría ocurrir que el
+        día de mañana aparezca una especie de pez que tenga escamas y aletas, pero tenga pulmones
+        en lugar de branquias, ¿cómo gestionaríamos esto?
+    </p>
+    <p>
+        Fácil, “sobrecargando” la regla:
+    </p>
+<pre><code>pez(X):-
+branquias(X),
+escamas(X),
+aletas(X).
+pez(X):-
+pulmones(X),
+escamas(X),
+aletas(X).</code></pre>
+    <p>
+        ¿Qué ocurrirá en este caso si le mandamos un pez bípedo? Primero entrará por la primera regla,
+        intentando unificar la primera condición (branquias). Revisará en la base de conocimiento
+        buscando una coincidencia con cualquier ser que tenga branquias. Al no encontrarlo, esa regla
+        <strong>fallará</strong> y pasará a examinar la segunda regla, donde unificará correctamente.
+    </p>
+    <p>
+        Puedes ver esta manera de operar cómo la sobrecarga de métodos, constructores... en lenguajes
+        como Java, con la peculiaridad de que, si bien la funcionalidad del predicado varía, <strong>el número de
+        argumentos se mantiene igual.</strong>
+    </p>
+    <p>
+        Vamos a aprovechar este maravilloso contexto que tenemos entre manos para, nuevamente, recalcar
+        la importancia del orden de nuestras reglas y plantear una introducción a la eficiencia y
+        las buenas prácticas. ¿Qué ocurriría si, por ejemplo, las reglas estuvieran dispuestas de
+        la siguiente manera?
+    </p>
+<pre><code>pez(X):-
+aletas(X),
+escamas(X),
+pulmones(X).
+pez(X):-
+aletas(X),
+escamas(X),
+branquias(X).</code></pre>
+    <p>
+        ¿Ves alguna diferencia? Una pista, la eficiencia es <em>bastante mayor</em> en este caso
+        que en el anterior. Para empezar, si tenemos un caso particular y raro que debemos considerar
+        (supongamos que hay dos especies de peces con pulmones de 200.000 especies de peces), al
+        colocarlo en primer lugar podríamos pensar que la mayor parte de las verificaciones a realizar
+        pasen por comprobaciones innecesarias, ya que la inmensa mayoría no tendrá pulmones y, por
+        tanto, fallará esa verificación, pero dado que solo tenemos dos hechos de este tipo en nuestra
+        base de conocimiento, el coste computacional es muy pequeño, mientras que una comprobación
+        de un pez con pulmones tendría que pasar primero por los 199.998 casos de peces con branquias
+        antes de que falle la regla en nuestro ejemplo anterior y pase a la siguiente.
+    </p>
+    <p>
+        Además, en este ejemplo también hemos ordenado el cuerpo de la regla de manera ineficiente.
+        Si la característica que no tienen en común es el aparato respiratorio, esta debería ir en
+        primer lugar por lógica, dado que de otra manera toda consulta que se realice pasará por
+        dos predicados extra (aletas y escamas) antes de llegar a la comprobación que diferencia
+        nuestros dos tipos de peces.
+    </p>
+    <p>
+        ¿Tienes clara ya la sintaxis? No te preocupes, en menos de 25.000 palabras estaremos ya practicando,
+        que sé que es lo que <strong>verdaderamente</strong> te apetece.
+    </p>
+    <h2>Consultas, o ¿cómo se usa esta cosa?.</h2>
+    <p>
+        Supongamos que tenemos escrito un programa funcional para determinar si un ser en concreto
+        es un pez o no. ¿Cómo narices lo ejecutamos?
+    </p>
+    <p>
+        Muy sencillo. En Prolog tenemos fundamentalmente dos IDEs (<i>Integrated development environment</i>,
+        entornos de desarrollo integrados), SWI-Prolog (aplicación local) y
+        <strong><a href="https://swish.swi-prolog.org/">SWISH</a></strong>, versión online que no
+        requiere instalación, posee un bloc de notas que permite revisar y escribir código en caliente
+        y otros tantos elementos de QoL (<i>Quality of Life</i>; básicamente, cositas que nos hacen
+        la vida más fácil y agradable) que, en mi opinión, lo hacen una opción mucho más cómoda y
+        agradable de utilizar.
+    </p>
+    <p>
+        En primer lugar, cargamos el archivo a utilizar con el predicado <strong>consult()</strong>,
+        que acepta como argumento la ruta del fichero .pl sobre el que vamos a trabajar. Una vez
+        cargado este archivo, simplemente tenemos que escribir el predicado con los argumentos que
+        deseamos consultar.
+    </p>
+    <p>
+        Como caso de prueba, si nosotros quisiéramos empezar a trabajar con el programa "programaPrueba.pl"
+        que contiene el predicado "prueba(X)" en SWI-Prolog, el primer paso sería navegar a la ruta
+        que contiene este archivo. Una vez allí, utilizamos la sentencia <strong>consult(programaPrueba.pl).</strong>
+        y, tras esto, ya podríamos ejecutar la consulta "prueba(X).".
+    </p>
+
+    <nav slot="footer">
+        <ul>
+            <li><a href="/básico/elementos.html">Siguiente apartado - Posología de Prolog</a></li>
+            <li><a href="/composición/unificación.html">Capítulo anterior - Unificación</a></li>
+            <li><a href="/index.html">Volver al índice</a></li>
+        </ul>
+    </nav>
+</DiseñoBásico>
