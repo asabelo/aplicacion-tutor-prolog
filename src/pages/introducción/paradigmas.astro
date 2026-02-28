@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Paradigmas de programación",
+    descripción: "Comparación entre paradigmas de programación imperativo y declarativo. Aprende las diferencias fundamentales entre lenguajes como Python y Prolog mediante ejemplos prácticos de código."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Paradigmas de programación</title>
-        <meta name="description" content="Comparación entre paradigmas de programación imperativo y declarativo. Aprende las diferencias fundamentales entre lenguajes como Python y Prolog mediante ejemplos prácticos de código.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Paradigmas de programación</h1>
@@ -212,11 +219,7 @@ Sandwich = [Rebanada1, Relleno, Rebanada2].</code></pre>
         </p>
     </section>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/introducción/sbr.html">Siguiente apartado - Sistemas basados en reglas</a></li>
-            <li><a href="/introducción/beneficios.html">Apartado anterior - Beneficios de Prolog</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/introducción/beneficios"
+                siguiente="/introducción/sbr" />
 </DiseñoBásico>

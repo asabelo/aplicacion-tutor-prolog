@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Sistemas basados en reglas",
+    descripción: "Comparación entre paradigmas de programación imperativo y declarativo. Aprende las diferencias fundamentales entre lenguajes como Python y Prolog mediante ejemplos prácticos de código."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Sistemas basados en reglas</title>
-        <meta name="description" content="Comparación entre paradigmas de programación imperativo y declarativo. Aprende las diferencias fundamentales entre lenguajes como Python y Prolog mediante ejemplos prácticos de código.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <div style="height: 100dvh;">
@@ -134,11 +141,7 @@ abuela(sofia, juan).</code></pre>
         </p>
     </section>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/composición/backtracking.html">Siguiente capítulo - Backtracking</a></li>
-            <li><a href="/introducción/paradigmas.html">Apartado anterior - Paradigmas de programación</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/introducción/paradigmas"
+                siguiente="/composición/backtracking" />
 </DiseñoBásico>

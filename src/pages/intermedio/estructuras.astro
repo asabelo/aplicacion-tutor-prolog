@@ -1,11 +1,18 @@
 ---
+import EnlacesPie from "../../components/EnlacesPie.astro"
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+
+export const datos: Datos = {
+    título: "Estructuras de datos en Prolog",
+    descripción: "Aprende sobre estructuras de datos en Prolog: tuplas, diccionarios, pilas, colas y árboles. Guía completa con ejemplos de código para representar y manipular estas estructuras en Prolog."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Estructuras de datos en Prolog</title>
-        <meta name="description" content="Aprende sobre estructuras de datos en Prolog: tuplas, diccionarios, pilas, colas y árboles. Guía completa con ejemplos de código para representar y manipular estas estructuras en Prolog.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Estructuras de datos</h1>
@@ -141,12 +148,7 @@ arbol(1, arbol(2, nil, nil), arbol(3, nil, nil)).</code></pre>
         cuando llegues.
     </p>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/avanzado/meta.html">Siguiente capítulo anterior - Metapredicados y predicados de
-                    control</a></li>
-            <li><a href="/intermedio/recursividad.html">Apartado anterior - Recursividad</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/intermedio/recursividad"
+                siguiente="/avanzado/meta" />
 </DiseñoBásico>

@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Metapredicados y predicados de control",
+    descripción: "Aprende sobre metapredicados (call, maplist, findall, bagof, setof, forall) y predicados de control (once, negación, fail, true, corte) en Prolog. Descubre cómo manipular dinámicamente la base de hechos con assert y retract."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Metapredicados y predicados de control</title>
-        <meta name="description" content="Aprende sobre metapredicados (call, maplist, findall, bagof, setof, forall) y predicados de control (once, negación, fail, true, corte) en Prolog. Descubre cómo manipular dinámicamente la base de hechos con assert y retract.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Metapredicados y predicados de control</h1>
@@ -284,11 +291,7 @@ todos_positivos(List) :-
         liar <strong>mal</strong>.
     </p>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/avanzado/listas.html">Siguiente capítulo - Listas</a></li>
-            <li><a href="/intermedio/estructuras.html">Capítulo anterior - Estructuras de datos</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/intermedio/estructuras"
+                siguiente="/avanzado/listas" />
 </DiseñoBásico>

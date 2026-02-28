@@ -1,10 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Variables en Prolog",
+    descripción: "Aprende cómo funcionan las variables en Prolog: unificación, inmutabilidad, backtracking y la variable anónima. Guía completa sobre el concepto fundamental de variables en programación lógica."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Variables en Prolog</title>
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Variables en Prolog</h1>
@@ -107,11 +115,7 @@ import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
         Y para acabar, vamos con un puñado de ejemplos para que se te quede grabado.
     </p>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="recursividad.html">Siguiente apartado - <strong>Más</strong> variables y recursividad</a></li>
-            <li><a href="../básico/operadores.html">Capítulo anterior - Operadores de Prolog</a></li>
-            <li><a href="../index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/básico/operadores"
+                siguiente="/intermedio/recursividad" />
 </DiseñoBásico>

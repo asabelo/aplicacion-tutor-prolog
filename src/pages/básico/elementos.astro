@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Posología de Prolog",
+    descripción: "Introducción práctica a la composición de Prolog con ejemplos de hechos, reglas y consultas, incluyendo ejercicios de vendedores y relaciones familiares."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Posología de Prolog</title>
-        <meta name="description" content="Introducción práctica a la composición de Prolog con ejemplos de hechos, reglas y consultas, incluyendo ejercicios de vendedores y relaciones familiares." />
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Composición de Prolog, o ¿cómo monto yo esta cosa?</h1>
@@ -178,11 +185,7 @@ no_matrimonio_primos(P1, P2) :-
     primo(¿?, ¿?).</code></pre>
     <button>[...]</button>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/básico/operadores.html">Siguiente apartado - Operadores de Prolog</a></li>
-            <li><a href="/básico/predicados.html">Apartado anterior - Predicados</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/básico/predicados"
+                siguiente="/básico/operadores" />
 </DiseñoBásico>

@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Backtracking",
+    descripción: "Aprende qué es el backtracking en Prolog: búsqueda en profundidad, recursividad, casos base y cómo evitar bucles infinitos."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Backtracking</title>
-        <meta name="description" content="Aprende qué es el backtracking en Prolog: búsqueda en profundidad, recursividad, casos base y cómo evitar bucles infinitos.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>¿Palante, patrás? Hablemos de <strong>backtracking</strong></h1>
@@ -123,11 +130,7 @@ animal(pez_espada).</code></pre>
         una solución, que no se encuentre o que entre en un bucle infinito).
     </p>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/composición/unificación.html">Siguiente apartado - Unificación</a></li>
-            <li><a href="/introducción/sbr.html">Capítulo anterior - Sistemas basados en reglas</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/introducción/sbr"
+                siguiente="/composición/unificación" />
 </DiseñoBásico>

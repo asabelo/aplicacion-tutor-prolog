@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Buenas prácticas, complejidad y eficiencia en Prolog",
+    descripción: "Guía de buenas prácticas, eficiencia y complejidad en Prolog. Aprende metodología declarativa, divide y vencerás, y ejemplos prácticos como torres de Hanoi y Diablotín."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Buenas prácticas, complejidad y eficiencia en Prolog</title>
-        <meta name="description" content="Guía de buenas prácticas, eficiencia y complejidad en Prolog. Aprende metodología declarativa, divide y vencerás, y ejemplos prácticos como torres de Hanoi y Diablotín.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Despedida</h1>
@@ -225,10 +232,6 @@ import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
         </li>
     </ul>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/avanzado/listas.html">Apartado anterior - Listas</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/avanzado/listas" />
 <DiseñoBásico>

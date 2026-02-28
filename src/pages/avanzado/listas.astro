@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Listas en Prolog",
+    descripción: "Aprende sobre listas en Prolog, la estructura de datos más importante del lenguaje. Descubre cómo descomponer listas en cabeza y cola, recorrerlas recursivamente, e implementar predicados como member y nth_element."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Listas en Prolog</title>
-        <meta name="description" content="Aprende sobre listas en Prolog, la estructura de datos más importante del lenguaje. Descubre cómo descomponer listas en cabeza y cola, recorrerlas recursivamente, e implementar predicados como member y nth_element.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Listas</h1>
@@ -116,11 +123,7 @@ nth_element([_|T], N, Elemento) :-
         lista nueva.
     </p>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="sermón.html">Siguiente apartado - Buenas prácticas, complejidad y eficiencia en Prolog</a></li>
-            <li><a href="meta.html">Apartado anterior - Metapredicados y predicados de control</a></li>
-            <li><a href="../index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/avanzado/meta"
+                siguiente="/avanzado/sermón" />
 </DiseñoBásico>

@@ -1,11 +1,18 @@
 ---
+import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import EnlacesPie from "../../components/EnlacesPie.astro"
+
+export const datos: Datos = {
+    título: "Unificación",
+    descripción: "Aprende qué es la unificación en Prolog, el mecanismo fundamental para igualar términos. Descubre tipos de términos, cláusulas de Horn y el algoritmo Robinson."
+}
 ---
 
 <DiseñoBásico>
     <Fragment slot="head">
-        <title>Unificación</title>
-        <meta name="description" content="Aprende qué es la unificación en Prolog, el mecanismo fundamental para igualar términos. Descubre tipos de términos, cláusulas de Horn y el algoritmo Robinson.">
+        <title>{datos.título}</title>
+        <meta name="description" content={datos.descripción}>
     </Fragment>
 
     <h1>Unificación</h1>
@@ -343,11 +350,7 @@ import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
         </li>
     </ol>
 
-    <nav slot="footer">
-        <ul>
-            <li><a href="/básico/predicados.html">Siguiente capítulo - Cómo utilizar Prolog</a></li>
-            <li><a href="/composición/backtracking.html">Apartado anterior - Backtracking</a></li>
-            <li><a href="/index.html">Volver al índice</a></li>
-        </ul>
-    </nav>
+    <EnlacesPie slot="footer"
+                anterior="/composición/backtracking"
+                siguiente="/básico/predicados" />
 </DiseñoBásico>
