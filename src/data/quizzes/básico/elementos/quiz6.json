@@ -1,0 +1,94 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Cómo añadimos a Ramón a su departamento?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "trabaja_en(Vendedor,melenas)."
+            },
+            {
+                "clave": 2,
+                "texto": "trabaja_en(Cliente,bombilla)."
+            },
+            {
+                "clave": 3,
+                "texto": "trabaja_en(ramon,melenas)."
+            },
+            {
+                "clave": 4,
+                "texto": "trabaja_en(ramon,bombilla)."
+            }
+        ],
+        "respuesta": 3
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Cómo añadimos a Sara a su departamento?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "trabaja_en(Sara,bombilla)."
+            },
+            {
+                "clave": 2,
+                "texto": "trabaja_en(sara,bombilla)."
+            },
+            {
+                "clave": 3,
+                "texto": "trabaja_en(sara,melenas)."
+            },
+            {
+                "clave": 4,
+                "texto": "trabaja_en(Vendedor,bombilla)."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué tipo de cliente es Melinda?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "tiene_pelo(melinda)."
+            },
+            {
+                "clave": 2,
+                "texto": "no_tiene_pelo(melinda)."
+            },
+            {
+                "clave": 3,
+                "texto": "no_tiene_pelo(melinda,melenas)."
+            },
+            {
+                "clave": 4,
+                "texto": "tiene_pelo(melinda,bombilla)."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Qué tipo de cliente es Melinda?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "tiene_pelo(guillermo)."
+            },
+            {
+                "clave": 2,
+                "texto": "no_tiene_pelo(guillermo)."
+            },
+            {
+                "clave": 3,
+                "texto": "no_tiene_pelo(guillermo,melenas)."
+            },
+            {
+                "clave": 4,
+                "texto": "tiene_pelo(guillermo,bombilla)."
+            }
+        ],
+        "respuesta": 2
+    }
+]

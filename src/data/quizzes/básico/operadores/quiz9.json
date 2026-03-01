@@ -1,0 +1,163 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué hace el operador \"=\" en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Asigna valores a variables."
+            },
+            {
+                "clave": 2,
+                "texto": "Intenta realizar una unificación entre términos."
+            },
+            {
+                "clave": 3,
+                "texto": "Compara números de manera aritmética."
+            },
+            {
+                "clave": 4,
+                "texto": "Realiza una comparación lógica de igualdad."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Cuál es la diferencia principal entre los operadores \"=\" y \"is\" en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "\"=\" realiza asignaciones, mientras que \"is\" realiza comparaciones."
+            },
+            {
+                "clave": 2,
+                "texto": "\"=\" compara valores aritméticos, mientras que \"is\" unifica términos."
+            },
+            {
+                "clave": 3,
+                "texto": "\"=\" unifica términos tal como están, mientras que \"is\" evalúa expresiones aritméticas antes de unificar."
+            },
+            {
+                "clave": 4,
+                "texto": "\"is\" es un operador de igualdad sintáctica, mientras que \"=\" es un operador de comparación aritmética."
+            }
+        ],
+        "respuesta": 3
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué devuelve el operador \"X == 5\" si X no ha sido unificado con ningún valor?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "true"
+            },
+            {
+                "clave": 2,
+                "texto": "false"
+            },
+            {
+                "clave": 3,
+                "texto": "undefined"
+            },
+            {
+                "clave": 4,
+                "texto": "error"
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Qué función cumple el operador \"\\=\" en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Devuelve true si dos términos no se pueden unificar."
+            },
+            {
+                "clave": 2,
+                "texto": "Realiza una comparación de desigualdad aritmética."
+            },
+            {
+                "clave": 3,
+                "texto": "Verifica si dos términos son sintácticamente diferentes."
+            },
+            {
+                "clave": 4,
+                "texto": "Realiza una asignación de un valor a una variable."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 5,
+        "pregunta": "¿Qué hace el operador \",\", también conocido como conjunción en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Realiza una operación aritmética de suma."
+            },
+            {
+                "clave": 2,
+                "texto": "Comprueba si dos términos son sintácticamente iguales."
+            },
+            {
+                "clave": 3,
+                "texto": "Actúa como una \"Y\" lógica, uniendo dos condiciones que deben cumplirse."
+            },
+            {
+                "clave": 4,
+                "texto": "Asigna valores a dos variables diferentes al mismo tiempo."
+            }
+        ],
+        "respuesta": 3
+    },
+    {
+        "orden": 6,
+        "pregunta": "¿Qué devuelve el operador \"\\+\" en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "false si un predicado no puede probarse verdadero."
+            },
+            {
+                "clave": 2,
+                "texto": "true si un predicado no puede probarse verdadero."
+            },
+            {
+                "clave": 3,
+                "texto": "true si un predicado es falso."
+            },
+            {
+                "clave": 4,
+                "texto": "false si un predicado es verdadero."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 7,
+        "pregunta": "¿Qué operador en Prolog se utiliza para la disyunción lógica?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "is"
+            },
+            {
+                "clave": 2,
+                "texto": "=:="
+            },
+            {
+                "clave": 3,
+                "texto": ","
+            },
+            {
+                "clave": 4,
+                "texto": ";"
+            }
+        ],
+        "respuesta": 4
+    }
+]

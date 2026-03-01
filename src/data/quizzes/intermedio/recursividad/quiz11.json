@@ -1,0 +1,25 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Cuál es el caso base de la suma de todos los números entre dos números proporcionados?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Que uno de ellos sea 0."
+            },
+            {
+                "clave": 2,
+                "texto": "Que ambos números sean iguales."
+            },
+            {
+                "clave": 3,
+                "texto": "Que el límite inferior sea mayor al límite superior."
+            },
+            {
+                "clave": 4,
+                "texto": "Que la suma de ambos números de 0."
+            }
+        ],
+        "respuesta": 2
+    }
+]

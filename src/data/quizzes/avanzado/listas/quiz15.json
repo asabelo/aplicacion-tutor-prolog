@@ -1,0 +1,163 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Cómo se representan las listas en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Entre paréntesis ()"
+            },
+            {
+                "clave": 2,
+                "texto": "Entre corchetes []"
+            },
+            {
+                "clave": 3,
+                "texto": "Entre llaves {}"
+            },
+            {
+                "clave": 4,
+                "texto": "Entre comillas \"\""
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Qué es la cabeza de una lista en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "El último elemento de la lista"
+            },
+            {
+                "clave": 2,
+                "texto": "El primer elemento de la lista"
+            },
+            {
+                "clave": 3,
+                "texto": "La lista completa sin modificaciones"
+            },
+            {
+                "clave": 4,
+                "texto": "Una lista vacía"
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué es la cola de una lista en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Una lista que contiene todos los elementos excepto el primero"
+            },
+            {
+                "clave": 2,
+                "texto": "El primer elemento de la lista"
+            },
+            {
+                "clave": 3,
+                "texto": "Una lista que contiene todos los elementos excepto los que se hayan separado específicamente"
+            },
+            {
+                "clave": 4,
+                "texto": "Una lista que contiene todos los elementos"
+            }
+        ],
+        "respuesta": 3
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Cómo se accede a elementos en una lista en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Usando índices numéricos"
+            },
+            {
+                "clave": 2,
+                "texto": "Recorriendo la lista hasta encontrar el elemento"
+            },
+            {
+                "clave": 3,
+                "texto": "Con una función de búsqueda incorporada"
+            },
+            {
+                "clave": 4,
+                "texto": "Directamente sin recorrer la lista"
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 5,
+        "pregunta": "¿Cómo se representa una lista vacía en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "[]"
+            },
+            {
+                "clave": 2,
+                "texto": "{}"
+            },
+            {
+                "clave": 3,
+                "texto": "()"
+            },
+            {
+                "clave": 4,
+                "texto": "\"\""
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 6,
+        "pregunta": "¿Qué término puede formar parte de una lista en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Solo átomos"
+            },
+            {
+                "clave": 2,
+                "texto": "Solo números"
+            },
+            {
+                "clave": 3,
+                "texto": "Cualquier término válido"
+            },
+            {
+                "clave": 4,
+                "texto": "Solo variables"
+            }
+        ],
+        "respuesta": 3
+    },
+    {
+        "orden": 7,
+        "pregunta": "¿Qué hace la notación [H|T] en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Dividir una lista en una lista y un elemento"
+            },
+            {
+                "clave": 2,
+                "texto": "Dividir una lista en un elemento y el resto de la lista"
+            },
+            {
+                "clave": 3,
+                "texto": "Unificar una lista con una lista vacía"
+            },
+            {
+                "clave": 4,
+                "texto": "Separar una lista en átomos"
+            }
+        ],
+        "respuesta": 2
+    }
+]

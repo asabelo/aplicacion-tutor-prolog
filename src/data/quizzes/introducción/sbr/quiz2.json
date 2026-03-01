@@ -1,0 +1,117 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué componente de un Sistema Basado en Reglas (SBR) contiene todo el conocimiento relativo al dominio?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "El motor de inferencia."
+            },
+            {
+                "clave": 2,
+                "texto": "La base de conocimiento."
+            },
+            {
+                "clave": 3,
+                "texto": "Las reglas."
+            },
+            {
+                "clave": 4,
+                "texto": "Los hechos."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Qué representan los hechos en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Cuestiones sobre el dominio del problema que sabemos verdaderas."
+            },
+            {
+                "clave": 2,
+                "texto": "Afirmaciones que se asumen verdaderas en forma de cláusulas."
+            },
+            {
+                "clave": 3,
+                "texto": "Variables abstractas en el motor de inferencia."
+            },
+            {
+                "clave": 4,
+                "texto": "Predicados de primer orden con operadores lógicos."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué representan las reglas en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Cuestiones mucho más detalladas que los hechos sobre el dominio del problema que sabemos verdaderas."
+            },
+            {
+                "clave": 2,
+                "texto": "Son condicionales que definen relaciones entre elementos abstractos y permiten inferir conocimiento sin desarrollarlo explícitamente o, incluso, definir nuevo conocimiento."
+            },
+            {
+                "clave": 3,
+                "texto": "Son procedimientos que especifican el flujo de ejecución de un programa."
+            },
+            {
+                "clave": 4,
+                "texto": "Son condicionales estáticos que se utilizan para almacenar información sobre el dominio."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Cuál es una de las ventajas de usar reglas en lugar de representar todo con hechos en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Permite representar el conocimiento de manera más extensa, detallada y menos confusa."
+            },
+            {
+                "clave": 2,
+                "texto": "Disminuye la cantidad de hechos necesarios al modelar relaciones en lugar de definir todo el conocimiento explícitamente."
+            },
+            {
+                "clave": 3,
+                "texto": "Reduce la necesidad de utilizar variables en las consultas."
+            },
+            {
+                "clave": 4,
+                "texto": "Aumenta la eficiencia de búsqueda en la base de conocimiento mediante consultas directas."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 5,
+        "pregunta": "¿Qué es el objetivo en un programa Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "La afirmación que se intenta probar verdadera en la base de conocimiento."
+            },
+            {
+                "clave": 2,
+                "texto": "La regla que define cómo se deben deducir nuevo conocimiento."
+            },
+            {
+                "clave": 3,
+                "texto": "La pregunta a la que el motor de inferencia busca respuesta en la base de conocimiento."
+            },
+            {
+                "clave": 4,
+                "texto": "Un dato estático que determina si el resultado es correcto."
+            }
+        ],
+        "respuesta": 3
+    }
+]

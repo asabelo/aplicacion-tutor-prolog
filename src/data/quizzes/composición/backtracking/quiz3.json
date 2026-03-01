@@ -1,0 +1,71 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué nodos visitaremos en este árbol para llegar al objetivo, si el objetivo es el nodo 6?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "1,7,8,9,10,6"
+            },
+            {
+                "clave": 2,
+                "texto": "1,2,6"
+            },
+            {
+                "clave": 3,
+                "texto": "1,2,3,4,3,5,3,2,6"
+            },
+            {
+                "clave": 4,
+                "texto": "1,2,3,4,5,6"
+            }
+        ],
+        "respuesta": 3
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Qué nodos visitaremos en este árbol para llegar al objetivo, si el objetivo es el nodo 8?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "1,8"
+            },
+            {
+                "clave": 2,
+                "texto": "1,2,3,4,3,5,3,2,6,2,1,7,1,8"
+            },
+            {
+                "clave": 3,
+                "texto": "1,2,3,4,3,5,2,1,7,8"
+            },
+            {
+                "clave": 4,
+                "texto": "1,2,3,4,5,6,7,8"
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué nodos visitaremos en este árbol para llegar al objetivo, si el objetivo es el nodo 5?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "1,2,3,4,5"
+            },
+            {
+                "clave": 2,
+                "texto": "1,2,3,5"
+            },
+            {
+                "clave": 3,
+                "texto": "1,2,3,4,3,5"
+            },
+            {
+                "clave": 4,
+                "texto": "1,2,6,3,5"
+            }
+        ],
+        "respuesta": 3
+    }
+]

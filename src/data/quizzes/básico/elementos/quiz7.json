@@ -1,0 +1,48 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué falta en la segunda línea?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "bombilla"
+            },
+            {
+                "clave": 2,
+                "texto": "melenas"
+            },
+            {
+                "clave": 3,
+                "texto": "tiene_pelo"
+            },
+            {
+                "clave": 4,
+                "texto": "Cliente"
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Qué falta en la tercera línea?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "melenas"
+            },
+            {
+                "clave": 2,
+                "texto": "Vendedor"
+            },
+            {
+                "clave": 3,
+                "texto": "Cliente"
+            },
+            {
+                "clave": 4,
+                "texto": "puede_vender"
+            }
+        ],
+        "respuesta": 3
+    }
+]

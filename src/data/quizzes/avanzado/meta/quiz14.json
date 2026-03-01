@@ -1,0 +1,163 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué hace el predicado `findall/3`?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Recoge todas las soluciones posibles para una consulta y las devuelve en una lista."
+            },
+            {
+                "clave": 2,
+                "texto": "Encuentra una única solución para una consulta."
+            },
+            {
+                "clave": 3,
+                "texto": "Filtra las soluciones de acuerdo a una condición."
+            },
+            {
+                "clave": 4,
+                "texto": "Ordena las soluciones y elimina duplicados."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Cuál es la principal diferencia entre `findall/3` y `setof/3`?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "`findall/3` devuelve todas las soluciones sin ordenar ni eliminar duplicados, `setof/3` las ordena y elimina duplicados."
+            },
+            {
+                "clave": 2,
+                "texto": "`findall/3` encuentra una única solución, `setof/3` encuentra múltiples."
+            },
+            {
+                "clave": 3,
+                "texto": "`findall/3` requiere una condición específica, `setof/3` no."
+            },
+            {
+                "clave": 4,
+                "texto": "`findall/3` trabaja con listas, `setof/3` con árboles."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué hace el predicado `forall/2`?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Verifica que para todas las soluciones de un objetivo se cumpla una condición específica."
+            },
+            {
+                "clave": 2,
+                "texto": "Recoge todas las soluciones de un predicado."
+            },
+            {
+                "clave": 3,
+                "texto": "Aplica un predicado a todos los elementos de una lista."
+            },
+            {
+                "clave": 4,
+                "texto": "Elimina todas las ocurrencias de un predicado de la base de hechos."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Qué hace el predicado `once/1` en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Asegura que el predicado encuentra, como mucho, una solución."
+            },
+            {
+                "clave": 2,
+                "texto": "Elimina todas las soluciones posibles para un predicado."
+            },
+            {
+                "clave": 3,
+                "texto": "Encuentra todas las soluciones posibles y las devuelve."
+            },
+            {
+                "clave": 4,
+                "texto": "Verifica que el predicado siempre devuelve verdadero."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 5,
+        "pregunta": "¿Qué hace el predicado `fail/0`?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Provoca que el predicado siempre falle."
+            },
+            {
+                "clave": 2,
+                "texto": "Siempre devuelve verdadero."
+            },
+            {
+                "clave": 3,
+                "texto": "Añade una nueva cláusula a la base de hechos."
+            },
+            {
+                "clave": 4,
+                "texto": "Elimina todas las ocurrencias de un predicado."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 6,
+        "pregunta": "¿Para qué se usa el predicado `!` en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Previene el backtracking descartando todo lo anterior al corte."
+            },
+            {
+                "clave": 2,
+                "texto": "Asegura que el predicado encuentra solo una solución."
+            },
+            {
+                "clave": 3,
+                "texto": "Filtra elementos de una lista basándose en una condición."
+            },
+            {
+                "clave": 4,
+                "texto": "Elimina todas las ocurrencias de un predicado de la base de hechos."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 7,
+        "pregunta": "¿Qué hace el predicado `asserta/1`?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Añade una cláusula al principio de la base de hechos."
+            },
+            {
+                "clave": 2,
+                "texto": "Añade una cláusula al final de la base de hechos."
+            },
+            {
+                "clave": 3,
+                "texto": "Elimina una cláusula de la base de hechos."
+            },
+            {
+                "clave": 4,
+                "texto": "Elimina todas las cláusulas que unifiquen con la especificada."
+            }
+        ],
+        "respuesta": 1
+    }
+]

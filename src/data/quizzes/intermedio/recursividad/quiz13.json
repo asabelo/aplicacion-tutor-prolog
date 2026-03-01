@@ -1,0 +1,71 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué es un caso base en una función recursiva?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Una situación en la que la función realiza una llamada recursiva."
+            },
+            {
+                "clave": 2,
+                "texto": "El punto en el que la función conoce la respuesta sin necesidad de más recursión."
+            },
+            {
+                "clave": 3,
+                "texto": "Un paso intermedio en la función antes de llegar al resultado final."
+            },
+            {
+                "clave": 4,
+                "texto": "Una llamada a la función que no tiene un resultado definido."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Cómo se resuelve un problema recursivo?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "El problema se divide en subproblemas más pequeños hasta llegar al caso base."
+            },
+            {
+                "clave": 2,
+                "texto": "Se utiliza un bucle para repetir el cálculo hasta obtener el resultado."
+            },
+            {
+                "clave": 3,
+                "texto": "La función recursiva se ejecuta una vez y luego se vuelve a ejecutar con un nuevo conjunto de datos."
+            },
+            {
+                "clave": 4,
+                "texto": "El problema se soluciona sin necesidad de dividirlo en subproblemas."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué papel juegan las variables auxiliares en una función recursiva en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Almacenan valores intermedios sobre los que construir la solución."
+            },
+            {
+                "clave": 2,
+                "texto": "Son variables que se reinicializan en cada llamada recursiva."
+            },
+            {
+                "clave": 3,
+                "texto": "Actúan como constantes durante la ejecución de la función."
+            },
+            {
+                "clave": 4,
+                "texto": "Se utilizan para asignar valores directamente a las variables principales."
+            }
+        ],
+        "respuesta": 1
+    }
+]

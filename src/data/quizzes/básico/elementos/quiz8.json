@@ -1,0 +1,117 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué falta en ¿?(P1, P2?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "primo"
+            },
+            {
+                "clave": 2,
+                "texto": "padre"
+            },
+            {
+                "clave": 3,
+                "texto": "grado3"
+            },
+            {
+                "clave": 4,
+                "texto": "grado3((P1,P2))"
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Qué falta en padre(¿?, P1),",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "P2"
+            },
+            {
+                "clave": 2,
+                "texto": "Padre1"
+            },
+            {
+                "clave": 3,
+                "texto": "madre"
+            },
+            {
+                "clave": 4,
+                "texto": "Un punto al final"
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué falta en padre(¿?, P2),",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Padre2"
+            },
+            {
+                "clave": 2,
+                "texto": "Padre1"
+            },
+            {
+                "clave": 3,
+                "texto": "madre"
+            },
+            {
+                "clave": 4,
+                "texto": "\"\""
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Qué falta en ¿?(Madre1, P1),",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "padre"
+            },
+            {
+                "clave": 2,
+                "texto": "madre"
+            },
+            {
+                "clave": 3,
+                "texto": "P2"
+            },
+            {
+                "clave": 4,
+                "texto": "_"
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 5,
+        "pregunta": "¿Qué falta en primo(¿?, ¿?).",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "P1,P2"
+            },
+            {
+                "clave": 2,
+                "texto": "Madre1,Madre2"
+            },
+            {
+                "clave": 3,
+                "texto": "madre,padre"
+            },
+            {
+                "clave": 4,
+                "texto": "Una coma en lugar de un punto."
+            }
+        ],
+        "respuesta": 2
+    }
+]

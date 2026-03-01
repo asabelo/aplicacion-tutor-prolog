@@ -1,0 +1,94 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué es la unificación en el ámbito de la programación lógica?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Un proceso para encontrar la asignación que hace dos términos idénticos."
+            },
+            {
+                "clave": 2,
+                "texto": "Una técnica para asignar valores numéricos a variables."
+            },
+            {
+                "clave": 3,
+                "texto": "Un método para dividir términos compuestos en términos atómicos."
+            },
+            {
+                "clave": 4,
+                "texto": "Un algoritmo para ordenar listas de términos."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Cuál de los siguientes es un ejemplo de un término compuesto en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "abc"
+            },
+            {
+                "clave": 2,
+                "texto": "A123"
+            },
+            {
+                "clave": 3,
+                "texto": "5"
+            },
+            {
+                "clave": 4,
+                "texto": "padre(luis, maria)"
+            }
+        ],
+        "respuesta": 4
+    },
+    {
+        "orden": 3,
+        "pregunta": "Según lo leído y probado, ¿qué sucede si intentamos unificar \"5\" y \"3+2\" en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Se unifican porque ambos son números."
+            },
+            {
+                "clave": 2,
+                "texto": "No se unifican porque \"5\" es un número y \"3+2\" es un término compuesto."
+            },
+            {
+                "clave": 3,
+                "texto": "Se unifican porque Prolog evalúa la expresión \"3+2\" a \"5\"."
+            },
+            {
+                "clave": 4,
+                "texto": "No se unifican porque ambos son términos atómicos."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Qué condición es necesaria para que dos términos en Prolog sean unificables?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Deben tener diferentes funtores y aridades."
+            },
+            {
+                "clave": 2,
+                "texto": "Al menos uno debe ser un número entero."
+            },
+            {
+                "clave": 3,
+                "texto": "Al menos uno debe ser una variable no instanciada."
+            },
+            {
+                "clave": 4,
+                "texto": "Ambos deben ser términos atómicos."
+            }
+        ],
+        "respuesta": 3
+    }
+]

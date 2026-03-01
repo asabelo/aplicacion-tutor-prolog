@@ -1,0 +1,94 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Cómo se diferencia la programación imperativa de la declarativa?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "La programación imperativa se enfoca en definir qué se quiere lograr, mientras que la declarativa se enfoca en cómo lograrlo."
+            },
+            {
+                "clave": 2,
+                "texto": "La programación imperativa define el flujo de ejecución paso a paso, mientras que la declarativa se centra en definir las relaciones y el resultado deseado sin controlar el flujo de ejecución."
+            },
+            {
+                "clave": 3,
+                "texto": "En la programación imperativa, el motor de ejecución toma decisiones sobre el flujo del programa, mientras que en la declarativa, el programador controla el flujo de ejecución directamente mediante instrucciones."
+            },
+            {
+                "clave": 4,
+                "texto": "La programación declarativa se basa en consultas a bases de datos, mientras que la imperativa utiliza estructuras de control como bucles y condicionales."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 2,
+        "pregunta": "Al hacer sándwiches imperativos, ¿cuál sería el mayor problema que encontramos?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "No permite definir tipos de datos específicos para los ingredientes del sándwich."
+            },
+            {
+                "clave": 2,
+                "texto": "No contempla excepciones o errores si se proporcionan ingredientes no válidos, lo que puede resultar en un arma biológica penada por la convención de Ginebra."
+            },
+            {
+                "clave": 3,
+                "texto": "Especificar incorrectamente la composición del sándwich puede tener consecuencias catastróficas."
+            },
+            {
+                "clave": 4,
+                "texto": "No es posible comprobar que los ingredientes son correctos, pudiendo preparar sándwiches perjudiciales para la salud."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Cuál es una característica destacada de la programación declarativa en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Permite al programador definir el flujo de ejecución en detalle mientras define las instrucciones paso a paso."
+            },
+            {
+                "clave": 2,
+                "texto": "Se centra en definir las relaciones y reglas del dominio del problema, abstrayéndose del control del flujo de ejecución."
+            },
+            {
+                "clave": 3,
+                "texto": "Utiliza un enfoque basado en la definición de pasos secuenciales para alcanzar el resultado deseado."
+            },
+            {
+                "clave": 4,
+                "texto": "Permite a los programadores especificar cómo se deben manejar las excepciones y errores durante la ejecución."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Cuáles son las trabas para adentrarse en la programación declarativa y el paradigma lógico?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Pereza."
+            },
+            {
+                "clave": 2,
+                "texto": "El acento de los vídeos sobre Prolog es complicadillo de entender."
+            },
+            {
+                "clave": 3,
+                "texto": "No tengo la salud mental como para estudiarme un libro sobre Prolog que duplica en peso a los libros de la UNED."
+            },
+            {
+                "clave": 4,
+                "texto": "Todas las respuestas anteriores son correctas."
+            }
+        ],
+        "respuesta": 4
+    }
+]

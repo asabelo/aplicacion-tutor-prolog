@@ -1,0 +1,163 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Cuál es el propósito de los predicados en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Representar variables y constantes."
+            },
+            {
+                "clave": 2,
+                "texto": "Expresar relaciones y hechos dentro del programa."
+            },
+            {
+                "clave": 3,
+                "texto": "Definir tipos de datos complejos."
+            },
+            {
+                "clave": 4,
+                "texto": "Realizar operaciones aritméticas."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 2,
+        "pregunta": "¿Cómo se define un hecho en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Con un nombre que empiece por mayúscula, seguido de argumentos entre paréntesis."
+            },
+            {
+                "clave": 2,
+                "texto": "Con un nombre que empiece por minúscula, seguido de argumentos entre paréntesis y finalizando con un punto."
+            },
+            {
+                "clave": 3,
+                "texto": "Con una secuencia de caracteres alfanuméricos sin paréntesis."
+            },
+            {
+                "clave": 4,
+                "texto": "Con un nombre que empiece por minúscula, seguido de una lista de argumentos y un punto y coma al final."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Qué es una regla en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Un predicado que se define en términos de otros predicados."
+            },
+            {
+                "clave": 2,
+                "texto": "Una declaración que siempre es verdadera."
+            },
+            {
+                "clave": 3,
+                "texto": "Una variable que almacena valores dinámicos."
+            },
+            {
+                "clave": 4,
+                "texto": "Una función matemática utilizada para cálculos complejos."
+            }
+        ],
+        "respuesta": 1
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Cómo se comporta Prolog cuando falla una regla?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Termina la ejecución del programa."
+            },
+            {
+                "clave": 2,
+                "texto": "Devuelve un error de sintaxis."
+            },
+            {
+                "clave": 3,
+                "texto": "Intenta evaluar la siguiente regla en la base de conocimiento."
+            },
+            {
+                "clave": 4,
+                "texto": "Devuelve siempre falso."
+            }
+        ],
+        "respuesta": 3
+    },
+    {
+        "orden": 5,
+        "pregunta": "¿Qué ventaja tiene colocar una regla menos común al principio en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Mejora la legibilidad del código."
+            },
+            {
+                "clave": 2,
+                "texto": "Mejora la eficiencia media del programa."
+            },
+            {
+                "clave": 3,
+                "texto": "Aumenta el número de predicados evaluados."
+            },
+            {
+                "clave": 4,
+                "texto": "Permite la recursividad directa."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 6,
+        "pregunta": "¿Cuál es la importancia del orden de los predicados en el cuerpo de una regla?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "No afecta la eficiencia de la consulta."
+            },
+            {
+                "clave": 2,
+                "texto": "Determina qué predicado se evalúa primero, lo que puede afectar la eficiencia."
+            },
+            {
+                "clave": 3,
+                "texto": "Siempre debe coincidir con el orden en que se definen los hechos."
+            },
+            {
+                "clave": 4,
+                "texto": "Afecta la sintaxis del programa, pero no su funcionalidad."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 7,
+        "pregunta": "¿Cuál es la diferencia principal entre las reglas y los hechos en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Las reglas tienen un cuerpo que debe cumplirse, mientras que los hechos son siempre verdaderos."
+            },
+            {
+                "clave": 2,
+                "texto": "Los hechos son falsos por defecto y las reglas son verdaderas."
+            },
+            {
+                "clave": 3,
+                "texto": "Las reglas se definen sin argumentos y los hechos siempre tienen argumentos."
+            },
+            {
+                "clave": 4,
+                "texto": "No hay diferencia; ambos son términos sin significado especial en Prolog."
+            }
+        ],
+        "respuesta": 1
+    }
+]

@@ -1,0 +1,25 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Qué condición debe cumplirse para ejecutar el caso recursivo?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Que el límite inferior esté por debajo del límite superior."
+            },
+            {
+                "clave": 2,
+                "texto": "Que ambos números sean iguales."
+            },
+            {
+                "clave": 3,
+                "texto": "Que el límite inferior sea mayor al límite superior."
+            },
+            {
+                "clave": 4,
+                "texto": "Que el límite inferior sea mayor que 0."
+            }
+        ],
+        "respuesta": 1
+    }
+]

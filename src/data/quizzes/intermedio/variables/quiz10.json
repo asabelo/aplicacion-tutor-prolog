@@ -1,0 +1,163 @@
+[
+    {
+        "orden": 1,
+        "pregunta": "¿Cómo se representa una variable en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Empieza por una letra minúscula."
+            },
+            {
+                "clave": 2,
+                "texto": "Empieza por una letra mayúscula o un guión bajo."
+            },
+            {
+                "clave": 3,
+                "texto": "Con un espacio."
+            },
+            {
+                "clave": 4,
+                "texto": "Con un guión bajo sin nada más."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 2,
+        "pregunta": "En Prolog, ¿cómo se maneja el backtracking con respecto a las variables?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Las variables se reasignan a nuevos valores."
+            },
+            {
+                "clave": 2,
+                "texto": "Las unificaciones realizadas se deshacen, y el motor de Prolog busca nuevas posibles unificaciones."
+            },
+            {
+                "clave": 3,
+                "texto": "Las variables permanecen con el valor asignado y se bloquean."
+            },
+            {
+                "clave": 4,
+                "texto": "Las variables se eliminan y se crean nuevas variables."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 3,
+        "pregunta": "¿Cuál es la principal diferencia entre una variable en Prolog y una variable en lenguajes imperativos como Java o C?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "En Prolog, las variables pueden cambiar de valor en cualquier momento, mientras que en lenguajes imperativos no."
+            },
+            {
+                "clave": 2,
+                "texto": "Las variables en Prolog son inmutables por defecto, comportándose como constantes una vez unificadas, mientras que en lenguajes imperativos pueden cambiar de valor."
+            },
+            {
+                "clave": 3,
+                "texto": "Las variables en Prolog deben ser asignadas antes de ser utilizadas, mientras que en lenguajes imperativos no."
+            },
+            {
+                "clave": 4,
+                "texto": "Las variables en Prolog se asignan a un valor fijo durante la ejecución, mientras que en lenguajes imperativos no."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 4,
+        "pregunta": "¿Qué significa que una variable en Prolog es \"inmutable\" una vez que se unifica?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Que el valor de la variable puede ser cambiado en cualquier momento."
+            },
+            {
+                "clave": 2,
+                "texto": "Que el valor de la variable no puede ser modificado después de la unificación."
+            },
+            {
+                "clave": 3,
+                "texto": "Que la variable no puede ser utilizada en consultas."
+            },
+            {
+                "clave": 4,
+                "texto": "Que la variable se reinicializa con cada nueva consulta."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 5,
+        "pregunta": "¿Qué sucede si una variable en Prolog no se puede unificar durante el proceso de backtracking?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "La variable recibe un nuevo valor predeterminado."
+            },
+            {
+                "clave": 2,
+                "texto": "El motor de inferencia busca otras posibles unificaciones."
+            },
+            {
+                "clave": 3,
+                "texto": "La variable se mantiene con el valor que tenía antes del backtrack."
+            },
+            {
+                "clave": 4,
+                "texto": "El proceso de backtracking se detiene y el programa finaliza."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 6,
+        "pregunta": "¿Qué es una variable anónima en Prolog?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Es una variable que se usa para almacenar datos temporalmente y se elimina después de su uso."
+            },
+            {
+                "clave": 2,
+                "texto": "Es una variable cuyo valor no se necesita para ser utilizado más adelante en el programa."
+            },
+            {
+                "clave": 3,
+                "texto": "Es una variable que se asigna automáticamente por el sistema sin intervención del usuario."
+            },
+            {
+                "clave": 4,
+                "texto": "Es una variable que se asigna automáticamente por el sistema sin intervención del usuario."
+            }
+        ],
+        "respuesta": 2
+    },
+    {
+        "orden": 7,
+        "pregunta": "¿Cómo se comporta una variable en Prolog cuando se unifica?",
+        "opciones": [
+            {
+                "clave": 1,
+                "texto": "Similar a una constante, no pudiendo unificarse con un valor diferente."
+            },
+            {
+                "clave": 2,
+                "texto": "Se mantiene en su estado original y puede ser cambiada en el futuro."
+            },
+            {
+                "clave": 3,
+                "texto": "Se reinicializa cada vez que se realiza una nueva consulta."
+            },
+            {
+                "clave": 4,
+                "texto": "No se puede unificar con hechos o reglas."
+            }
+        ],
+        "respuesta": 1
+    }
+]
