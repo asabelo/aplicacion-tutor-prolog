@@ -1,0 +1,59 @@
+[
+    {
+        "id": "búho0",
+        "éxito": true,
+        "máxErrores": null,
+        "imagen": null,
+        "texto": "¡Bien hecho!"
+    },
+    {
+        "id": "búho1",
+        "éxito": false,
+        "máxErrores": 1,
+        "imagen": {
+            "ruta": "/src/images/quizzes/búho1.png",
+            "alt": ""
+        },
+        "texto": "Whops, esa no era la respuesta correcta. Prueba otra vez."
+    },
+    {
+        "id": "búho2",
+        "éxito": false,
+        "máxErrores": 3,
+        "imagen": {
+            "ruta": "/src/images/quizzes/búho2.png",
+            "alt": ""
+        },
+        "texto": "¿Estás seguro de que has atendido a la explicación?"
+    },
+    {
+        "id": "búho3",
+        "éxito": false,
+        "máxErrores": 5,
+        "imagen": {
+            "ruta": "/src/images/quizzes/búho3.png",
+            "alt": ""
+        },
+        "texto": "Estás haciendo al búho llorar."
+    },
+    {
+        "id": "búho4",
+        "éxito": false,
+        "máxErrores": 6,
+        "imagen": {
+            "ruta": "/src/images/quizzes/búho4.png",
+            "alt": ""
+        },
+        "texto": "¿Te diviertes?"
+    },
+    {
+        "id": "búho5",
+        "éxito": false,
+        "máxErrores": null,
+        "imagen": {
+            "ruta": "/src/images/quizzes/búho5.png",
+            "alt": ""
+        },
+        "texto": "..."
+    }
+]

@@ -2,7 +2,7 @@
 import { defineCollection } from 'astro:content';
 
 // 2. Import loader(s)
-import { glob } from 'astro/loaders';
+import { glob, file } from 'astro/loaders';
 
 // 3. Import Zod
 import { z } from 'astro/zod';
@@ -25,5 +25,19 @@ const quizzes = defineCollection({
     )
 });
 
+const búhos = defineCollection({
+    loader: file("src/data/búhos.json"),
+    schema: ({ image }) => z.object({
+        id: z.string(),
+        éxito: z.boolean(),
+        máxErrores: z.nullable(z.number()),
+        imagen: z.nullable(z.object({
+            ruta: image(),
+            alt: z.string()
+        })),
+        texto: z.string()
+    })
+});
+
 // 5. Export a single `collections` object to register your collection(s)
-export const collections = { quizzes };
+export const collections = { quizzes, búhos };
