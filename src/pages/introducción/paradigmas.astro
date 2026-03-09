@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Paradigmas de programación",
@@ -218,6 +219,8 @@ Sandwich = [Rebanada1, Relleno, Rebanada2].</code></pre>
             para poder generar la respuesta.
         </p>
     </section>
+
+    <Quiz ruta="introducción/paradigmas/quiz1" />
 
     <EnlacesPie slot="footer"
                 anterior="/introducción/beneficios"

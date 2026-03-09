@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Metapredicados y predicados de control",
@@ -290,6 +291,8 @@ todos_positivos(List) :-
         Es el equivalente a hacerle un drop a la base de datos de tu puesto de trabajo y te la puede
         liar <strong>mal</strong>.
     </p>
+
+    <Quiz ruta="avanzado/meta/quiz14" />
 
     <EnlacesPie slot="footer"
                 anterior="/intermedio/estructuras"

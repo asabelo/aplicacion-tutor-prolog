@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Sistemas basados en reglas",
@@ -140,6 +141,8 @@ abuela(sofia, juan).</code></pre>
             base de conocimiento algo que la conteste, algo que demuestre que es <strong>verdadera</strong>.
         </p>
     </section>
+
+    <Quiz ruta="introducción/sbr/quiz2" />
 
     <EnlacesPie slot="footer"
                 anterior="/introducción/paradigmas"

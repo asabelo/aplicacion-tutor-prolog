@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Predicados",
@@ -143,6 +144,8 @@ branquias(X).</code></pre>
         que contiene este archivo. Una vez allí, utilizamos la sentencia <strong>consult(programaPrueba.pl).</strong>
         y, tras esto, ya podríamos ejecutar la consulta "prueba(X).".
     </p>
+
+    <Quiz ruta="básico/predicados/quiz5" />
 
     <EnlacesPie slot="footer"
                 anterior="/composición/unificación"

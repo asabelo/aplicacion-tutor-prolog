@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Operadores de comparación y de unificación",
@@ -148,6 +149,8 @@ X == 5 true.</code></pre>
     <label>
         Consulta: <input placeholder="¡Dale chicha, majo!">
     </label>
+
+    <Quiz ruta="básico/operadores/quiz9" />
 
     <EnlacesPie slot="footer"
                 anterior="/básico/elementos"

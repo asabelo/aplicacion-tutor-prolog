@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Listas en Prolog",
@@ -122,6 +123,8 @@ nth_element([_|T], N, Elemento) :-
         Las listas en Prolog son inmutables. Para añadir o eliminar un elemento debemos crear una
         lista nueva.
     </p>
+
+    <Quiz ruta="avanzado/listas/quiz15" />
 
     <EnlacesPie slot="footer"
                 anterior="/avanzado/meta"

@@ -1,0 +1,137 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Image from 'astro/components/Image.astro';
+import imagenTest from '../images/quizzes/té-st.png'
+
+interface Props {
+    ruta: string
+}
+
+const { ruta } = Astro.props;
+
+const quiz = await getEntry("quizzes", ruta);
+if (!quiz) throw Error(`No se ha encontrado el quiz ${ruta}`);
+
+const búhos = await getCollection("búhos");
+---
+
+<section>
+    <h2>Quiz</h2>
+    <el-quiz data-quiz={JSON.stringify(quiz)}>
+        <Image src={imagenTest} alt="La hora del té-st" />
+        <div class="preguntas quiz">
+            {quiz.data.sort((a, b) => a.orden - b.orden).map(q =>
+                <section data-pregunta={q.orden}
+                         hidden={q.orden !== 1}>
+                    <h3>{q.pregunta}</h3>
+                    <ul>
+                        {q.opciones.sort(() => Math.random() - 0.5).map(o =>
+                            <li>
+                                <button data-opción={o.clave}>
+                                    {o.texto}
+                                </button>
+                            </li>
+                        )}
+                    </ul>
+                </section>
+            )}
+        </div>
+        <div class="búhos quiz">
+            {búhos.map(b =>
+                <section data-éxito={b.data.éxito} data-máxErrores={b.data.máxErrores} hidden>
+                    {b.data.imagen && <Image src={b.data.imagen.ruta} alt={b.data.imagen.alt} />}
+                    <p>
+                        {b.data.texto}
+                    </p>
+                    {!b.data.éxito && <button class="botón búho">Venga voy</button>}
+                </section>
+            )}
+        </div>
+    </el-quiz>
+</section>
+
+<script>
+    import type { CollectionEntry } from "astro:content";
+
+    class Quiz extends HTMLElement {
+
+        private pregunta(numPregunta: number): Element {
+            const preguntaActual = this.querySelector(`[data-pregunta="${numPregunta}"]`);
+            if (!preguntaActual) throw Error("No hay pregunta actual");
+
+            return preguntaActual;
+        }
+
+        private búho(numErrores: number, estado: "éxito" | "fracaso"): Element {
+            const opciones = this.querySelectorAll(`[data-éxito=${estado === "éxito" ? true : false}]`);
+
+            let menorMáxErrores = Infinity;
+            let mejorOpción: Element | null = null;
+            let opciónPorDefecto : Element | null = null;
+
+            for (const opción of opciones) {
+                const dataMáxErrores = opción.getAttribute("data-máxErrores");
+                if (!dataMáxErrores) {
+                    opciónPorDefecto = opción;
+                } else {
+                    const máxErrores = parseInt(dataMáxErrores);
+                    if (numErrores <= máxErrores && máxErrores < menorMáxErrores) {
+                        menorMáxErrores = máxErrores;
+                        mejorOpción = opción;
+                    }
+                }
+            }
+
+            const resultado = mejorOpción || opciónPorDefecto;
+            if (!resultado) throw Error(`No hay búho para ${estado} con ${numErrores} errores`);
+
+            return resultado;
+        }
+
+        connectedCallback() {
+
+            let numPreguntaActual = 1;
+            let numErrores = 0;
+
+            const quiz = this.dataset.quiz && JSON.parse(this.dataset.quiz) as CollectionEntry<"quizzes">;
+            if (!quiz) throw Error("No se ha podido leer el quiz desde el script");
+
+            const respuestaCorrecta = () => {
+                this.pregunta(numPreguntaActual).setAttribute("hidden", "");
+                try {
+                    this.pregunta(++numPreguntaActual).removeAttribute("hidden");
+                } catch {
+                    this.búho(numErrores, "éxito").removeAttribute("hidden");
+                }
+            };
+
+            const respuestaIncorrecta = () => {
+                this.pregunta(numPreguntaActual).setAttribute("hidden", "");
+                this.búho(++numErrores, "fracaso").removeAttribute("hidden");
+            };
+
+            for (const q of quiz.data) {
+                const pregunta = this.querySelector(`[data-pregunta="${q.orden}"]`);
+                if (!pregunta) throw Error(`La pregunta ${q.orden} del quiz no tiene sección asociada`);
+
+                for (const o of q.opciones) {
+                    const opción = pregunta.querySelector(`[data-opción="${o.clave}"]`);
+                    if (!opción) throw Error(`La opción ${o.clave} de la pregunta ${q.orden} del quiz no tiene botón asociado`);
+
+                    opción.addEventListener("click", q.respuesta === o.clave ? respuestaCorrecta : respuestaIncorrecta);
+                }
+            }
+
+            const seccionesBúhos = this.querySelectorAll(".búhos.quiz>[data-éxito=false]");
+            for (const sec of seccionesBúhos) {
+                const but = sec.querySelector("button");
+                but?.addEventListener("click", () => {
+                    sec.setAttribute("hidden", "");
+                    this.pregunta(numPreguntaActual).removeAttribute("hidden")
+                });
+            }
+        }
+    }
+
+    customElements.define('el-quiz', Quiz);
+</script>

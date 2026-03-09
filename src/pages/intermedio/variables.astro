@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Variables en Prolog",
@@ -114,6 +115,8 @@ export const datos: Datos = {
     <p>
         Y para acabar, vamos con un puñado de ejemplos para que se te quede grabado.
     </p>
+
+    <Quiz ruta="intermedio/variables/quiz10" />
 
     <EnlacesPie slot="footer"
                 anterior="/básico/operadores"

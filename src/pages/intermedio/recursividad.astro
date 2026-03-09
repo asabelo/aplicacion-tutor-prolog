@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Más variables y recursividad en Prolog",
@@ -220,6 +221,9 @@ factorial(N, Result) :-
         nosotros podemos dar una respuesta sin necesidad de aplicar ninguna lógica? ¿Cuándo es trivial
         la suma de todos los números entre dos números proporcionados?
     </p>
+
+    <Quiz ruta="intermedio/recursividad/quiz11" />
+
     <p>
         Perfecto, vamos ahora con el caso recursivo. Esto va a doler un poco más, pero no te preocupes,
         que te iré echando una mano. Para empezar, el predicado con el que trabajaremos será el siguiente:
@@ -229,6 +233,9 @@ factorial(N, Result) :-
         En donde <strong>Total</strong> será el acumulador con el resultado. ¿Cuál será la primera
         condición a cumplir?
     </p>
+
+    <Quiz ruta="intermedio/recursividad/quiz12" />
+
     <p>
         ¡Bien! Una vez definidas las condiciones de ambos casos, podemos desarrollar el resto del problema:
     </p>
@@ -276,6 +283,8 @@ f1(Numero, Resultado) :-
         ¿Te duele la cabeza? <strong>Es normal</strong>. Vete a un por un poco de agua, que vamos
         a seguir con algo un <strong>poco</strong> más ligero. Ánimo, que no queda nada.
     </p>
+
+    <Quiz ruta="intermedio/recursividad/quiz13" />
 
     <EnlacesPie slot="footer"
                 anterior="/intermedio/variables"

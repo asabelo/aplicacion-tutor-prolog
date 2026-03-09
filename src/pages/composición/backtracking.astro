@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Backtracking",
@@ -129,6 +130,8 @@ animal(pez_espada).</code></pre>
         los casos y en el orden correcto (porque el orden importa y puede determinar que se encuentra
         una solución, que no se encuentre o que entre en un bucle infinito).
     </p>
+
+    <Quiz ruta="composición/backtracking/quiz3" />
 
     <EnlacesPie slot="footer"
                 anterior="/introducción/sbr"

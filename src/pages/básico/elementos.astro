@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Quiz from "../../components/Quiz.astro"
 
 export const datos: Datos = {
     título: "Posología de Prolog",
@@ -72,7 +73,9 @@ puede_vender(Vendedor, Cliente) :-
         crear los hechos que faltan? Que me cierra el Mercadona y no me queda hummus. Recuerda, para
         crear un hecho <strong>no</strong> usamos mayúsculas.
     </p>
-    <button>[...]</button>
+
+    <Quiz ruta="básico/elementos/quiz6" />
+
     <p>
         ¡Perfecto, bien hecho! Yo tengo hummus y tú tienes la base de hechos terminada. Me acabo
         de dar cuenta de que falta una regla para verificar que los vendedores del AbrillantaBombillas
@@ -82,7 +85,9 @@ puede_vender(Vendedor, Cliente) :-
 <pre><code>puede_vender(Vendedor, Cliente) :-
     trabaja_en(Vendedor, _______),
     no_tiene_pelo(______).</code></pre>
-    <button>[...]</button>
+
+    <Quiz ruta="básico/elementos/quiz7" />
+
     <p>
         ¡Genial! Ahora podemos hacer las pruebas que queramos y verificar que está todo correcto:
     </p>
@@ -183,7 +188,8 @@ no_matrimonio_primos(P1, P2) :-
     madre(Madre1, P1),
     madre(Madre2, P2),
     primo(¿?, ¿?).</code></pre>
-    <button>[...]</button>
+
+    <Quiz ruta="básico/elementos/quiz8" />
 
     <EnlacesPie slot="footer"
                 anterior="/básico/predicados"
