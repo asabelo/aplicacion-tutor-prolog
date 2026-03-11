@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "aplicacion-tutor-prolog",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,6 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "@types/node": "^25.4.0",
+    "astro": "^5.17.1",
+    "pyodide": "^0.29.3",
+    "vite-plugin-static-copy": "^3.2.0"
   }
 }
