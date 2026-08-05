@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Python from "../../components/Python.astro"
 
 export const datos: Datos = {
     título: "Más variables y recursividad en Prolog",
@@ -62,21 +63,11 @@ export const datos: Datos = {
     <p>
         La manera iterativa de resolver el factorial de un número sería la siguiente:
     </p>
-    <form>
-        <label>
-            Número (iterativo) <input>
-        </label>
-        <button>Calcular factorial (iterativo)</button>
-    </form>
+    <Python ruta="intermedio/recursividad/factorial-iterativo" />
     <p>
         Por otra parte, la manera recursiva sería esta:
     </p>
-    <form>
-        <label>
-            Número (recursivo) <input>
-        </label>
-        <button>Calcular factorial (recursivo)</button>
-    </form>
+    <Python ruta="intermedio/recursividad/factorial-recursivo" />
     <p>
         Como puedes ver, en el caso recursivo la resolución de las llamadas sucesivas van quedando
         "pendientes" hasta que llegamos al caso base, al punto en el que conocemos la respuesta independientemente

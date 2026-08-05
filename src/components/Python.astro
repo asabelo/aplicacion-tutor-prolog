@@ -1,0 +1,156 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+    ruta: string
+}
+
+const { ruta } = Astro.props;
+
+const python = await getEntry("pythons", ruta);
+if (!python) throw Error(`No se ha encontrado el script de Python ${ruta}`);
+
+const dependencias: Record<string, string> = {};
+
+async function recolectarDependencias(id: string, visitados: string[] = []) {
+
+    if (visitados.includes(id)) throw Error(`Dependencia circular en ${[...visitados, id].join(" → ")}`);
+
+    const fragmento = await getEntry("pythons", id);
+    if (!fragmento) throw Error(`No se ha encontrado la dependencia ${id} de ${ruta}`);
+
+    dependencias[`${id}.py`] = fragmento.data.fuente;
+    for (const dependencia of fragmento.data.dependencias) {
+        await recolectarDependencias(dependencia, [...visitados, id]);
+    }
+}
+
+for (const dependencia of python.data.dependencias) {
+    // Incluiría dependencias transitivas si las hubiera
+    await recolectarDependencias(dependencia);
+}
+
+const directorio = ruta.includes("/") ? ruta.slice(0, ruta.lastIndexOf("/")) : ".";
+
+const parámetros = python.data.parámetros.map(p => ({
+    ...p,
+    tipoHtml: p.tipo === "número" ? "number" as const : "text" as const
+}));
+
+// No traga {"\n"} tal cual
+const LF = "\n";
+---
+
+<el-python data-programa={python.data.código}
+           data-directorio={directorio}
+           data-dependencias={JSON.stringify(dependencias)}>
+    <pre><code>{parámetros.map(p => <span class="parámetro">{p.nombre} = <input data-parámetro={p.nombre} data-tipo={p.tipo} type={p.tipoHtml} value={p.porDefecto} />{LF}</span>)}{python.data.código}</code></pre>
+    {python.data.ejecutable && <button type="button" class="ejecutar">Ejecutar</button>}
+    {python.data.ejecutable && <pre class="salida" hidden></pre>}
+</el-python>
+
+<script>
+    import { obtenerPyodide, encolarTarea } from "../scripts/pyodide";
+
+    const MÁX_LÍNEAS = 5000;
+
+    class Python extends HTMLElement {
+
+        connectedCallback() {
+            const botón = this.querySelector<HTMLButtonElement>("button.ejecutar");
+            const salida = this.querySelector<HTMLPreElement>("pre.salida");
+            if (!botón || !salida) return; // fragmento no ejecutable
+
+            const programa = this.dataset.programa;
+            if (!programa) throw Error("El fragmento no tiene programa asociado");
+
+            const directorio = this.getAttribute("data-directorio")!;
+            const dependencias: Record<string, string> = JSON.parse(this.getAttribute("data-dependencias") || "{}");
+
+            const entradas = [...this.querySelectorAll<HTMLInputElement>("input[data-parámetro]")];
+
+            let líneas = 0;
+            const escribir = (texto: string) => {
+                if (líneas > MÁX_LÍNEAS) return;
+                líneas += texto.split("\n").length;
+                salida.textContent += líneas > MÁX_LÍNEAS
+                    ? "\n… salida truncada …"
+                    : texto + "\n";
+            };
+
+            // Devuelve los valores de las cajas, o null si alguno no es válido.
+            const leerParámetros = (): Map<string, string | number> | null => {
+                const valores = new Map<string, string | number>();
+
+                for (const entrada of entradas) {
+                    const nombre = entrada.getAttribute("data-parámetro");
+                    if (!nombre) continue;
+
+                    if (entrada.getAttribute("data-tipo") === "número") {
+                        const número = Number(entrada.value);
+                        if (entrada.value.trim() === "" || !Number.isFinite(número)) {
+                            escribir(`«${nombre}» tiene que ser un número.`);
+                            return null;
+                        }
+                        valores.set(nombre, Math.trunc(número));
+                    } else {
+                        valores.set(nombre, entrada.value);
+                    }
+                }
+
+                return valores;
+            };
+
+            const ejecutar = async () => {
+                botón.disabled = true;
+                salida.hidden = false;
+                salida.textContent = "";
+                líneas = 0;
+
+                try {
+                    const valores = leerParámetros();
+                    if (!valores) return;
+
+                    salida.textContent = "Cargando Python…";
+                    const pyodide = await obtenerPyodide();
+                    salida.textContent = "";
+
+                    for (const [ruta, fuente] of Object.entries(dependencias)) {
+                        pyodide.FS.mkdirTree(ruta.slice(0, ruta.lastIndexOf("/")));
+                        pyodide.FS.writeFile(ruta, fuente, { encoding: "utf8" });
+                    }
+                    pyodide.runPython(
+                        `import sys\n` +
+                        `if ${JSON.stringify(directorio)} not in sys.path:\n` +
+                        `    sys.path.insert(0, ${JSON.stringify(directorio)})`
+                    );
+
+                    await encolarTarea(async () => {
+                        // Espacio de nombres nuevo por ejecución: los fragmentos de una
+                        // misma página comparten intérprete, pero no estado. `__name__`
+                        // imita a `python fichero.py`.
+                        const espacio = pyodide.toPy({ __name__: "__main__" });
+                        pyodide.setStdout({ batched: escribir });
+                        pyodide.setStderr({ batched: escribir });
+                        try {
+                            for (const [nombre, valor] of valores) espacio.set(nombre, valor);
+                            await pyodide.runPythonAsync(programa, { globals: espacio });
+                        } finally {
+                            pyodide.setStdout({});
+                            pyodide.setStderr({});
+                            espacio.destroy();
+                        }
+                    });
+                } catch (error) {
+                    escribir(String(error instanceof Error ? error.message : error));
+                } finally {
+                    botón.disabled = false;
+                }
+            };
+
+            botón.addEventListener("click", ejecutar);
+        }
+    }
+
+    customElements.define('el-python', Python);
+</script>

@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Python from "../../components/Python.astro"
 
 export const datos: Datos = {
     título: "Paradigmas de programación",
@@ -65,22 +66,11 @@ export const datos: Datos = {
             Llevando esto a código, si nosotros quisiéramos hacer un sandwich, podríamos definir
             una función en Python de la siguiente manera:
         </p>
-<pre><code is:raw>class Sandwich:
-def __init__(self, pan1, pan2, relleno):
-    self.pan1 = pan1
-    self.pan2 = pan2
-    self.relleno = relleno
-
-def __str__(self):
-    return f"{self.pan1} {self.relleno} {self.pan2}"
-
-def hacer_sandwich(pan1, pan2, relleno):
-    sandwich = Sandwich(pan1, pan2, relleno)
-    return f"Sándwich pa ti, campeón: {sandwich}"</code></pre>
+        <Python ruta="introducción/paradigmas/sandwich" />
         <p>
             Que tendría el siguiente output:
         </p>
-        <button>¡Haz clic para hacer un sándwich!</button>
+        <Python ruta="introducción/paradigmas/sandwich-fijo" />
         <p>
             El flujo es tremendamente sencillo. El programa espera que se le proporcionen dos panes
             y un relleno para el sándwich, y una vez se le da esto simplemente encierra el relleno
@@ -91,7 +81,7 @@ def hacer_sandwich(pan1, pan2, relleno):
             hacer un sándwich con dos alpargatas y medio kilo de arena de gato, dos cubos de basura
             y un calcetín sudao o lo que se nos ocurra?
         </p>
-        <button>¡Haz clic para hacer un sándwich!</button>
+        <Python ruta="introducción/paradigmas/sandwich-libre" />
         <p>
             Pues efectivamente, para nuestra desgracia tendríamos el sándwich menos apetecible de
             la historia sin mayor alternativa.

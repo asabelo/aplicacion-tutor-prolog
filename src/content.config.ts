@@ -3,6 +3,7 @@ import { defineCollection } from 'astro:content';
 
 // 2. Import loader(s)
 import { glob, file } from 'astro/loaders';
+import { python } from './loaders/python';
 
 // 3. Import Zod
 import { z } from 'astro/zod';
@@ -39,5 +40,22 @@ const búhos = defineCollection({
     })
 });
 
+const pythons = defineCollection({
+    loader: python("./src/python"),
+    schema: z.object({
+        fuente: z.string(), // Código sin procesar para importar en otros scripts
+        código: z.string(), // Código procesado para mostrar en el HTML
+        ejecutable: z.boolean(),
+        dependencias: z.array(z.string()),
+        parámetros: z.array(
+            z.object({
+                nombre: z.string(),
+                tipo: z.enum(["texto", "número"]),
+                porDefecto: z.string()
+            })
+        )
+    })
+});
+
 // 5. Export a single `collections` object to register your collection(s)
-export const collections = { quizzes, búhos };
+export const collections = { quizzes, búhos, pythons };

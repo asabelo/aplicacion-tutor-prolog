@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Python from "../../components/Python.astro"
 
 export const datos: Datos = {
     título: "Backtracking",
@@ -117,7 +118,7 @@ animal(pez_espada).</code></pre>
         Vamos con otro ejemplo. Queremos limpiar el garaje porque está sucio pero la escoba está
         rota y las herramientas están en el garaje.
     </p>
-    <button>¡Limpia el garaje, guarro!</button>
+    <Python ruta="composición/backtracking/limpiar-garaje" />
     <p>
         ¿Qué problema ha surgido aquí? Hemos definido mal la lógica, no teniendo en cuenta soluciones
         como comprar una escoba nueva o llenarse de telarañas buscando las herramientas. Es decir,
