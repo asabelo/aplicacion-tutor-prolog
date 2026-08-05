@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { PYODIDE_DEST } from "./pyodide.config.mjs";
 
 const PYODIDE_EXCLUDE = [
   "!**/*.{md,html}",
@@ -20,7 +21,7 @@ export function viteStaticCopyPyodide() {
         src: [join(pyodideDir, "*").replace(/\\/g, "/")].concat(
           PYODIDE_EXCLUDE
         ),
-        dest: "assets",
+        dest: PYODIDE_DEST,
       },
     ],
   });
