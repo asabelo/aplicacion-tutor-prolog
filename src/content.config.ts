@@ -50,7 +50,7 @@ const pythons = defineCollection({
         parámetros: z.array(
             z.object({
                 nombre: z.string(),
-                tipo: z.enum(["texto", "número"]),
+                tipo: z.enum(["texto", "entero"]),
                 porDefecto: z.string()
             })
         )

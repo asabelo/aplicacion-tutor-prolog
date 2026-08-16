@@ -1,0 +1,20 @@
+---
+import type { Fragmento } from "../util/fragmento";
+
+interface Props {
+    fragmentos: Fragmento[],
+    clase?: string
+}
+
+const { fragmentos, clase } = Astro.props;
+---
+
+<pre class={clase}><code>{fragmentos.map(f => "texto" in f
+    ? f.texto
+    : <input class="parámetro"
+             data-parámetro={f.entrada.nombre}
+             data-tipo={f.entrada.tipo}
+             type="text"
+             value={f.entrada.valor}
+             size={f.entrada.ancho}
+             placeholder={f.entrada.marcador} />)}</code></pre>

@@ -1,5 +1,8 @@
 ---
 import { getEntry } from 'astro:content';
+import Código from './Código.astro';
+import type { Fragmento } from '../util/fragmento';
+import { recolectarDependencias } from '../util/dependencias';
 
 interface Props {
     ruta: string
@@ -10,49 +13,53 @@ const { ruta } = Astro.props;
 const python = await getEntry("pythons", ruta);
 if (!python) throw Error(`No se ha encontrado el script de Python ${ruta}`);
 
-const dependencias: Record<string, string> = {};
-
-async function recolectarDependencias(id: string, visitados: string[] = []) {
-
-    if (visitados.includes(id)) throw Error(`Dependencia circular en ${[...visitados, id].join(" → ")}`);
-
-    const fragmento = await getEntry("pythons", id);
-    if (!fragmento) throw Error(`No se ha encontrado la dependencia ${id} de ${ruta}`);
-
-    dependencias[`${id}.py`] = fragmento.data.fuente;
-    for (const dependencia of fragmento.data.dependencias) {
-        await recolectarDependencias(dependencia, [...visitados, id]);
-    }
-}
-
-for (const dependencia of python.data.dependencias) {
-    // Incluiría dependencias transitivas si las hubiera
-    await recolectarDependencias(dependencia);
-}
+// Ficheros a escribir en el sistema virtual, con las dependencias transitivas incluidas
+const dependencias: Record<string, string> = Object.fromEntries(
+    await recolectarDependencias(
+        python.data.dependencias,
+        async id => {
+            const entrada = await getEntry("pythons", id);
+            return entrada && {
+                dependencias: entrada.data.dependencias,
+                entrada: [`${id}.py`, entrada.data.fuente] as const
+            };
+        },
+        ruta
+    )
+);
 
 const directorio = ruta.includes("/") ? ruta.slice(0, ruta.lastIndexOf("/")) : ".";
 
-const parámetros = python.data.parámetros.map(p => ({
-    ...p,
-    tipoHtml: p.tipo === "número" ? "number" as const : "text" as const
-}));
-
-// No traga {"\n"} tal cual
-const LF = "\n";
+const fragmentos = [
+    ...python.data.parámetros.flatMap((p): Fragmento[] => [
+        { texto: `${p.nombre} = ` },
+        {
+            entrada: {
+                nombre: p.nombre,
+                tipo: p.tipo,
+                valor: p.porDefecto
+            }
+        },
+        { texto: "\n" }
+    ]),
+    ...(python.data.parámetros.length > 0 ? [{ texto: "\n" }] : []),
+    { texto: python.data.código }
+];
 ---
 
 <el-python data-programa={python.data.código}
            data-directorio={directorio}
            data-dependencias={JSON.stringify(dependencias)}>
-    <pre><code>{parámetros.map(p => <span class="parámetro">{p.nombre} = <input data-parámetro={p.nombre} data-tipo={p.tipo} type={p.tipoHtml} value={p.porDefecto} />{LF}</span>)}{python.data.código}</code></pre>
+    <Código fragmentos={fragmentos} />
     {python.data.ejecutable && <button type="button" class="ejecutar">Ejecutar</button>}
     {python.data.ejecutable && <pre class="salida" hidden></pre>}
 </el-python>
 
 <script>
     import { obtenerPyodide, encolarTarea } from "../scripts/pyodide";
+    import { crearEscritor } from "../scripts/salida";
 
-    const MÁX_LÍNEAS = 5000;
+    const ENTERO = /^-?\d+$/;
 
     class Python extends HTMLElement {
 
@@ -64,35 +71,28 @@ const LF = "\n";
             const programa = this.dataset.programa;
             if (!programa) throw Error("El fragmento no tiene programa asociado");
 
-            const directorio = this.getAttribute("data-directorio")!;
-            const dependencias: Record<string, string> = JSON.parse(this.getAttribute("data-dependencias") || "{}");
+            const directorio = this.dataset.directorio!;
+            const dependencias: Record<string, string> = JSON.parse(this.dataset.dependencias || "{}");
 
             const entradas = [...this.querySelectorAll<HTMLInputElement>("input[data-parámetro]")];
 
-            let líneas = 0;
-            const escribir = (texto: string) => {
-                if (líneas > MÁX_LÍNEAS) return;
-                líneas += texto.split("\n").length;
-                salida.textContent += líneas > MÁX_LÍNEAS
-                    ? "\n… salida truncada …"
-                    : texto + "\n";
-            };
+            // Pyodide entrega las líneas sin el salto, así que se lo ponemos aquí.
+            const { escribir: volcar, limpiar } = crearEscritor(salida);
+            const escribir = (texto: string) => volcar(texto + "\n");
 
-            // Devuelve los valores de las cajas, o null si alguno no es válido.
             const leerParámetros = (): Map<string, string | number> | null => {
                 const valores = new Map<string, string | number>();
 
                 for (const entrada of entradas) {
-                    const nombre = entrada.getAttribute("data-parámetro");
+                    const nombre = entrada.dataset.parámetro;
                     if (!nombre) continue;
 
-                    if (entrada.getAttribute("data-tipo") === "número") {
-                        const número = Number(entrada.value);
-                        if (entrada.value.trim() === "" || !Number.isFinite(número)) {
-                            escribir(`«${nombre}» tiene que ser un número.`);
+                    if (entrada.dataset.tipo === "entero") {
+                        if (!ENTERO.test(entrada.value.trim())) {
+                            escribir(`«${nombre}» tiene que ser un número entero.`);
                             return null;
                         }
-                        valores.set(nombre, Math.trunc(número));
+                        valores.set(nombre, Number(entrada.value));
                     } else {
                         valores.set(nombre, entrada.value);
                     }
@@ -104,28 +104,29 @@ const LF = "\n";
             const ejecutar = async () => {
                 botón.disabled = true;
                 salida.hidden = false;
-                salida.textContent = "";
-                líneas = 0;
+                limpiar();
 
                 try {
                     const valores = leerParámetros();
                     if (!valores) return;
 
-                    salida.textContent = "Cargando Python…";
+                    escribir("Cargando Python…");
                     const pyodide = await obtenerPyodide();
-                    salida.textContent = "";
+                    limpiar();
 
-                    for (const [ruta, fuente] of Object.entries(dependencias)) {
-                        pyodide.FS.mkdirTree(ruta.slice(0, ruta.lastIndexOf("/")));
-                        pyodide.FS.writeFile(ruta, fuente, { encoding: "utf8" });
-                    }
-                    pyodide.runPython(
-                        `import sys\n` +
-                        `if ${JSON.stringify(directorio)} not in sys.path:\n` +
-                        `    sys.path.insert(0, ${JSON.stringify(directorio)})`
-                    );
-
+                    // Todo lo que toca el intérprete compartido va dentro de la cola, no
+                    // solo la ejecución: `setStdout` es global y `sys.path` también.
                     await encolarTarea(async () => {
+                        for (const [ruta, fuente] of Object.entries(dependencias)) {
+                            pyodide.FS.mkdirTree(ruta.slice(0, ruta.lastIndexOf("/")));
+                            pyodide.FS.writeFile(ruta, fuente, { encoding: "utf8" });
+                        }
+                        pyodide.runPython(
+                            `import sys\n` +
+                            `if ${JSON.stringify(directorio)} not in sys.path:\n` +
+                            `    sys.path.insert(0, ${JSON.stringify(directorio)})`
+                        );
+
                         // Espacio de nombres nuevo por ejecución: los fragmentos de una
                         // misma página comparten intérprete, pero no estado. `__name__`
                         // imita a `python fichero.py`.

@@ -1,7 +1,12 @@
 import type { Loader } from "astro/loaders";
-import { readdir, readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { join } from "node:path";
+import { blanca, cargadorDeFicheros } from "./ficheros";
+
+// La configuración sale de marcas en el propio .py, para que siga corriendo con
+// `python fichero.py` desde su directorio:
+//   # no ejecutable                  se muestra sin botón «Ejecutar»
+//   nombre = <literal>  # parámetro  caja de texto; el literal da valor por defecto y tipo
+//   from hermano import …            dependencia, si `hermano.py` está en el mismo sitio
+// Las líneas marcadas no se muestran: el componente vuelve a pintar los parámetros.
 
 const IDENT = String.raw`[\p{L}_][\p{L}\p{N}_]*`;
 const NO_EJECUTABLE = new RegExp(String.raw`^#\s*no ejecutable\s*$`);
@@ -12,18 +17,18 @@ function valorPorDefecto(literal: string, id: string, nombre: string) {
     const cadena = literal.match(/^(['"])([\s\S]*)\1$/);
     if (cadena) return { tipo: "texto" as const, porDefecto: cadena[2] };
 
-    if (/^-?\d+(?:\.\d+)?$/.test(literal)) return { tipo: "número" as const, porDefecto: literal };
+    if (/^-?\d+$/.test(literal)) return { tipo: "entero" as const, porDefecto: literal };
 
     throw Error(
         `El parámetro «${nombre}» de ${id} vale \`${literal}\`, que no es una cadena ` +
-        `ni un número literal. Solo se admiten esos dos tipos.`
+        `ni un entero literal. Solo se admiten esos dos tipos.`
     );
 }
 
 function analizar(id: string, fuente: string, hermanos: Set<string>) {
     const directorio = id.includes("/") ? id.slice(0, id.lastIndexOf("/")) : "";
 
-    const parámetros: { nombre: string, tipo: "texto" | "número", porDefecto: string }[] = [];
+    const parámetros: { nombre: string, tipo: "texto" | "entero", porDefecto: string }[] = [];
     const dependencias: string[] = [];
     const mostradas: string[] = [];
 
@@ -45,11 +50,9 @@ function analizar(id: string, fuente: string, hermanos: Set<string>) {
             continue;
         }
 
-        // También se borran las líneas en blanco pegadas a lo que acabamos de borrar
-        const enBlanco = línea.trim() === "";
-        if (reciénBorrada && enBlanco && (mostradas.length === 0 || mostradas.at(-1)!.trim() === "")) {
-            continue;
-        }
+        const blancoSobrante = reciénBorrada && blanca(línea)
+            && (mostradas.length === 0 || blanca(mostradas.at(-1)!));
+        if (blancoSobrante) continue;
         reciénBorrada = false;
 
         const importación = línea.match(IMPORTACIÓN);
@@ -72,37 +75,5 @@ function analizar(id: string, fuente: string, hermanos: Set<string>) {
 }
 
 export function python(base: string): Loader {
-    return {
-        name: "python",
-
-        load: async ({ store, parseData, generateDigest, watcher, logger, config }) => {
-            const raíz = fileURLToPath(new URL(base, config.root));
-
-            const cargar = async () => {
-                const nombres = (await readdir(raíz, { recursive: true }))
-                    .map(n => n.replaceAll("\\", "/"))
-                    .filter(n => n.endsWith(".py"));
-
-                const ids = nombres.map(n => n.slice(0, -".py".length));
-                const hermanos = new Set(ids);
-
-                store.clear();
-                for (const [i, nombre] of nombres.entries()) {
-                    const id = ids[i];
-                    const fuente = await readFile(join(raíz, nombre), "utf-8");
-                    const data = await parseData({ id, data: analizar(id, fuente, hermanos) });
-                    store.set({ id, data, digest: generateDigest(fuente) });
-                }
-
-                logger.info(`Cargados ${nombres.length} scripts de Python`);
-            };
-
-            await cargar();
-
-            watcher?.add(raíz);
-            watcher?.on("all", (_evento, ruta) => {
-                if (ruta.endsWith(".py")) cargar();
-            });
-        }
-    };
+    return cargadorDeFicheros("python", ".py", base, analizar);
 }
