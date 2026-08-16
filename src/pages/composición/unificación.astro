@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Unificación",
@@ -93,11 +94,7 @@ export const datos: Datos = {
         ningún valor. Una variable, en el contexto de la unificación, se puede ver como un “lugar”
         que contiene, o contendrá, un valor. No te cortes, ¡pruébalo!
     </p>
-    <form>
-        <label>
-            Consulta: <input>
-        </label>
-    </form>
+    <Prolog ruta="composición/unificación/consulta" />
     <p>
         Es fundamental tener este ejemplo en mente en todo momento, dado que en un futuro podemos
         tener un error en nuestro código que aparentemente no exista, pero nos impida el correcto

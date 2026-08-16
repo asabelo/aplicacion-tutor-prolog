@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 import Python from "../../components/Python.astro"
 
 export const datos: Datos = {
@@ -87,14 +88,7 @@ export const datos: Datos = {
         Vamos a ver unos ejemplos más analizando el código de Prolog que ejecutaría estos programas
         y el flujo que sigue. El código en Prolog para resolver el factorial sería el siguiente:
     </p>
-<pre><code>% CASO BASE
-    factorial(0, 1).
-% CASO RECURSIVO
-factorial(N, Result) :-
-    N &gt; 0,
-    N1 is N - 1,
-    factorial(N1, Result1),
-    Result is N * Result1.</code></pre>
+    <Prolog ruta="intermedio/recursividad/factorial" />
     <p>
         <strong>No te asustes.</strong>
     </p>
@@ -110,8 +104,7 @@ factorial(N, Result) :-
     <p>
         En primer lugar tenemos el caso base:
     </p>
-<pre><code>% CASO BASE
-factorial(0, 1).</code></pre>
+    <Prolog ruta="intermedio/recursividad/factorial-base" />
     <p>
         Esta es la situación trivial. Sabemos que el factorial de 0 es 1 (por oscuros motivos de
         la matemática discreta que <strong>no</strong> vamos a exponer aquí), por tanto siempre que
@@ -133,12 +126,7 @@ factorial(0, 1).</code></pre>
         Ahora tenemos la lógica del caso recursivo, que irá "desmenuzando" el problema para poder
         resolverlo:
     </p>
-<pre><code>% CASO RECURSIVO
-factorial(N, Result) :-
-    N &gt; 0,
-    N1 is N - 1,
-    factorial(N1, Result1),
-    Result is N * Result1.</code></pre>
+    <Prolog ruta="intermedio/recursividad/factorial-recursivo" />
     <p>
         Analicemos la primera línea, "factorial(N, Result) :-". Esta es la "cabecera" del predicado.
         Tiene dos variables como argumentos, <strong>N</strong> y <strong>Result</strong>, las cuales
@@ -219,7 +207,7 @@ factorial(N, Result) :-
         Perfecto, vamos ahora con el caso recursivo. Esto va a doler un poco más, pero no te preocupes,
         que te iré echando una mano. Para empezar, el predicado con el que trabajaremos será el siguiente:
     </p>
-<pre><code>sumatorio(Inferior, Superior, Total).</code></pre>
+    <Prolog ruta="intermedio/recursividad/sumatorio-firma" />
     <p>
         En donde <strong>Total</strong> será el acumulador con el resultado. ¿Cuál será la primera
         condición a cumplir?
@@ -230,15 +218,7 @@ factorial(N, Result) :-
     <p>
         ¡Bien! Una vez definidas las condiciones de ambos casos, podemos desarrollar el resto del problema:
     </p>
-<pre><code>% Caso base: si los límites son iguales, la suma es simplemente el número.
-sumatorio(L, L, L).
-
-% Caso recursivo: Mientras el límite inferior esté por debajo del límite superior, suma el número actual con el sumatorio del siguiente número.
-sumatorio(L, U, S) :-
-    L &lt; U,
-    L1 is L + 1,
-    sumatorio(L1, U, S1),
-    S is L + S1.</code></pre>
+    <Prolog ruta="intermedio/recursividad/sumatorio" />
     <p>
         Y ya un último ejemplo antes de dejar los números hasta nuevo aviso. También podemos representar
         funciones haciendo uso de la recursividad, y en un mismo cuerpo puede haber más de una llamada
@@ -250,17 +230,7 @@ sumatorio(L, U, S) :-
     <p>
         Podríamos representar dicha función de la siguiente manera en Prolog:
     </p>
-<pre><code>f1(Numero, Resultado) :-
-    Numero &lt; 1,
-    Resultado is 2 + Numero.
-
-f1(Numero, Resultado) :-
-    Numero > 1,
-    PrimeraX is Numero - 1,
-    SegundaX is Numero - 2,
-    f1(PrimeraX, Acumulador1),
-    f1(SegundaX, Acumulador2),
-    Resultado is Acumulador1 + Acumulador2.</code></pre>
+    <Prolog ruta="intermedio/recursividad/f1" />
     <p>
         El primer predicado será nuestro caso base, si X es menor que 1, el resultado será X + 2.
         Si X es mayor que 1, en nuestro caso recursivo se producirán dos llamadas recursivas a la

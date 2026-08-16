@@ -12,6 +12,7 @@
     "@types/node": "^25.4.0",
     "astro": "^5.17.1",
     "pyodide": "^0.29.3",
+    "tau-prolog": "^0.3.4",
     "vite-plugin-static-copy": "^3.2.0"
   }
 }

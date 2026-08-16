@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Operadores de comparación y de unificación",
@@ -78,9 +79,7 @@ export const datos: Datos = {
         Ahora podemos probar diferentes operaciones y comprobar que, efectivamente, Prolog es capaz
         de determinar si 3+2 es lo mismo que 5.
     </p>
-    <label>
-        Consulta: <input placeholder="¡Dale chicha, majo!">
-    </label>
+    <Prolog ruta="básico/operadores/comparacion" />
     <p>
         ¿Qué más operadores tenemos?
     </p>
@@ -146,9 +145,7 @@ X == 5 true.</code></pre>
         cierto que dicha persona ronque, esta persona no ronca y es inocente de las perversas acusaciones
         que caen sobre su cabeza.
     </p>
-    <label>
-        Consulta: <input placeholder="¡Dale chicha, majo!">
-    </label>
+    <Prolog ruta="básico/operadores/logica" />
 
     <Quiz ruta="básico/operadores/quiz9" />
 

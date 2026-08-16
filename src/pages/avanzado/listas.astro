@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Listas en Prolog",
@@ -51,49 +52,26 @@ export const datos: Datos = {
         a un elemento de una lista, salvo el primer elemento, implica recorrer la lista hasta encontrar
         y unificar el elemento que nos interesa. Vamos a ver primero cómo recorrer una lista en Prolog:
     </p>
-<pre><code>% Caso base, la lista está vacía y no hay nada que recorrer.
-recorrer_lista([]).
-
-% Caso recursivo, la lista contiene al menos un elemento.
-recorrer_lista([H|T]):-
-    write('Elemento en la cabeza '),
-    write(H),
-    recorrer_lista(T).</code></pre>
+    <Prolog ruta="avanzado/listas/recorrer-lista" />
     <p>
         En el caso recursivo lo que hacemos es recibir una lista como parámetro y en nuestra llamada
         recursiva simplemente pasamos como argumento <strong>la cola</strong> de la lista, descartando
-        la cabeza. Si ejecutamos el código con una lista, por ejemplo, de números ordenados del 1
-        al 5 obtendremos lo siguiente:
+        la cabeza. Ahí arriba lo tienes con una lista de números ordenados del 1 al 5, pero puedes
+        cambiarla por la que quieras.
     </p>
-    <button>Ejecutar</button>
     <p>
         Otro caso de estudio interesante es el hacer a mano el metapredicado <strong>member</strong>,
         y buscar un elemento en una lista nosotros mismos:
     </p>
-<pre><code>% Buscar elemento en lista
-% Caso base, el elemento en la cabeza de la lista coincide con el elemento que buscamos.
-miembro(Element, [Element|_]).
-% Caso recursivo, ignoramos la cabeza de la lista y avanzamos en la lista.
-miembro(Element, [_|T]) :-
-    miembro(Element, T).</code></pre>
     <p>
-        Si esto lo probamos con el siguiente ejemplo(miembro(5,[1,2,3,4,5,1,2]).) nos devolverá lo
-        siguiente:
+        Puedes probarlo con el ejemplo que trae puesto, miembro(5,[1,2,3,4,5,1,2]).
     </p>
-    <button>Dale chicha</button>
+    <Prolog ruta="avanzado/listas/miembro" />
     <p>
         Podríamos implementar miles de ejemplos. Otro podría ser, mismamente, un método que nos devuelva
         el N elemento de una lista:
     </p>
-<pre><code>% Caso base: Si N es 1, el primer elemento es la cabeza de la lista.
-nth_element([H|_], 1, H).
-
-% Caso recursivo: Decrementamos N y llamamos recursivamente con la cola de la lista.
-nth_element([_|T], N, Elemento) :-
-    N &gt; 1,
-    N1 is N - 1,
-    nth_element(T, N1, Elemento).</code></pre>
-    <button>Dale chicha</button>
+    <Prolog ruta="avanzado/listas/nth-element" />
     <p>
         Y no acaba aquí la fiesta de las listas, pero como lo mucho aburre, vamos a terminar este
         apartado con un pequeño resumen antes de hacer el último examen del tutorial:

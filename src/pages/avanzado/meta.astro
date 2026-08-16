@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Metapredicados y predicados de control",
@@ -48,9 +49,7 @@ export const datos: Datos = {
         Vamos, que si no lo sabemos <strong>ahora</strong> no es un problema, ya se encarga el motor
         de inferencia de hacer nuestro trabajo:
     </p>
-<pre><code>choose_operation(Op) :-
-    ( Op = add -&gt; call(add, 2, 3);
-      Op = multiply -&gt; call(multiply, 2, 3) ).</code></pre>
+    <Prolog ruta="avanzado/meta/eleccion-operacion" />
     <p>
         En este ejemplo, la operación a realizar dependerá de la operación (el valor con el que se
         haya ligado la variable "Op").
@@ -60,8 +59,7 @@ export const datos: Datos = {
         reutilizable para distintos predicados, resultando también una programación de más alto nivel,
         más flexible y comprensible desde nuestro punto de vista:
     </p>
-<pre><code>apply_to_all(Predicate, List) :-
-    maplist(call(Predicate), List).</code></pre>
+    <Prolog ruta="avanzado/meta/aplicar-a-todos" />
     <p>
         Este predicado aplicará el predicado del primer argumento a la lista del segundo argumento. ¿Cómo?
         <strong>Buena pregunta</strong>, vamos con el <strong>maplist</strong>.
@@ -75,10 +73,7 @@ export const datos: Datos = {
         Para un predicado y una lista, la aridad de maplist será dos(maplist/2), para dos listas
         la aridad será tres, tres listas aridad cuatro, cuatro listas aridad cinco...
     </p>
-<pre><code>es_par(X) :- 0 is X mod 2.
-
-todos_pares(List) :-
-    maplist(es_par, List).</code></pre>
+    <Prolog ruta="avanzado/meta/pares" />
     <p>
         "todos_pares" aplica el predicado "es_par" a todos los elementos de una lista, sin tener
         que recorrer la lista manualmente dividiéndola entre cabeza y cola ([H|T]). Esto es algo
@@ -92,8 +87,7 @@ todos_pares(List) :-
         una lista con todos los elementos que cumplan la condición especificada, mientras que <strong>exclude</strong>
         lo hará con aquellos elementos que <strong>no</strong> la cumplan.
     </p>
-<pre><code>include(Predicate, List, FilteredList1).
-exclude(Predicate, List, FilteredList2).</code></pre>
+    <Prolog ruta="avanzado/meta/include-exclude" />
     <p>
         El primer argumento será el predicado que determina la condición, el segundo la lista a la
         que queremos aplicar la condición y el tercer argumento será una variable que unificará con
@@ -109,16 +103,13 @@ exclude(Predicate, List, FilteredList2).</code></pre>
         El primer predicado, <strong>findall</strong> tiene tres argumentos, el elemento que queremos
         recoger, el predicado que ha de cumplir y la lista donde se almacenará el resultado:
     </p>
-<pre><code>findall(Template, Goal, List).</code></pre>
+    <Prolog ruta="avanzado/meta/findall-firma" />
     <p>
         <strong>Template</strong> es el elemento (un <strong>término</strong>, y recuerda que un
         <strong>término</strong> puede ser CASI cualquier cosa) que queremos que se cumpla en <strong>Goal</strong>
         y se recoja en <strong>List</strong>. Por ejemplo:
     </p>
-<pre><code>menor_que_cinco(X) :- X &lt; 5.
-
-recoge_numeros(List) :-
-    findall(X, menor_que_cinco(X), List).</code></pre>
+    <Prolog ruta="avanzado/meta/findall" />
     <p>
         Queremos los elementos X que sean verdaderos en "menor_que_cinco(X)". "findall" nos devolverá
         todas las soluciones que cumplan esto <strong>sin</strong> ordenar, <strong>sin filtrar</strong>
@@ -131,10 +122,7 @@ recoge_numeros(List) :-
         nada, <strong>bagof</strong> fallará si no encuentra al menos una solución. Al igual que
         findall, <strong>no</strong> ordena la solución y <strong>no</strong> elimina duplicados.
     </p>
-<pre><code>menor_que_cinco(X) :- X &lt; 5.
-
-recoge_numeros(List) :-
-    bagof(X, menor_que_cinco(X), List).</code></pre>
+    <Prolog ruta="avanzado/meta/bagof" />
     <p>
         Para la lista [3,1,2,5,1,7,8], findall devolverá [3,1,2,1], mientras que para la lista [6,8,6,5,8]
         devolverá <strong>false</strong>.
@@ -148,10 +136,7 @@ recoge_numeros(List) :-
         de soluciones óptima, <strong>eliminando</strong> las soluciones duplicadas y, por tanto,
         redundantes. Todo un fenómeno.
     </p>
-<pre><code>menor_que_cinco(X) :- X &lt; 5.
-
-recoge_numeros(List) :-
-setof(X, menor_que_cinco(X), List).</code></pre>
+    <Prolog ruta="avanzado/meta/setof" />
     <p>
         Para la lista [3,1,2,5,1,7,8], findall devolverá [1,2,3], mientras que para la lista [6,8,6,5,8]
         devolverá <strong>false</strong>.
@@ -168,14 +153,12 @@ setof(X, menor_que_cinco(X), List).</code></pre>
         condición <strong>para toda solución</strong>, devolverá <strong>true</strong>. Si no, fallará
         miserablemente:
     </p>
-<pre><code>forall(Goal, Condition).</code></pre>
+    <Prolog ruta="avanzado/meta/forall-firma" />
     <p>
         En donde <strong>Goal</strong> es el término que genera soluciones, y <strong>Condition</strong>
         la condición a cumplir.
     </p>
-<pre><code>positivo(X) :- X &gt; 0.
-todos_positivos(List) :-
-    forall(member(X, List), positive(X)).</code></pre>
+    <Prolog ruta="avanzado/meta/positivos" />
     <p>
         En este ejemplo, si todos los elementos de la lista son positivos, devuelve <strong>true</strong>.
     </p>
@@ -286,7 +269,7 @@ todos_positivos(List) :-
         Vamos, que revienta todas las cláusulas que puedan unificar con lo especificado. Una cosa
         a tener en cuenta es que el siguiente código:
     </p>
-<pre><code>retractall(predicado_importante(_)).</code></pre>
+    <Prolog ruta="avanzado/meta/retractall" />
     <p>
         Es el equivalente a hacerle un drop a la base de datos de tu puesto de trabajo y te la puede
         liar <strong>mal</strong>.

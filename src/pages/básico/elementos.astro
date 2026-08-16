@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Posología de Prolog",
@@ -54,20 +55,7 @@ export const datos: Datos = {
     <p>
         Te he adelantado la tarea un poco, tengo hecho esto:
     </p>
-<pre><code>% Departamentos y empleados
-trabaja_en(javier, melenas).
-trabaja_en(alberto, bombillas).
-
-% Clientes
-tiene_pelo(ana).
-tiene_pelo(bruno).
-no_tiene_pelo(alvaro).
-no_tiene_pelo(antonio).
-
-% Regla para determinar si un vendedor puede vender productos a un cliente con pelo
-puede_vender(Vendedor, Cliente) :-
-    trabaja_en(Vendedor, melenas),
-    tiene_pelo(Cliente).</code></pre>
+    <Prolog ruta="básico/elementos/venta" />
     <p>
         Solo faltaría añadir a nuestra base de conocimiento a Ramón, Sara, Melinda y Guillermo. ¿Podrías
         crear los hechos que faltan? Que me cierra el Mercadona y no me queda hummus. Recuerda, para
@@ -82,18 +70,14 @@ puede_vender(Vendedor, Cliente) :-
         están tratando con el cliente correcto. ¿Podrías rellenar lo que falta cogiendo la otra regla
         puede_vender como ejemplo?
     </p>
-<pre><code>puede_vender(Vendedor, Cliente) :-
-    trabaja_en(Vendedor, _______),
-    no_tiene_pelo(______).</code></pre>
+    <Prolog ruta="básico/elementos/venta-bombillas" />
 
     <Quiz ruta="básico/elementos/quiz7" />
 
     <p>
         ¡Genial! Ahora podemos hacer las pruebas que queramos y verificar que está todo correcto:
     </p>
-    <label>
-        Consulta: <input>
-    </label>
+    <Prolog ruta="básico/elementos/venta-consulta" />
     <p>
         Me acaban de llamar de la empresa, su productividad ha subido un 35 % y la horda de hippies
         peludos que les monta una manifestación cada vez que le ofrecían crema de calva a un melenas
@@ -117,50 +101,7 @@ puede_vender(Vendedor, Cliente) :-
         falta diseñar las reglas para determinar si dos individuos pueden casarse sin consecuencias
         <strong>catastróficas</strong>. Aquí tenemos unos pocos casos de muestra:
     </p>
-<pre><code>% Primera generación
-padre(ferdinand, john).
-padre(ferdinand, james).
-
-% Segunda generación
-
-padre(john, harry).
-
-madre(mary, harry).
-padre(john, william).
-
-madre(mary, william).
-
-padre(james, emily).
-
-madre(susan, emily).
-padre(james, margaret).
-madre(susan, margaret).
-padre(james, oliver).
-madre(susan, oliver).
-
-% Tercera generación
-padre(harry, jim).
-
-madre(emily, jim).
-padre(harry, sophie).
-madre(emily, sophie).
-
-padre(william, sebastian).
-madre(margaret, sebastian).
-padre(william, charlotte).
-madre(margaret, charlotte).
-
-padre(oliver, george).
-
-madre(emma, george).
-padre(oliver, lily).
-madre(emma, lily).
-
-padre(sebastian, ella).
-
-madre(claire, ella).
-padre(sebastian, jack).
-madre(claire, jack).</code></pre>
+    <Prolog ruta="básico/elementos/alabama" />
     <p>
         Te he quitado parte del curro y he definido todas las relaciones familiares, pero falta establecer
         las reglas. Desde el ayuntamiento nos dicen que no pueden casarse dos personas con tercer
@@ -169,25 +110,7 @@ madre(claire, jack).</code></pre>
         padres también sean primos. Acaba lo que me queda que yo tengo que salir un segundo a por
         tabaco.
     </p>
-<pre><code>grado3(P1, P2) :- padre(P1, P2).
-grado3(P1, P2) :- madre(P1, P2).
-grado3(P1, P2) :- hermano(P1, P2).
-grado3(P1, P2) :- ¿?(P1, P2).
-grado3(P1, P2) :- abuela(P1, P2).
-grado3(P1, P2) :- ¿?(P1, P2).
-grado3(P1, P2) :- tia(P1, P2).
-
-no_matrimonio_primos(P1, P2) :-
-    ¿?(P1, P2),
-    padre(¿?, P1),
-    padre(¿?, P2),
-    primo(Padre1, Padre2).
-
-no_matrimonio_primos(P1, P2) :-
-    primo(P1, P2),
-    madre(Madre1, P1),
-    madre(Madre2, P2),
-    primo(¿?, ¿?).</code></pre>
+    <Prolog ruta="básico/elementos/grados" />
 
     <Quiz ruta="básico/elementos/quiz8" />
 

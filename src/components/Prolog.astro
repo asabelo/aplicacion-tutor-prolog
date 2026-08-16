@@ -1,0 +1,236 @@
+---
+import { getEntry } from 'astro:content';
+import Código from './Código.astro';
+import type { Fragmento } from '../util/fragmento';
+import { recolectarDependencias } from '../util/dependencias';
+import { comoPalabra } from '../util/prolog/huecos';
+
+interface Props {
+    ruta: string
+}
+
+const { ruta } = Astro.props;
+
+const prolog = await getEntry("prologs", ruta);
+if (!prolog) throw Error(`No se ha encontrado el programa de Prolog ${ruta}`);
+
+// Programas a consultar antes que el principal, en orden de carga
+const dependencias: string[] = await recolectarDependencias(
+    prolog.data.dependencias,
+    async id => {
+        const entrada = await getEntry("prologs", id);
+        return entrada && { dependencias: entrada.data.dependencias, entrada: entrada.data.programa };
+    },
+    ruta
+);
+
+const { código, consulta, consultaLibre, ejecutable, parámetros } = prolog.data;
+
+// Parte un texto por los huecos de sus parámetros y deja una caja en cada uno
+function fragmentar(texto: string, dónde: "código" | "consulta"): Fragmento[] {
+    const huecos = parámetros.filter(p => p.en === dónde);
+    if (huecos.length === 0) return [{ texto }];
+
+    // Cada hueco aparece exactamente una vez (lo comprueba el cargador), así que basta
+    // con partir por todos a la vez y mirar qué nombre ha caído en cada corte.
+    const separador = comoPalabra(`(${huecos.map(h => h.nombre).join("|")})`);
+
+    return texto.split(separador).map((parte, i) => {
+        // split() con un grupo de captura intercala los separadores en las posiciones impares
+        if (i % 2 === 0) return { texto: parte };
+
+        const hueco = huecos.find(h => h.nombre === parte)!;
+        return {
+            entrada: {
+                nombre: hueco.nombre,
+                tipo: hueco.tipo,
+                valor: hueco.porDefecto,
+                ancho: consultaLibre ? 40 : Math.max(hueco.porDefecto.length, 6),
+                marcador: consultaLibre ? "¡Dale chicha, majo!" : undefined
+            }
+        };
+    });
+}
+
+const fragmentosPrograma = fragmentar(código, "código");
+const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consulta ?? "", "consulta")];
+---
+
+<el-prolog data-dependencias={JSON.stringify(dependencias)}>
+    {código && <Código fragmentos={fragmentosPrograma} />}
+    {ejecutable && <Código fragmentos={fragmentosConsulta} clase="consulta" />}
+    {ejecutable && <div class="controles">
+        <button type="button" class="ejecutar">Consultar</button>
+        <button type="button" class="más" hidden>Más soluciones</button>
+        <button type="button" class="seguir" hidden>Seguir buscando</button>
+        <button type="button" class="reiniciar" hidden>Reiniciar</button>
+    </div>}
+    {ejecutable && <pre class="salida" hidden></pre>}
+</el-prolog>
+
+<script>
+    import { abrirConsulta, type Consulta } from "../scripts/prolog";
+    import { crearEscritor } from "../scripts/salida";
+    import { REGEX_DEPENDENCIA_PROLOG } from "../util/prolog/huecos";
+
+    const ÁTOMO = /^[a-z][A-Za-z0-9_]*$/;
+    const VARIABLE = /^[\p{Lu}_][\p{L}\p{N}_]*$/u;
+
+    class Prolog extends HTMLElement {
+
+        connectedCallback() {
+            const salida = this.querySelector<HTMLPreElement>("pre.salida");
+            const consultar = this.querySelector<HTMLButtonElement>("button.ejecutar");
+            const más = this.querySelector<HTMLButtonElement>("button.más");
+            const seguir = this.querySelector<HTMLButtonElement>("button.seguir");
+            const reiniciar = this.querySelector<HTMLButtonElement>("button.reiniciar");
+            if (!salida || !consultar || !más || !seguir || !reiniciar) return; // no ejecutable
+
+            const dependencias: string[] = JSON.parse(this.dataset.dependencias || "[]");
+            const entradas = [...this.querySelectorAll<HTMLInputElement>("input[data-parámetro]")];
+
+            const { escribir, limpiar } = crearEscritor(salida);
+
+            let consulta: Consulta | null = null;
+
+            // Pasa el valor de una caja a texto de Prolog
+            const comoTérmino = (entrada: HTMLInputElement): string | null => {
+                const nombre = entrada.dataset.parámetro!;
+                const valor = entrada.value.trim();
+
+                if (valor === "") {
+                    escribir(`Rellena «${nombre}».\n`);
+                    return null;
+                }
+
+                // Una variable vale en cualquier hueco, sea del tipo que sea: el valor por
+                // defecto de la marca es un ejemplo, no el dominio del parámetro.
+                if (VARIABLE.test(valor)) return valor;
+
+                // Un átomo con espacios, mayúsculas o signos hay que entrecomillarlo; los
+                // términos (listas, functores) se meten tal cual.
+                if (entrada.dataset.tipo === "átomo" && !ÁTOMO.test(valor)) {
+                    return `'${valor.replaceAll("'", "''")}'`;
+                }
+                return valor;
+            };
+
+            // El bloque renderizado ya es el texto relleno: nodos de texto tal cual y, donde
+            // hay caja, su valor pasado a término
+            const leer = (bloque: Element | null): string | null => {
+                let resultado = "";
+
+                for (const nodo of bloque?.childNodes ?? []) {
+                    if (nodo instanceof HTMLInputElement) {
+                        const término = comoTérmino(nodo);
+                        if (término === null) return null;
+                        resultado += término;
+                    } else {
+                        resultado += nodo.textContent;
+                    }
+                }
+
+                return resultado;
+            };
+
+            const leerPrograma = (): string | null => {
+                const texto = leer(this.querySelector("pre:not(.consulta) code"));
+                // Las directivas `ensure_loaded` se muestran, pero lo cargado va en
+                // data-dependencias y Tau las resolvería contra una URL
+                return texto === null
+                    ? null
+                    : texto.split("\n").filter(línea => !REGEX_DEPENDENCIA_PROLOG.test(línea)).join("\n");
+            };
+
+            const leerObjetivo = (): string | null => {
+                const texto = leer(this.querySelector("pre.consulta code"));
+                return texto === null ? null : texto.replace(/^\?- /, "");
+            };
+
+            const mostrar = (estado: "inicial" | "abierta" | "cerrada" | "pausa") => {
+                consultar.hidden = estado !== "inicial";
+                más.hidden = estado === "inicial" || estado === "pausa";
+                más.disabled = estado !== "abierta";
+                seguir.hidden = estado !== "pausa";
+                seguir.disabled = false;
+                reiniciar.hidden = estado === "inicial";
+                for (const entrada of entradas) entrada.disabled = estado !== "inicial";
+            };
+
+            const atender = (resultado: Awaited<ReturnType<Consulta["siguiente"]>>) => {
+                switch (resultado.tipo) {
+                    case "solución":
+                        // Como en el toplevel: el `.` cierra y el `;` invita a pedir la siguiente.
+                        escribir(`${resultado.texto}${resultado.sinAlternativas ? "." : " ;"}\n`);
+                        mostrar(resultado.sinAlternativas ? "cerrada" : "abierta");
+                        break;
+                    case "sinMás":
+                        escribir("false.\n");
+                        mostrar("cerrada");
+                        break;
+                    case "error":
+                        escribir(`${resultado.texto}\n`);
+                        mostrar("cerrada");
+                        break;
+                    case "pausa":
+                        escribir("… la consulta está tardando mucho.\n");
+                        mostrar("pausa");
+                        break;
+                }
+            };
+
+            // Todos los caminos acaban en `mostrar()`, que deja los botones como toque
+            const pedir = async () => {
+                más.disabled = seguir.disabled = true;
+                try {
+                    atender(await consulta!.siguiente());
+                } catch (error) {
+                    escribir(`${error instanceof Error ? error.message : error}\n`);
+                    mostrar("cerrada");
+                }
+            };
+
+            const arrancar = async () => {
+                consultar.disabled = true;
+                salida.hidden = false;
+                limpiar();
+
+                try {
+                    const programa = leerPrograma();
+                    const objetivo = leerObjetivo();
+                    if (programa === null || objetivo === null) return;
+
+                    escribir("Cargando Prolog…\n");
+                    consulta = await abrirConsulta([...dependencias, programa], objetivo, escribir);
+                    limpiar();
+
+                    await pedir();
+                } catch (error) {
+                    escribir(`${error instanceof Error ? error.message : error}\n`);
+                    mostrar("cerrada");
+                } finally {
+                    consultar.disabled = false;
+                }
+            };
+
+            const volverAEmpezar = () => {
+                consulta = null;
+                salida.hidden = true;
+                limpiar();
+                mostrar("inicial");
+            };
+
+            consultar.addEventListener("click", arrancar);
+            más.addEventListener("click", pedir);
+            seguir.addEventListener("click", pedir);
+            reiniciar.addEventListener("click", volverAEmpezar);
+
+            // Cambiar un parámetro invalida las soluciones que ya se hayan sacado.
+            for (const entrada of entradas) entrada.addEventListener("input", () => {
+                if (consulta) volverAEmpezar();
+            });
+        }
+    }
+
+    customElements.define('el-prolog', Prolog);
+</script>

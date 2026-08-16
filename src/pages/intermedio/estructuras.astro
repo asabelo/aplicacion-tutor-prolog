@@ -2,6 +2,7 @@
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Estructuras de datos en Prolog",
@@ -32,12 +33,11 @@ export const datos: Datos = {
         En Prolog, podríamos definir una tupla de una manera tremendamente simple, como podría ser
         un hecho con dos parámetros:
     </p>
-<pre><code>tupla(a, b).</code></pre>
+    <Prolog ruta="intermedio/estructuras/tupla" />
     <p>
         Y para gestionar el acceso a los elementos de la misma, podríamos definir estos predicados:
     </p>
-<pre><code>primer_elemento(tupla(X, _), X).
-segundo_elemento(tupla(_, Y), Y).</code></pre>
+    <Prolog ruta="intermedio/estructuras/tupla-accesores" />
     <p>
         De tal manera que la consulta "primer_elemento(tupla(a,b),X)." nos devolvería <strong>X = a</strong>.
         No obstante, hay otra manera de representar también tuplas cuando forman parte de otro predicado,
@@ -54,8 +54,7 @@ segundo_elemento(tupla(_, Y), Y).</code></pre>
         Haciendo uso de la sintaxis para representar pares con el guión al medio, podemos definir
         un diccionario de esta manera:
     </p>
-<pre><code>obtener_valor(Diccionario, Clave, Valor) :-
-    member(Clave-Valor, Diccionario).</code></pre>
+    <Prolog ruta="intermedio/estructuras/diccionario" />
     <p>
         En donde para una <strong>clave</strong> determinada, buscamos un valor con el que unificar
         en la base de hechos o en el mismo predicado que le pasemos, que tendrá que ser una lista
@@ -71,11 +70,7 @@ segundo_elemento(tupla(_, Y), Y).</code></pre>
         último elemento en ponerse en la pila es el primero es salir. Puede verse como una lista
         en la que gestionamos el contenido solamente por la cabeza (el primer elemento).
     </p>
-<pre><code>% Apilar significa añadir un elemento a la pila. 
-apilar(Elemento, Pila, [Elemento|Pila]).
-
-% Desapilar significa eliminar un elemento de la pila
-desapilar([Elemento|Pila], Elemento, Pila).</code></pre>
+    <Prolog ruta="intermedio/estructuras/pila" />
     <p>
         En apilar la variable <strong>Elemento</strong> será el elemento a añadir, <strong>Pila</strong>
         es nuestra estructura de datos y [Elemento|Pila] será la nueva pila tras el apilamiento.
@@ -107,40 +102,13 @@ desapilar([Elemento|Pila], Elemento, Pila).</code></pre>
         entre prologramadores. Igualmente, y dada la utilidad de la estructura, sí merece la pena
         darles un tiento para, al menos, entenderlos:
     </p>
-<pre><code>% Un árbol vacío
-arbol(nil).
-
-% Un nodo de un árbol binario
-arbol(raiz, subarbol_izquierdo, subarbol_derecho).
-
-% Un nodo hoja de un árbol binario 
-arbol(raiz, nil, nil).
-
-% Ejemplo de un árbol
-arbol(1, arbol(2, nil, nil), arbol(3, nil, nil)).</code></pre>
+    <Prolog ruta="intermedio/estructuras/arbol-formas" />
     <p>
         El problema es cuandos empezamos a tener bastantes hojas, que nos crecen los enanos y leer
         los árboles es un poquito <strong>doloroso</strong>, sobre todo si no te pones a identar
         como un enajenado:
     </p>
-<pre><code>arbol("A", (
-    arbol("B", (
-        arbol("D", (
-            arbol("F", (
-                arbol("K", (nil)),
-                arbol("L", (nil))
-            ))
-        )),
-        arbol("E", (nil))
-    )),
-    arbol("C", (
-        arbol("G", (nil)),
-        arbol("H", (
-            arbol("I", (nil)),
-            arbol("J", (nil))
-        ))
-    ))
-)).</code></pre>
+    <Prolog ruta="intermedio/estructuras/arbol-ejemplo" />
     <h2>Listas</h2>
     <p>
         Las listas en Prolog son una cosa importante. <strong>Muy</strong> importante. Tan importante

@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Sistemas basados en reglas",
@@ -64,8 +65,7 @@ export const datos: Datos = {
             como que el agua moja o que el Sol quema. En prolog los hechos se escriben en forma de
             cláusulas de la siguiente manera:
         </p>
-<pre><code>moja(agua).
-quema(sol).</code></pre>
+    <Prolog ruta="introducción/sbr/hechos" />
         <p>
             Tenemos por una parte las cláusulas “moja” y “quema”, y sus respectivos argumentos. Si
             nosotros lanzásemos una consulta del tipo “moja(arena).”, el SBR determinaría que es
@@ -76,11 +76,7 @@ quema(sol).</code></pre>
             para representar lo que buscamos! Por ejemplo, si quisiéramos definir un árbol genealógico
             con hechos, podríamos representarlo de la siguiente manera:
         </p>
-<pre><code>padre(anton, mario).
-madre(sofia, mario).
-padre(mario, juan).
-abuelo(anton, juan).
-abuela(sofia, juan).</code></pre>
+    <Prolog ruta="introducción/sbr/familia" />
         <p>
             El problema de representar el conocimiento de esta manera es que puede llegar a ser extremadamente
             costoso e ineficiente si el dominio es muy extenso, dado que estamos tratando a la base
@@ -105,9 +101,7 @@ abuela(sofia, juan).</code></pre>
             Volviendo al ejemplo anterior, podemos reemplazar el hecho “abuelo” con una regla “abuelo”
             de la siguiente manera:
         </p>
-<pre><code>abuelo(Persona1, Persona2) :-
-    padre(Persona1, X),
-    padre(X, Persona2).</code></pre>
+    <Prolog ruta="introducción/sbr/abuelo" />
         <p>
             En esta relación, Persona1 será abuelo de Persona2 si Persona1 es padre de X y X es padre
             de Persona2.

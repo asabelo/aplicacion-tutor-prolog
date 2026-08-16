@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { PYODIDE_DEST } from "./runtimes.config.mjs";
+import { PYODIDE_DEST, TAU_DEST, TAU_MÓDULOS } from "./runtimes.config.mjs";
 
 const PYODIDE_EXCLUDE = [
   "!**/*.{md,html}",
@@ -16,8 +16,17 @@ const PYODIDE_EXCLUDE = [
 function pyodideTarget() {
   const pyodideDir = dirname(fileURLToPath(import.meta.resolve("pyodide")));
   return {
-    src: [join(pyodideDir, "*").replace(/\/g, "/")].concat(PYODIDE_EXCLUDE),
+    src: [join(pyodideDir, "*").replace(/\\/g, "/")].concat(PYODIDE_EXCLUDE),
     dest: PYODIDE_DEST,
+  };
+}
+
+// Tau Prolog se sirve como <script> así que los módulos se copian a dist en vez de empaquetarse
+function tauPrologTarget() {
+  const tauDir = dirname(fileURLToPath(import.meta.resolve("tau-prolog")));
+  return {
+    src: TAU_MÓDULOS.map(g => join(tauDir, `${g}.js`).replace(/\\/g, "/")),
+    dest: TAU_DEST,
   };
 }
 
@@ -25,6 +34,6 @@ function pyodideTarget() {
 export default defineConfig({
     vite: {
         optimizeDeps: { exclude: ["pyodide"] },
-        plugins: [viteStaticCopy({ targets: [pyodideTarget()] })],
+        plugins: [viteStaticCopy({ targets: [pyodideTarget(), tauPrologTarget()] })],
     }
 });

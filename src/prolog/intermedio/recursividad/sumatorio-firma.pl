@@ -1,0 +1,1 @@
+sumatorio(Inferior, Superior, Total).

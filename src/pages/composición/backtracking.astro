@@ -4,6 +4,7 @@ import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Python from "../../components/Python.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Backtracking",
@@ -50,10 +51,7 @@ export const datos: Datos = {
         del backtracking. Si queremos determinar si un ser vivo es un animal y definimos una serie
         de hechos para ello:
     </p>
-<pre><code>animal(gato).
-animal(perro).
-animal(loro).
-animal(pez_espada).</code></pre>
+    <Prolog ruta="composición/backtracking/animales" />
     <p>
         Ante la consulta “animal(loro)”, se producirá la siguiente búsqueda:
     </p>

@@ -4,6 +4,7 @@ import { defineCollection } from 'astro:content';
 // 2. Import loader(s)
 import { glob, file } from 'astro/loaders';
 import { python } from './loaders/python';
+import { prolog } from './loaders/prolog';
 
 // 3. Import Zod
 import { z } from 'astro/zod';
@@ -57,5 +58,26 @@ const pythons = defineCollection({
     })
 });
 
+const prologs = defineCollection({
+    loader: prolog("./src/prolog"),
+    schema: z.object({
+        fuente: z.string(),   // El fichero tal cual, para poder cargarlo en SWI-Prolog
+        código: z.string(),   // Sin las marcas: es lo que se muestra
+        programa: z.string(), // El código sin las directivas `ensure_loaded`: es lo que se consulta
+        consulta: z.nullable(z.string()),
+        consultaLibre: z.boolean(),
+        ejecutable: z.boolean(),
+        dependencias: z.array(z.string()),
+        parámetros: z.array(
+            z.object({
+                nombre: z.string(),
+                tipo: z.enum(["átomo", "término"]),
+                porDefecto: z.string(),
+                en: z.enum(["código", "consulta"])
+            })
+        )
+    })
+});
+
 // 5. Export a single `collections` object to register your collection(s)
-export const collections = { quizzes, búhos, pythons };
+export const collections = { quizzes, búhos, pythons, prologs };

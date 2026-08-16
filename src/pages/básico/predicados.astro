@@ -3,6 +3,7 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Predicados",
@@ -46,10 +47,7 @@ export const datos: Datos = {
         y hechos en forma de cláusulas de Horn que se deben cumplir para que la cabeza sea verdadera.
         Por ejemplo, podríamos plantear la siguiente regla:
     </p>
-<pre><code>pez(X) :-
-branquias(X),
-escamas(X),
-aletas(X).</code></pre>
+    <Prolog ruta="básico/predicados/pez" />
     <p>
         ¿Qué hemos hecho aquí? Hemos definido una regla en función de otros tres hechos. Si X, el
         elemento que queremos evaluar, tiene branquias, escamas y aletas, entonces será verdadero
@@ -63,14 +61,7 @@ aletas(X).</code></pre>
     <p>
         Fácil, “sobrecargando” la regla:
     </p>
-<pre><code>pez(X):-
-branquias(X),
-escamas(X),
-aletas(X).
-pez(X):-
-pulmones(X),
-escamas(X),
-aletas(X).</code></pre>
+    <Prolog ruta="básico/predicados/pez-sobrecargado" />
     <p>
         ¿Qué ocurrirá en este caso si le mandamos un pez bípedo? Primero entrará por la primera regla,
         intentando unificar la primera condición (branquias). Revisará en la base de conocimiento
@@ -88,14 +79,7 @@ aletas(X).</code></pre>
         las buenas prácticas. ¿Qué ocurriría si, por ejemplo, las reglas estuvieran dispuestas de
         la siguiente manera?
     </p>
-<pre><code>pez(X):-
-aletas(X),
-escamas(X),
-pulmones(X).
-pez(X):-
-aletas(X),
-escamas(X),
-branquias(X).</code></pre>
+    <Prolog ruta="básico/predicados/pez-eficiente" />
     <p>
         ¿Ves alguna diferencia? Una pista, la eficiencia es <em>bastante mayor</em> en este caso
         que en el anterior. Para empezar, si tenemos un caso particular y raro que debemos considerar

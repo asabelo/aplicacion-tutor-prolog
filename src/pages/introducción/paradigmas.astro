@@ -4,6 +4,7 @@ import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Python from "../../components/Python.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Paradigmas de programación",
@@ -99,21 +100,7 @@ export const datos: Datos = {
         <p>
             Sin embargo, si quisiéramos hacer lo mismo con Prolog, el código sería el siguiente:
         </p>
-<pre><code>pan(rebanada).
-relleno(jamon_y_queso).
-relleno(salchicha_y_queso).
-relleno(huevo_y_bacon).
-relleno(carne_picada).
-
-hacer_sandwich(Sandwich) :-
-rebanada_de_pan(Rebanada1),
-rebanada_de_pan(Rebanada2),
-relleno(Relleno),
-Sandwich = [Rebanada1, Relleno, Rebanada2].</code></pre>
-        <p>
-            Esto, al ejecutarse nos devuelve lo siguiente:
-        </p>
-        <button>Deja que Prolog haga su cosa</button>
+        <Prolog ruta="introducción/paradigmas/sandwich" />
         <p>
             Una cosa a recalcar con Prolog es que hay muchas maneras de interactuar con un programa
             escrito en Prolog.
@@ -143,7 +130,7 @@ Sandwich = [Rebanada1, Relleno, Rebanada2].</code></pre>
             por el experto que ha establecido las reglas de nuestro dominio nos devolverá un Falso
             como resultado, en lugar de tener una excepción.
         </p>
-        <button>¡Haz clic para hacer un sándwich!</button>
+        <Prolog ruta="introducción/paradigmas/sandwich-libre" />
     </section>
     <section>
         <h2>Cambio de Paradigma</h2>

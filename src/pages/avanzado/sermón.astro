@@ -2,6 +2,7 @@
 import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
+import Prolog from "../../components/Prolog.astro"
 
 export const datos: Datos = {
     título: "Buenas prácticas, complejidad y eficiencia en Prolog",
@@ -137,9 +138,7 @@ export const datos: Datos = {
         ir al mato a por atajos.
     </p>
     <h3 id="adivinar-n-meros">Adivinar números</h3>
-    <label>
-        Consulta: <input>
-    </label>
+    <Prolog ruta="avanzado/sermón/adivina-numero" />
     <h3>Las torres de Hanoi</h3>
     <p>
         Otro ejemplo fácil que podemos plantear es el de <strong>las torres de Hanoi</strong>.
@@ -152,9 +151,7 @@ export const datos: Datos = {
         Seguro que conoces este juego. Se basa en, simplemente, mover los N discos del palo de la
         izquierda al palo de la derecha. Vamos a echar un vistazo a su comportamiento:
     </p>
-    <label>
-        Consulta: <input>
-    </label>
+    <Prolog ruta="avanzado/sermón/hanoi" />
     <h3>Diablotín</h3>
     <p>
         Otro ejemplo muy interesante de lo que se puede llegar a hacer con Prolog es el juego del
@@ -162,9 +159,7 @@ export const datos: Datos = {
         ordenar de nuevo:
     </p>
     <img src="imagenes/Diablotin.jpg" alt="Diablotín">
-    <label>
-        Consulta: <input>
-    </label>
+    <Prolog ruta="avanzado/sermón/diablotin" />
     <h3>Prácticas de Fundamentos de Inteligencia Artificial</h3>
     <p>
         Bueno, y ya casi para acabar aquí te dejo unas pocas prácticas de años anteriores de la asignatura
