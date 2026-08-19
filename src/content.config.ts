@@ -65,7 +65,6 @@ const prologs = defineCollection({
         código: z.string(),   // Sin las marcas: es lo que se muestra
         programa: z.string(), // El código sin las directivas `ensure_loaded`: es lo que se consulta
         consulta: z.nullable(z.string()),
-        consultaLibre: z.boolean(),
         ejecutable: z.boolean(),
         dependencias: z.array(z.string()),
         parámetros: z.array(

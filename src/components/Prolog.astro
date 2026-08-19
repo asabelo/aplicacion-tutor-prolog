@@ -3,7 +3,7 @@ import { getEntry } from 'astro:content';
 import Código from './Código.astro';
 import type { Fragmento } from '../util/fragmento';
 import { recolectarDependencias } from '../util/dependencias';
-import { comoPalabra } from '../util/prolog/huecos';
+import { comoPalabra, HUECO_LIBRE } from '../util/prolog/huecos';
 
 interface Props {
     ruta: string
@@ -24,7 +24,7 @@ const dependencias: string[] = await recolectarDependencias(
     ruta
 );
 
-const { código, consulta, consultaLibre, ejecutable, parámetros } = prolog.data;
+const { código, consulta, ejecutable, parámetros } = prolog.data;
 
 // Parte un texto por los huecos de sus parámetros y deja una caja en cada uno
 function fragmentar(texto: string, dónde: "código" | "consulta"): Fragmento[] {
@@ -40,13 +40,14 @@ function fragmentar(texto: string, dónde: "código" | "consulta"): Fragmento[] 
         if (i % 2 === 0) return { texto: parte };
 
         const hueco = huecos.find(h => h.nombre === parte)!;
+        const libre = hueco.nombre === HUECO_LIBRE;
         return {
             entrada: {
                 nombre: hueco.nombre,
                 tipo: hueco.tipo,
                 valor: hueco.porDefecto,
-                ancho: consultaLibre ? 40 : Math.max(hueco.porDefecto.length, hueco.nombre.length, 6),
-                marcador: consultaLibre ? "¡Dale chicha, majo!" : hueco.nombre
+                ancho: libre ? 40 : Math.max(hueco.porDefecto.length, hueco.nombre.length, 6),
+                marcador: libre ? "¡Dale chicha, majo!" : hueco.nombre
             }
         };
     });

@@ -1,6 +1,6 @@
 import type { Loader } from "astro/loaders";
 import { blanca, cargadorDeFicheros } from "./ficheros";
-import { comoPalabra, REGEX_DEPENDENCIA_PROLOG } from "../util/prolog/huecos";
+import { comoPalabra, HUECO_LIBRE, REGEX_DEPENDENCIA_PROLOG } from "../util/prolog/huecos";
 
 // La configuración sale de marcas en comentarios, para que el .pl siga siendo cargable
 // en SWI-Prolog:
@@ -9,8 +9,6 @@ import { comoPalabra, REGEX_DEPENDENCIA_PROLOG } from "../util/prolog/huecos";
 //   % parámetro Nombre = <valor>   hueco con su valor por defecto, que puede ir vacío
 //   :- ensure_loaded(hermano).     dependencia de un hermano del mismo directorio
 // No hay marca «no ejecutable»: sin consulta no hay nada que ejecutar.
-
-const HUECO_LIBRE = "Consulta";
 
 const VARIABLE = String.raw`[\p{Lu}_][\p{L}\p{N}_]*`;
 const ÁTOMO = String.raw`[a-z][A-Za-z0-9_]*`;
@@ -126,7 +124,6 @@ function analizar(id: string, fuente: string, hermanos: Set<string>) {
         código,
         programa,
         consulta,
-        consultaLibre,
         ejecutable: consulta !== null,
         dependencias,
         parámetros
