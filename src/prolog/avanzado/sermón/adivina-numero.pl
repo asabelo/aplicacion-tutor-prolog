@@ -1,5 +1,11 @@
 % consulta: adivinar_numero(Pensado).
-% parámetro Pensado = 42
+% parámetro Pensado =
+
+adivinar_numero(Numero) :-
+    \+ ( integer(Numero), Numero >= 1, Numero =< 100 ),
+    !,
+    format("¿Seguro que has metido un número entre 0 y 100?~n", []),
+    fail.
 
 adivinar_numero(Numero) :-
     format("Voy a intentar adivinar el numero en el que estas pensando (entre 1 y 100).~n", []),
