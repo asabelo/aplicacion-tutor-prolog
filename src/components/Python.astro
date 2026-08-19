@@ -31,17 +31,20 @@ const dependencias: Record<string, string> = Object.fromEntries(
 const directorio = ruta.includes("/") ? ruta.slice(0, ruta.lastIndexOf("/")) : ".";
 
 const fragmentos = [
-    ...python.data.parámetros.flatMap((p): Fragmento[] => [
-        { texto: `${p.nombre} = ` },
-        {
-            entrada: {
-                nombre: p.nombre,
-                tipo: p.tipo,
-                valor: p.porDefecto
-            }
-        },
-        { texto: "\n" }
-    ]),
+    ...python.data.parámetros.flatMap((p): Fragmento[] => {
+        const comillas = p.tipo === "texto" ? '"' : "";
+        return [
+            { texto: `${p.nombre} = ${comillas}` },
+            {
+                entrada: {
+                    nombre: p.nombre,
+                    tipo: p.tipo,
+                    valor: p.porDefecto
+                }
+            },
+            { texto: `${comillas}\n` }
+        ];
+    }),
     ...(python.data.parámetros.length > 0 ? [{ texto: "\n" }] : []),
     { texto: python.data.código }
 ];

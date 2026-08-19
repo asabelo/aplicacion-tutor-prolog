@@ -31,6 +31,7 @@ const búhos = defineCollection({
     loader: file("src/data/búhos.json"),
     schema: ({ image }) => z.object({
         id: z.string(),
+        contextos: z.array(z.enum(["quiz", "sintaxis"])).nonempty(),
         éxito: z.boolean(),
         máxErrores: z.nullable(z.number()),
         imagen: z.nullable(z.object({
@@ -70,7 +71,6 @@ const prologs = defineCollection({
         parámetros: z.array(
             z.object({
                 nombre: z.string(),
-                tipo: z.enum(["átomo", "término"]),
                 porDefecto: z.string(),
                 en: z.enum(["código", "consulta"])
             })

@@ -11,28 +11,15 @@ import { comoPalabra, HUECO_LIBRE, REGEX_DEPENDENCIA_PROLOG } from "../util/prol
 // No hay marca «no ejecutable»: sin consulta no hay nada que ejecutar.
 
 const VARIABLE = String.raw`[\p{Lu}_][\p{L}\p{N}_]*`;
-const ÁTOMO = String.raw`[a-z][A-Za-z0-9_]*`;
 
 const CONSULTA = new RegExp(String.raw`^%\s*consulta:\s*(.+?)\s*$`, "u");
 const CONSULTA_LIBRE = new RegExp(String.raw`^%\s*consulta libre\s*$`, "u");
 const PARÁMETRO = new RegExp(String.raw`^%\s*parámetro\s+(${VARIABLE})\s*=\s*(.*?)\s*$`, "u");
 
-export type Tipo = "átomo" | "término";
-
 export interface Parámetro {
     nombre: string,
-    tipo: Tipo,
     porDefecto: string,
     en: "código" | "consulta"
-}
-
-function valorPorDefecto(literal: string): { tipo: Tipo, porDefecto: string } {
-    const entrecomillado = literal.match(/^'([\s\S]*)'$/);
-    if (entrecomillado) return { tipo: "átomo", porDefecto: entrecomillado[1].replaceAll("''", "'") };
-
-    if (new RegExp(String.raw`^${ÁTOMO}$`).test(literal)) return { tipo: "átomo", porDefecto: literal };
-
-    return { tipo: "término", porDefecto: literal };
 }
 
 function aparicionesComoPalabra(texto: string, nombre: string) {
@@ -42,7 +29,7 @@ function aparicionesComoPalabra(texto: string, nombre: string) {
 function analizar(id: string, fuente: string, hermanos: Set<string>) {
     const directorio = id.includes("/") ? id.slice(0, id.lastIndexOf("/")) : "";
 
-    const declarados: { nombre: string, tipo: Tipo, porDefecto: string }[] = [];
+    const declarados: { nombre: string, porDefecto: string }[] = [];
     const dependencias: string[] = [];
     const mostradas: string[] = [];
 
@@ -73,7 +60,7 @@ function analizar(id: string, fuente: string, hermanos: Set<string>) {
             if (declarados.some(p => p.nombre === nombre)) {
                 throw Error(`${id} declara dos veces el parámetro «${nombre}».`);
             }
-            declarados.push({ nombre, ...valorPorDefecto(literal) });
+            declarados.push({ nombre, porDefecto: literal });
             reciénBorrada = true;
             continue;
         }
@@ -116,7 +103,7 @@ function analizar(id: string, fuente: string, hermanos: Set<string>) {
             throw Error(`${id} tiene consulta libre y parámetros; el objetivo ya lo escribe entero el usuario.`);
         }
         consulta = HUECO_LIBRE;
-        parámetros.push({ nombre: HUECO_LIBRE, tipo: "término", porDefecto: "", en: "consulta" });
+        parámetros.push({ nombre: HUECO_LIBRE, porDefecto: "", en: "consulta" });
     }
 
     return {

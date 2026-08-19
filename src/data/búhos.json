@@ -1,6 +1,7 @@
 [
     {
         "id": "búho0",
+        "contextos": ["quiz"],
         "éxito": true,
         "máxErrores": null,
         "imagen": null,
@@ -8,6 +9,7 @@
     },
     {
         "id": "búho1",
+        "contextos": ["quiz"],
         "éxito": false,
         "máxErrores": 1,
         "imagen": {
@@ -18,6 +20,7 @@
     },
     {
         "id": "búho2",
+        "contextos": ["quiz"],
         "éxito": false,
         "máxErrores": 3,
         "imagen": {
@@ -27,7 +30,30 @@
         "texto": "¿Estás seguro de que has atendido a la explicación?"
     },
     {
+        "id": "sintaxis1",
+        "contextos": ["sintaxis"],
+        "éxito": false,
+        "máxErrores": 1,
+        "imagen": {
+            "ruta": "/src/images/quizzes/búho1.png",
+            "alt": ""
+        },
+        "texto": "Revisa la sintaxis, por favor."
+    },
+    {
+        "id": "sintaxis2",
+        "contextos": ["sintaxis"],
+        "éxito": false,
+        "máxErrores": 3,
+        "imagen": {
+            "ruta": "/src/images/quizzes/búho2.png",
+            "alt": ""
+        },
+        "texto": "Mira bien, ¿se te ha olvidado el punto al final? ¿El nombre del predicado es correcto?"
+    },
+    {
         "id": "búho3",
+        "contextos": ["quiz", "sintaxis"],
         "éxito": false,
         "máxErrores": 5,
         "imagen": {
@@ -38,6 +64,7 @@
     },
     {
         "id": "búho4",
+        "contextos": ["quiz", "sintaxis"],
         "éxito": false,
         "máxErrores": 6,
         "imagen": {
@@ -48,6 +75,7 @@
     },
     {
         "id": "búho5",
+        "contextos": ["quiz", "sintaxis"],
         "éxito": false,
         "máxErrores": null,
         "imagen": {

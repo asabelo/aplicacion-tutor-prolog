@@ -1,5 +1,6 @@
 ---
-import { getEntry } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Código from './Código.astro';
 import type { Fragmento } from '../util/fragmento';
 import { recolectarDependencias } from '../util/dependencias';
@@ -26,6 +27,10 @@ const dependencias: string[] = await recolectarDependencias(
 
 const { código, consulta, ejecutable, parámetros } = prolog.data;
 
+// Los errores de sintaxis escalan igual que los fallos del quiz, con los mismos búhos
+const búhos = (await getCollection("búhos"))
+    .filter(b => b.data.contextos.includes("sintaxis"));
+
 // Parte un texto por los huecos de sus parámetros y deja una caja en cada uno
 function fragmentar(texto: string, dónde: "código" | "consulta"): Fragmento[] {
     const huecos = parámetros.filter(p => p.en === dónde);
@@ -44,7 +49,6 @@ function fragmentar(texto: string, dónde: "código" | "consulta"): Fragmento[] 
         return {
             entrada: {
                 nombre: hueco.nombre,
-                tipo: hueco.tipo,
                 valor: hueco.porDefecto,
                 ancho: libre ? 40 : Math.max(hueco.porDefecto.length, hueco.nombre.length, 6),
                 marcador: libre ? "¡Dale chicha, majo!" : hueco.nombre
@@ -67,15 +71,23 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
         <button type="button" class="reiniciar" hidden>Reiniciar</button>
     </div>}
     {ejecutable && <pre class="salida" hidden></pre>}
+    {ejecutable && <div class="búhos sintaxis">
+        {búhos.map(b =>
+            <section data-máxErrores={b.data.máxErrores} hidden>
+                {b.data.imagen && <Image src={b.data.imagen.ruta} alt={b.data.imagen.alt} />}
+                <p>
+                    {b.data.texto}
+                </p>
+            </section>
+        )}
+    </div>}
 </el-prolog>
 
 <script>
     import { abrirConsulta, type Consulta } from "../scripts/prolog";
     import { crearEscritor } from "../scripts/salida";
     import { REGEX_DEPENDENCIA_PROLOG } from "../util/prolog/huecos";
-
-    const ÁTOMO = /^[a-z][A-Za-z0-9_]*$/;
-    const VARIABLE = /^[\p{Lu}_][\p{L}\p{N}_]*$/u;
+    import { elegirBúho } from "../util/búhos";
 
     class Prolog extends HTMLElement {
 
@@ -94,7 +106,17 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
 
             let consulta: Consulta | null = null;
 
-            // Pasa el valor de una caja a texto de Prolog
+            const secciones = [...this.querySelectorAll(".búhos.sintaxis>section")];
+            let numErrores = 0;
+
+            const ocultarBúhos = () => {
+                for (const sección of secciones) sección.setAttribute("hidden", "");
+            };
+
+            const reprocharError = () => {
+                elegirBúho(secciones, ++numErrores)?.removeAttribute("hidden");
+            };
+
             const comoTérmino = (entrada: HTMLInputElement): string | null => {
                 const nombre = entrada.dataset.parámetro!;
                 const valor = entrada.value.trim();
@@ -104,15 +126,6 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
                     return null;
                 }
 
-                // Una variable vale en cualquier hueco, sea del tipo que sea: el valor por
-                // defecto de la marca es un ejemplo, no el dominio del parámetro.
-                if (VARIABLE.test(valor)) return valor;
-
-                // Un átomo con espacios, mayúsculas o signos hay que entrecomillarlo; los
-                // términos (listas, functores) se meten tal cual.
-                if (entrada.dataset.tipo === "átomo" && !ÁTOMO.test(valor)) {
-                    return `'${valor.replaceAll("'", "''")}'`;
-                }
                 return valor;
             };
 
@@ -159,6 +172,8 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
             };
 
             const atender = (resultado: Awaited<ReturnType<Consulta["siguiente"]>>) => {
+                if (resultado.tipo !== "error") numErrores = 0;
+
                 switch (resultado.tipo) {
                     case "solución":
                         // Como en el toplevel: el `.` cierra y el `;` invita a pedir la siguiente.
@@ -170,6 +185,7 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
                         mostrar("cerrada");
                         break;
                     case "error":
+                        reprocharError();
                         escribir(`${resultado.texto}\n`);
                         mostrar("cerrada");
                         break;
@@ -186,6 +202,7 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
                 try {
                     atender(await consulta!.siguiente());
                 } catch (error) {
+                    reprocharError();
                     escribir(`${error instanceof Error ? error.message : error}\n`);
                     mostrar("cerrada");
                 }
@@ -195,6 +212,7 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
                 consultar.disabled = true;
                 salida.hidden = false;
                 limpiar();
+                ocultarBúhos();
 
                 try {
                     const programa = leerPrograma();
@@ -207,6 +225,7 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
 
                     await pedir();
                 } catch (error) {
+                    reprocharError();
                     escribir(`${error instanceof Error ? error.message : error}\n`);
                     mostrar("cerrada");
                 } finally {
@@ -218,6 +237,7 @@ const fragmentosConsulta: Fragmento[] = [{ texto: "?- " }, ...fragmentar(consult
                 consulta = null;
                 salida.hidden = true;
                 limpiar();
+                ocultarBúhos();
                 mostrar("inicial");
             };
 

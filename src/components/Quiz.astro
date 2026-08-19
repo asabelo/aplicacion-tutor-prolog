@@ -12,7 +12,8 @@ const { ruta } = Astro.props;
 const quiz = await getEntry("quizzes", ruta);
 if (!quiz) throw Error(`No se ha encontrado el quiz ${ruta}`);
 
-const búhos = await getCollection("búhos");
+const búhos = (await getCollection("búhos"))
+    .filter(b => b.data.contextos.includes("quiz"));
 ---
 
 <section>
@@ -52,6 +53,7 @@ const búhos = await getCollection("búhos");
 
 <script>
     import type { CollectionEntry } from "astro:content";
+    import { elegirBúho } from "../util/búhos";
 
     class Quiz extends HTMLElement {
 
@@ -65,24 +67,7 @@ const búhos = await getCollection("búhos");
         private búho(numErrores: number, estado: "éxito" | "fracaso"): Element {
             const opciones = this.querySelectorAll(`[data-éxito=${estado === "éxito" ? true : false}]`);
 
-            let menorMáxErrores = Infinity;
-            let mejorOpción: Element | null = null;
-            let opciónPorDefecto : Element | null = null;
-
-            for (const opción of opciones) {
-                const dataMáxErrores = opción.getAttribute("data-máxErrores");
-                if (!dataMáxErrores) {
-                    opciónPorDefecto = opción;
-                } else {
-                    const máxErrores = parseInt(dataMáxErrores);
-                    if (numErrores <= máxErrores && máxErrores < menorMáxErrores) {
-                        menorMáxErrores = máxErrores;
-                        mejorOpción = opción;
-                    }
-                }
-            }
-
-            const resultado = mejorOpción || opciónPorDefecto;
+            const resultado = elegirBúho(opciones, numErrores);
             if (!resultado) throw Error(`No hay búho para ${estado} con ${numErrores} errores`);
 
             return resultado;

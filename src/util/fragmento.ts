@@ -6,7 +6,7 @@ export type Fragmento =
 
 export interface Entrada {
     nombre: string,
-    tipo: string,
+    tipo?: "texto" | "entero",
     valor: string,
     ancho?: number,
     marcador?: string
