@@ -1,6 +1,6 @@
-pan1 = "alpargata"  # parámetro
-pan2 = "alpargata"  # parámetro
-relleno = "arena de gato"  # parámetro
+pan1 = ""  # parámetro
+pan2 = ""  # parámetro
+relleno = ""  # parámetro
 
 from sandwich import hacer_sandwich
 

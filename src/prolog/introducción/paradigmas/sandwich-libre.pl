@@ -1,6 +1,6 @@
-% consulta: hacer_sandwich([Pan1, Relleno, Pan2]).
-% parámetro Pan1 = rebanada
-% parámetro Relleno = jamon_y_queso
-% parámetro Pan2 = rebanada
+% consulta: hacer_sandwich(Pan1, Relleno, Pan2).
+% parámetro Pan1 = ''
+% parámetro Relleno = ''
+% parámetro Pan2 = ''
 
-:- ensure_loaded(sandwich).
+:- ensure_loaded(hacer_sandwich).

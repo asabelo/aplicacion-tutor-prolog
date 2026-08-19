@@ -45,8 +45,8 @@ function fragmentar(texto: string, dónde: "código" | "consulta"): Fragmento[] 
                 nombre: hueco.nombre,
                 tipo: hueco.tipo,
                 valor: hueco.porDefecto,
-                ancho: consultaLibre ? 40 : Math.max(hueco.porDefecto.length, 6),
-                marcador: consultaLibre ? "¡Dale chicha, majo!" : undefined
+                ancho: consultaLibre ? 40 : Math.max(hueco.porDefecto.length, hueco.nombre.length, 6),
+                marcador: consultaLibre ? "¡Dale chicha, majo!" : hueco.nombre
             }
         };
     });

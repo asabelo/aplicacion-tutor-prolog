@@ -87,6 +87,11 @@ const fragmentos = [
                     const nombre = entrada.dataset.parámetro;
                     if (!nombre) continue;
 
+                    if (entrada.value.trim() === "") {
+                        escribir(`Rellena «${nombre}».`);
+                        return null;
+                    }
+
                     if (entrada.dataset.tipo === "entero") {
                         if (!ENTERO.test(entrada.value.trim())) {
                             escribir(`«${nombre}» tiene que ser un número entero.`);
