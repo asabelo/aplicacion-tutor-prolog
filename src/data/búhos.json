@@ -13,7 +13,7 @@
         "éxito": false,
         "máxErrores": 1,
         "imagen": {
-            "ruta": "/src/images/quizzes/búho1.png",
+            "ruta": "/src/assets/images/quizzes/búho1.png",
             "alt": ""
         },
         "texto": "Whops, esa no era la respuesta correcta. Prueba otra vez."
@@ -24,7 +24,7 @@
         "éxito": false,
         "máxErrores": 3,
         "imagen": {
-            "ruta": "/src/images/quizzes/búho2.png",
+            "ruta": "/src/assets/images/quizzes/búho2.png",
             "alt": ""
         },
         "texto": "¿Estás seguro de que has atendido a la explicación?"
@@ -35,7 +35,7 @@
         "éxito": false,
         "máxErrores": 1,
         "imagen": {
-            "ruta": "/src/images/quizzes/búho1.png",
+            "ruta": "/src/assets/images/quizzes/búho1.png",
             "alt": ""
         },
         "texto": "Revisa la sintaxis, por favor."
@@ -46,7 +46,7 @@
         "éxito": false,
         "máxErrores": 3,
         "imagen": {
-            "ruta": "/src/images/quizzes/búho2.png",
+            "ruta": "/src/assets/images/quizzes/búho2.png",
             "alt": ""
         },
         "texto": "Mira bien, ¿se te ha olvidado el punto al final? ¿El nombre del predicado es correcto?"
@@ -57,7 +57,7 @@
         "éxito": false,
         "máxErrores": 5,
         "imagen": {
-            "ruta": "/src/images/quizzes/búho3.png",
+            "ruta": "/src/assets/images/quizzes/búho3.png",
             "alt": ""
         },
         "texto": "Estás haciendo al búho llorar."
@@ -68,7 +68,7 @@
         "éxito": false,
         "máxErrores": 6,
         "imagen": {
-            "ruta": "/src/images/quizzes/búho4.png",
+            "ruta": "/src/assets/images/quizzes/búho4.png",
             "alt": ""
         },
         "texto": "¿Te diviertes?"
@@ -79,7 +79,7 @@
         "éxito": false,
         "máxErrores": null,
         "imagen": {
-            "ruta": "/src/images/quizzes/búho5.png",
+            "ruta": "/src/assets/images/quizzes/búho5.png",
             "alt": ""
         },
         "texto": "..."

@@ -5,6 +5,8 @@ import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Python from "../../components/Python.astro"
 import Prolog from "../../components/Prolog.astro"
+import { Image } from "astro:assets"
+import imagenÁrbolBúsqueda from "../../assets/images/composición/backtracking/árbol-búsqueda.png"
 
 export const datos: Datos = {
     título: "Backtracking",
@@ -56,7 +58,7 @@ export const datos: Datos = {
         Ante la consulta “animal(loro)”, se producirá la siguiente búsqueda:
     </p>
     <figure>
-        <img src="./imagenes/arbol_busqueda.png" alt="Busqueda">
+        <Image src={imagenÁrbolBúsqueda} alt="Árbol de búsqueda de la consulta animal(loro): tres hijos responden falso y el cuarto, animal(loro), verdadero" />
     </figure>
     <p>
         Frente a la consulta, Prolog generará un árbol de un solo nivel con cuatro hijos, que irá

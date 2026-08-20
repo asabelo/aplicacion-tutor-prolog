@@ -3,6 +3,8 @@ import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Prolog from "../../components/Prolog.astro"
+import { Image } from "astro:assets"
+import imagenDiablotín from "../../assets/images/avanzado/sermón/diablotín.jpg"
 
 export const datos: Datos = {
     título: "Buenas prácticas, complejidad y eficiencia en Prolog",
@@ -158,7 +160,7 @@ export const datos: Datos = {
         "Diablotín". Se toma un tablero de N filas por M columnas, se desordena, y luego se intenta
         ordenar de nuevo:
     </p>
-    <img src="imagenes/Diablotin.jpg" alt="Diablotín">
+    <Image src={imagenDiablotín} alt="Tablero del Diablotín con las fichas de letras y números desordenadas" />
     <Prolog ruta="avanzado/sermón/diablotin" />
     <h3>Prácticas de Fundamentos de Inteligencia Artificial</h3>
     <p>
