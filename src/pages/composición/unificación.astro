@@ -4,6 +4,9 @@ import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
+import { Image } from "astro:assets"
+import imagenSustito from "../../assets/images/composición/unificación/sustito.jpg"
+import sustito from "../../assets/audio/composición/unificación/sustito.mp3"
 
 export const datos: Datos = {
     título: "Unificación",
@@ -248,109 +251,302 @@ export const datos: Datos = {
             </ul>
         </li>
     </ul>
-    <figure>
-        <img src="eufrasio">
+    <button class="eufrasio">
+        <Image src={imagenSustito} alt="Una figura oscura y encogida contra la pared, con los ojos brillando hacia la cámara" />
+        <span>No tengas miedo...</span>
+    </button>
+    <audio class="sustito" src={sustito} preload="auto"></audio>
+    <figure class="robinson en-blanco">
+        <table>
+            <tr>
+                <td><var>G</var> ∪ &lbrace;<var>t</var> ≐ <var>t</var>&rbrace;</td>
+                <td>⇒</td>
+                <td><var>G</var></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><var>G</var> ∪ &lbrace;<var>f</var>(<var>s</var><sub>0</sub>, …, <var>s</var><sub>k</sub>) ≐ <var>f</var>(<var>t</var><sub>0</sub>, …, <var>t</var><sub>k</sub>)&rbrace;</td>
+                <td>⇒</td>
+                <td><var>G</var> ∪ &lbrace;<var>s</var><sub>0</sub> ≐ <var>t</var><sub>0</sub>, …, <var>s</var><sub>k</sub> ≐ <var>t</var><sub>k</sub>&rbrace;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><var>G</var> ∪ &lbrace;<var>f</var>(<var>s</var><sub>0</sub>, …, <var>s</var><sub>k</sub>) ≐ <var>g</var>(<var>t</var><sub>0</sub>, …, <var>t</var><sub>m</sub>)&rbrace;</td>
+                <td>⇒</td>
+                <td>⊥</td>
+                <td>si <var>f</var> ≠ <var>g</var> o <var>k</var> ≠ <var>m</var></td>
+            </tr>
+            <tr>
+                <td><var>G</var> ∪ &lbrace;<var>f</var>(<var>s</var><sub>0</sub>, …, <var>s</var><sub>k</sub>) ≐ <var>x</var>&rbrace;</td>
+                <td>⇒</td>
+                <td><var>G</var> ∪ &lbrace;<var>x</var> ≐ <var>f</var>(<var>s</var><sub>0</sub>, …, <var>s</var><sub>k</sub>)&rbrace;</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><var>G</var> ∪ &lbrace;<var>x</var> ≐ <var>t</var>&rbrace;</td>
+                <td>⇒</td>
+                <td><var>G</var>&lbrace;<var>x</var> ↦ <var>t</var>&rbrace; ∪ &lbrace;<var>x</var> ≐ <var>t</var>&rbrace;</td>
+                <td>si <var>x</var> ∉ vars(<var>t</var>) y <var>x</var> ∈ vars(<var>G</var>)</td>
+            </tr>
+            <tr>
+                <td><var>G</var> ∪ &lbrace;<var>x</var> ≐ <var>f</var>(<var>s</var><sub>0</sub>, …, <var>s</var><sub>k</sub>)&rbrace;</td>
+                <td>⇒</td>
+                <td>⊥</td>
+                <td>si <var>x</var> ∈ vars(<var>f</var>(<var>s</var><sub>0</sub>, …, <var>s</var><sub>k</sub>))</td>
+            </tr>
+        </table>
     </figure>
-    <p>
-        Jaja.
+    <div class="explicación en-blanco">
+        <p>
+            Jaja.
+        </p>
+        <p>
+            Te has asustado eh.
+        </p>
+        <p>
+            Tranqui, que ahora lo explico.
+        </p>
+        <p>
+            El algoritmo Robinson sigue esta serie de pasos:
+        </p>
+        <ol>
+            <li>
+                Si R = S, entonces R y S son unificables.
+                <ul>
+                    <li>
+                        Este es el caso más sencillo en el proceso de unificación. Si dos términos R
+                        y S son exactamente iguales, significa que sus estructuras, funtores, aridad
+                        (número de argumentos) y los argumentos correspondientes coinciden completamente.
+                        Dado que no hay diferencias entre ellos, se concluye que R y S son unificables
+                        sin necesidad de realizar ninguna sustitución.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si no, localizamos el símbolo más a la izquierda de R que se diferencia de su homólogo
+                en S
+                <ul>
+                    <li>
+                        Si R y S no son iguales, debemos encontrar el punto exacto donde difieren. Prolog
+                        compara los términos de izquierda a derecha. Por lo tanto, la primera diferencia
+                        entre R y S se identificará en el símbolo más a la izquierda donde los términos
+                        no coinciden. Este símbolo puede ser un functor, un predicado o uno de los argumentos,
+                        como podría ser pepe(A,rojo) = pepe(B,rojo) o pepe(A,rojo) = jose(B,rojo).
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si es el primero (predicado), entonces R y S no son unificables.
+                <ul>
+                    <li>
+                        Si la primera diferencia detectada es en el predicado o functor (el nombre de
+                        la función o relación en Prolog), entonces R y S no son unificables. Esto se
+                        debe a que para que dos términos sean unificables, deben tener el mismo functor
+                        con la misma aridad. Si los predicados o funtores son diferentes, no puede haber
+                        unificación posible, como es el caso de pepe(A,rojo) = jose(B,rojo) o pepe(A,rojo)
+                        = jose(B,rojo,azul, amarillo).
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si es uno de los argumentos, entonces sean t1, t2 los términos en los que difieren.
+                <ul>
+                    <li>
+                        Si la diferencia no está en el functor, sino en uno de los argumentos de la estructura,
+                        identificamos los términos específicos t1 y t2 en los que R y S difieren. Estos
+                        términos son los componentes de los argumentos en esa posición específica que
+                        no coinciden.
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si ninguno de los dos (t1, t2) es una variable, entonces las cláusulas no son unificables.
+                <ul>
+                    <li>
+                        Para que t1 y t2 sean unificables, al menos uno de ellos debe ser una variable.
+                        Si ambos términos son constantes, estructuras complejas o funtores diferentes,
+                        no son iguales(Como ya comentamos en el punto 1) y ninguno de ellos es una variable,
+                        entonces no hay forma de unificarlos, como pasaría en este ejemplo pepe(azul)
+                        = pepe(rojo).
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Si t1 es una variable X, entonces haremos la sustitución: s =&lcub;X/t2&rcub;
+                <ul>
+                    <li>
+                        Si uno de los términos en el que difieren es una variable, supongamos t1 = X,
+                        entonces se puede realizar una unificación mediante sustitución. En este caso,
+                        sustituimos la variable X por el término t2. Esta sustitución se denota como
+                        s = &lcub;X/t2&rcub;, lo que significa que en todas las ocurrencias futuras de X, se usará
+                        t2 en su lugar. Esta sustitución nos permite continuar el proceso de unificación
+                        con los términos modificados de la siguiente forma.
+                        <ul>
+                            <li>
+                                pepe(A,rojo) = pepe(azul,rojo) -&gt; pepe(azul,rojo) = pepe(azul,rojo).
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Mientras haya elementos por unificar, volver al paso 1.
+            </li>
+        </ol>
+    </div>
+    <div class="quiz en-blanco">
+        <Quiz ruta="composición/unificación/quiz4" />
+    </div>
+    <p class="tira-parriba">
+        No. Aquí debajo no hay nada. Tira parriba y hazle caso al pobre Eufrasio.
     </p>
-    <p>
-        Te has asustado eh.
-    </p>
-    <p>
-        Tranqui, que ahora lo explico.
-    </p>
-    <p>
-        El algoritmo Robinson sigue esta serie de pasos:
-    </p>
-    <ol>
-        <li>
-            Si R = S, entonces R y S son unificables.
-            <ul>
-                <li>
-                    Este es el caso más sencillo en el proceso de unificación. Si dos términos R
-                    y S son exactamente iguales, significa que sus estructuras, funtores, aridad
-                    (número de argumentos) y los argumentos correspondientes coinciden completamente.
-                    Dado que no hay diferencias entre ellos, se concluye que R y S son unificables
-                    sin necesidad de realizar ninguna sustitución.
-                </li>
-            </ul>
-        </li>
-        <li>
-            Si no, localizamos el símbolo más a la izquierda de R que se diferencia de su homólogo
-            en S
-            <ul>
-                <li>
-                    Si R y S no son iguales, debemos encontrar el punto exacto donde difieren. Prolog
-                    compara los términos de izquierda a derecha. Por lo tanto, la primera diferencia
-                    entre R y S se identificará en el símbolo más a la izquierda donde los términos
-                    no coinciden. Este símbolo puede ser un functor, un predicado o uno de los argumentos,
-                    como podría ser pepe(A,rojo) = pepe(B,rojo) o pepe(A,rojo) = jose(B,rojo).
-                </li>
-            </ul>
-        </li>
-        <li>
-            Si es el primero (predicado), entonces R y S no son unificables.
-            <ul>
-                <li>
-                    Si la primera diferencia detectada es en el predicado o functor (el nombre de
-                    la función o relación en Prolog), entonces R y S no son unificables. Esto se
-                    debe a que para que dos términos sean unificables, deben tener el mismo functor
-                    con la misma aridad. Si los predicados o funtores son diferentes, no puede haber
-                    unificación posible, como es el caso de pepe(A,rojo) = jose(B,rojo) o pepe(A,rojo)
-                    = jose(B,rojo,azul, amarillo).
-                </li>
-            </ul>
-        </li>
-        <li>
-            Si es uno de los argumentos, entonces sean t1, t2 los términos en los que difieren.
-            <ul>
-                <li>
-                    Si la diferencia no está en el functor, sino en uno de los argumentos de la estructura,
-                    identificamos los términos específicos t1 y t2 en los que R y S difieren. Estos
-                    términos son los componentes de los argumentos en esa posición específica que
-                    no coinciden.
-                </li>
-            </ul>
-        </li>
-        <li>
-            Si ninguno de los dos (t1, t2) es una variable, entonces las cláusulas no son unificables.
-            <ul>
-                <li>
-                    Para que t1 y t2 sean unificables, al menos uno de ellos debe ser una variable.
-                    Si ambos términos son constantes, estructuras complejas o funtores diferentes,
-                    no son iguales(Como ya comentamos en el punto 1) y ninguno de ellos es una variable,
-                    entonces no hay forma de unificarlos, como pasaría en este ejemplo pepe(azul)
-                    = pepe(rojo).
-                </li>
-            </ul>
-        </li>
-        <li>
-            Si t1 es una variable X, entonces haremos la sustitución: s =&lcub;X/t2&rcub;
-            <ul>
-                <li>
-                    Si uno de los términos en el que difieren es una variable, supongamos t1 = X,
-                    entonces se puede realizar una unificación mediante sustitución. En este caso,
-                    sustituimos la variable X por el término t2. Esta sustitución se denota como
-                    s = &lcub;X/t2&rcub;, lo que significa que en todas las ocurrencias futuras de X, se usará
-                    t2 en su lugar. Esta sustitución nos permite continuar el proceso de unificación
-                    con los términos modificados de la siguiente forma.
-                    <ul>
-                        <li>
-                            pepe(A,rojo) = pepe(azul,rojo) -&gt; pepe(azul,rojo) = pepe(azul,rojo).
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li>
-            Mientras haya elementos por unificar, volver al paso 1.
-        </li>
-    </ol>
-
-    <Quiz ruta="composición/unificación/quiz4" />
 
     <EnlacesPie slot="footer"
                 anterior="/composición/backtracking"
                 siguiente="/básico/predicados" />
 </DiseñoBásico>
+
+<style>
+    @font-face {
+        font-family: "Creepster";
+        src: url("../../assets/fonts/Creepster/Creepster-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    .eufrasio {
+        display: block;
+        position: relative;
+        padding: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    .eufrasio[hidden] {
+        display: none;
+    }
+
+    .eufrasio img {
+        display: block;
+        width: 300px;
+        height: auto;
+    }
+
+    .eufrasio span {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        font-family: "Creepster", cursive;
+        font-size: 20px;
+        color: white;
+        text-shadow: 2px 2px black;
+    }
+
+    .eufrasio:hover {
+        animation: tembleque 0.2s infinite;
+    }
+
+    @keyframes tembleque {
+        0%   { transform: translate(0, 0); }
+        25%  { transform: translate(-10px, -10px); }
+        50%  { transform: translate(10px, 10px); }
+        75%  { transform: translate(-10px, 10px); }
+        100% { transform: translate(0, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .eufrasio:hover { animation: none; }
+    }
+
+    @font-face {
+        font-family: "NewCM10";
+        src: url("../../assets/fonts/NewComputerModern/otf/NewCM10-Book.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "NewCM10";
+        src: url("../../assets/fonts/NewComputerModern/otf/NewCM10-BookItalic.otf") format("opentype");
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "NewCMMath";
+        src: url("../../assets/fonts/NewComputerModern/otf/NewCMMath-Regular.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    /* Oculta pero reservando el sitio: el hueco en blanco es la broma */
+    .en-blanco {
+        visibility: hidden;
+    }
+
+    .robinson {
+        margin: 1.5em 0;
+    }
+
+    .robinson table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        font-family: "NewCM10", "NewCMMath", "Cambria Math", math, serif;
+        font-size: 1.15rem;
+        line-height: 1.2;
+    }
+
+    .robinson td {
+        padding: 0.2em 0.35em;
+        vertical-align: baseline;
+        white-space: nowrap;
+    }
+
+    .robinson td:nth-child(1) {
+        text-align: right;
+    }
+
+    .robinson td:nth-child(2) {
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+    }
+
+    .robinson td:nth-child(4) {
+        padding-left: 2em;
+    }
+
+    .robinson var {
+        font-style: italic;
+    }
+
+    .robinson sub {
+        font-size: 0.7em;
+    }
+</style>
+
+<script>
+    const eufrasio = document.querySelector<HTMLButtonElement>("button.eufrasio");
+    const sustito = document.querySelector<HTMLAudioElement>("audio.sustito");
+    const robinson = document.querySelector<HTMLElement>("figure.robinson");
+    const explicación = document.querySelector<HTMLElement>("div.explicación");
+    const tiraParriba = document.querySelector<HTMLElement>("p.tira-parriba");
+    const quiz = document.querySelector<HTMLElement>("div.quiz");
+    if (!eufrasio || !sustito || !robinson || !explicación || !tiraParriba || !quiz) throw Error("Falta alguna pieza del sustito");
+
+    eufrasio.addEventListener("click", () => {
+        eufrasio.hidden = true;
+        tiraParriba.hidden = true;
+        sustito.play();
+        robinson.classList.remove("en-blanco");
+        setTimeout(() => {
+            explicación.classList.remove("en-blanco");
+            quiz.classList.remove("en-blanco");
+        }, 4000);
+    }, { once: true });
+</script>

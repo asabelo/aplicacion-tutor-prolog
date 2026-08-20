@@ -30,10 +30,23 @@ function tauPrologTarget() {
   };
 }
 
+function licenciasDeFuentes() {
+  return [
+    {
+      src: "./src/assets/fonts/Creepster/OFL.txt",
+      dest: "fonts/creepster"
+    },
+    {
+      src: "./src/assets/fonts/NewComputerModern/{License.txt,GUST-FONT-LICENSE.txt,README}",
+      dest: "fonts/newcomputermodern",
+    },
+  ];
+}
+
 // https://astro.build/config
 export default defineConfig({
     vite: {
         optimizeDeps: { exclude: ["pyodide"] },
-        plugins: [viteStaticCopy({ targets: [pyodideTarget(), tauPrologTarget()] })],
+        plugins: [viteStaticCopy({ targets: [pyodideTarget(), tauPrologTarget(), ...licenciasDeFuentes()] })],
     }
 });
