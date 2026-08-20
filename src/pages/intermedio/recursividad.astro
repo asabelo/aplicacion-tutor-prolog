@@ -1,5 +1,6 @@
 ---
 import type { Datos } from "../../env"
+import { getCollection } from "astro:content"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
@@ -10,6 +11,9 @@ export const datos: Datos = {
     título: "Más variables y recursividad en Prolog",
     descripción: "Introducción a la recursividad en Prolog: comparación con iteración, ejemplos de factorial, sumatorio y funciones recursivas, y explicación de casos base y acumuladores."
 }
+
+const factorial = (await getCollection("factorial"))
+    .sort((a, b) => a.data.orden - b.data.orden);
 ---
 
 <DiseñoBásico>
@@ -186,9 +190,19 @@ export const datos: Datos = {
         base para continuar su ejecución, <strong>Result is N * Result1.</strong> Vamos a plantear
         por un momento un flujo a mano para el factorial de 3:
     </p>
-    <figure>
-        <img src="factorial de tres :)">
-    </figure>
+    <div class="flujo">
+        {factorial.map((p, i) =>
+            <section data-paso={i} hidden={i !== 0}>
+                {p.data.título && <h3>{p.data.título}</h3>}
+                {p.data.texto && <p>{p.data.texto}</p>}
+                {p.data.código && <pre><code>{p.data.código.join("\n")}</code></pre>}
+            </section>
+        )}
+        <p>
+            <button class="atrás">Atrás</button>
+            <button class="adelante">Adelante</button>
+        </p>
+    </div>
     <p>
         Después de este chorrón de información brutalmente dolorosa, vamos con algo un poco más ligero.
         Queremos hacer un programa en Prolog para calcular el <strong>sumatorio</strong> de todo
@@ -251,3 +265,25 @@ export const datos: Datos = {
                 anterior="/intermedio/variables"
                 siguiente="/intermedio/estructuras" />
 </DiseñoBásico>
+
+<script>
+    const pasos = document.querySelectorAll(".flujo section[data-paso]");
+    const atrás = document.querySelector(".flujo button.atrás");
+    const adelante = document.querySelector(".flujo button.adelante");
+    if (!atrás || !adelante) throw Error("El flujo no tiene botones de navegación");
+
+    let actual = 0;
+
+    const mostrar = (siguiente: number) => {
+        pasos[actual].setAttribute("hidden", "");
+        actual = siguiente;
+        pasos[actual].removeAttribute("hidden");
+        adelante.textContent = actual === pasos.length - 1 ? "¿Empezar otra vez?" : "Adelante";
+    };
+
+    adelante.addEventListener("click", () =>
+        mostrar(actual === pasos.length - 1 ? 0 : actual + 1));
+
+    atrás.addEventListener("click", () =>
+        mostrar(actual === 0 ? pasos.length - 1 : actual - 1));
+</script>

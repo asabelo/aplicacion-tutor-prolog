@@ -1,0 +1,184 @@
+[
+    {
+        "id": "paso1",
+        "orden": 1,
+        "título": "Código",
+        "código": [
+            "factorial(N, Result) :-",
+            "    N > 0,",
+            "    N1 is N - 1,",
+            "    factorial(N1, Result1),",
+            "    Result is N * Result1,"
+        ]
+    },
+    {
+        "id": "paso2",
+        "orden": 2,
+        "título": "Primera llamada",
+        "texto": "Se unifica N.",
+        "código": [
+            "factorial(3, Result) :-",
+            "    3 > 0,",
+            "    N1 is 3 - 1,",
+            "    factorial(N1, Result1),",
+            "    Result is 3 * Result1,"
+        ]
+    },
+    {
+        "id": "paso3",
+        "orden": 3,
+        "título": "Primera llamada",
+        "texto": "Se unifica N1.",
+        "código": [
+            "factorial(3, Result) :-",
+            "    3 > 0,",
+            "    2 is 3 - 1,",
+            "    factorial(2, Result1),",
+            "    Result is 3 * Result1,"
+        ]
+    },
+    {
+        "id": "paso4",
+        "orden": 4,
+        "título": "Segunda llamada",
+        "texto": "Se unifica N.",
+        "código": [
+            "factorial(2, Result) :-",
+            "    2 > 0,",
+            "    N1 is 2 - 1,",
+            "    factorial(N1, Result1),",
+            "    Result is 2 * Result1,"
+        ]
+    },
+    {
+        "id": "paso5",
+        "orden": 5,
+        "título": "Segunda llamada",
+        "texto": "Se unifica N1.",
+        "código": [
+            "factorial(2, Result) :-",
+            "    2 > 0,",
+            "    1 is 2 - 1,",
+            "    factorial(1, Result1),",
+            "    Result is 2 * Result1,"
+        ]
+    },
+    {
+        "id": "paso6",
+        "orden": 6,
+        "título": "Tercera llamada",
+        "texto": "Se unifica N.",
+        "código": [
+            "factorial(1, Result) :-",
+            "    1 > 0,",
+            "    N1 is 1 - 1,",
+            "    factorial(N1, Result1),",
+            "    Result is 1 * Result1,"
+        ]
+    },
+    {
+        "id": "paso7",
+        "orden": 7,
+        "título": "Tercera llamada",
+        "texto": "Se unifica N1.",
+        "código": [
+            "factorial(1, Result) :-",
+            "    1 > 0,",
+            "    0 is 1 - 1,",
+            "    factorial(0, Result1),",
+            "    Result is 1 * Result1,"
+        ]
+    },
+    {
+        "id": "paso8",
+        "orden": 8,
+        "título": "Tercera llamada",
+        "texto": "N == 0, caso base alcanzado. Result unifica con 1 directamente en la cabecera del predicado.",
+        "código": [
+            "factorial(0, 1)."
+        ]
+    },
+    {
+        "id": "paso9",
+        "orden": 9,
+        "texto": "Continuamos el código que quedaba pendiente en las llamadas anteriores por “cercanía”."
+    },
+    {
+        "id": "paso10",
+        "orden": 10,
+        "título": "Volvemos a la tercera llamada",
+        "texto": "Se unifica Result1.",
+        "código": [
+            "factorial(1, Result) :-",
+            "    1 > 0,",
+            "    0 is 1 - 1,",
+            "    factorial(0, 1),",
+            "    Result is 1 * 1,"
+        ]
+    },
+    {
+        "id": "paso11",
+        "orden": 11,
+        "título": "Volvemos a la tercera llamada",
+        "texto": "Se unifica Result.",
+        "código": [
+            "factorial(1, 1) :-",
+            "    1 > 0,",
+            "    0 is 1 - 1,",
+            "    factorial(0, 1),",
+            "    1 is 1 * 1,"
+        ]
+    },
+    {
+        "id": "paso12",
+        "orden": 12,
+        "título": "Volvemos a la segunda llamada",
+        "texto": "Se unifica Result1.",
+        "código": [
+            "factorial(2, Result) :-",
+            "    2 > 0,",
+            "    1 is 2 - 1,",
+            "    factorial(1, 1),",
+            "    Result is 2 * 1,"
+        ]
+    },
+    {
+        "id": "paso13",
+        "orden": 13,
+        "título": "Volvemos a la segunda llamada",
+        "texto": "Se unifica Result.",
+        "código": [
+            "factorial(2, 2) :-",
+            "    2 > 0,",
+            "    1 is 2 - 1,",
+            "    factorial(1, 1),",
+            "    2 is 2 * 1,"
+        ]
+    },
+    {
+        "id": "paso14",
+        "orden": 14,
+        "título": "Volvemos a la primera llamada",
+        "texto": "Se unifica Result1.",
+        "código": [
+            "factorial(3, Result) :-",
+            "    3 > 0,",
+            "    2 is 3 - 1,",
+            "    factorial(2, 2),",
+            "    Result is 3 * 2,"
+        ]
+    },
+    {
+        "id": "paso15",
+        "orden": 15,
+        "título": "Volvemos a la primera llamada",
+        "texto": "Se unifica Result y terminamos.",
+        "código": [
+            "factorial(3, 6) :-",
+            "    3 > 0,",
+            "    2 is 3 - 1,",
+            "    factorial(2, 2),",
+            "    6 is 3 * 2,"
+        ]
+    }
+]

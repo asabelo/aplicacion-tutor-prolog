@@ -27,6 +27,17 @@ const quizzes = defineCollection({
     )
 });
 
+const factorial = defineCollection({
+    loader: file("src/data/factorial.json"),
+    schema: z.object({
+        id: z.string(),
+        orden: z.number(),
+        título: z.optional(z.string()),
+        texto: z.optional(z.string()),
+        código: z.optional(z.array(z.string()))
+    })
+});
+
 const búhos = defineCollection({
     loader: file("src/data/búhos.json"),
     schema: ({ image }) => z.object({
@@ -79,4 +90,4 @@ const prologs = defineCollection({
 });
 
 // 5. Export a single `collections` object to register your collection(s)
-export const collections = { quizzes, búhos, pythons, prologs };
+export const collections = { quizzes, factorial, búhos, pythons, prologs };
