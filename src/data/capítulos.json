@@ -1,0 +1,92 @@
+[
+    {
+        "id": "introducción/antecedentes",
+        "orden": 1,
+        "título": "Antecedentes de Prolog",
+        "descripción": "Introducción a Prolog: origen, enfoque declarativo, unificación, diferencias con lenguajes imperativos y motivación de esta guía para estudiantes."
+    },
+    {
+        "id": "introducción/beneficios",
+        "orden": 2,
+        "título": "Utilidad práctica de Prolog",
+        "descripción": "Descubre los beneficios de aprender Prolog más allá del ámbito académico: mejora tu pensamiento lateral, capacidad de modelado y comprensión de la programación declarativa."
+    },
+    {
+        "id": "introducción/paradigmas",
+        "orden": 3,
+        "título": "Paradigmas de programación",
+        "descripción": "Comparación entre paradigmas de programación imperativo y declarativo. Aprende las diferencias fundamentales entre lenguajes como Python y Prolog mediante ejemplos prácticos de código."
+    },
+    {
+        "id": "introducción/sbr",
+        "orden": 4,
+        "título": "Sistemas basados en reglas",
+        "descripción": "Aprende qué es un sistema basado en reglas y cómo Prolog es uno: base de conocimiento, motor de inferencia, hechos, reglas y objetivos, con ejemplos de árbol genealógico."
+    },
+    {
+        "id": "composición/backtracking",
+        "orden": 5,
+        "título": "Backtracking",
+        "descripción": "Aprende qué es el backtracking en Prolog: búsqueda en profundidad, recursividad, casos base y cómo evitar bucles infinitos."
+    },
+    {
+        "id": "composición/unificación",
+        "orden": 6,
+        "título": "Unificación",
+        "descripción": "Aprende qué es la unificación en Prolog, el mecanismo fundamental para igualar términos. Descubre tipos de términos, cláusulas de Horn y el algoritmo Robinson."
+    },
+    {
+        "id": "básico/predicados",
+        "orden": 7,
+        "título": "Predicados",
+        "descripción": "Aprende sobre predicados en Prolog: hechos, reglas, consultas y buenas prácticas de eficiencia. Guía completa sobre la sintaxis y funcionamiento de predicados lógicos."
+    },
+    {
+        "id": "básico/elementos",
+        "orden": 8,
+        "título": "Posología de Prolog",
+        "descripción": "Introducción práctica a la composición de Prolog con ejemplos de hechos, reglas y consultas, incluyendo ejercicios de vendedores y relaciones familiares."
+    },
+    {
+        "id": "básico/operadores",
+        "orden": 9,
+        "título": "Operadores de comparación y de unificación",
+        "descripción": "Explicación de operadores de comparación y unificación en Prolog: =, is, ==, \\==, \\=, conjunción, disyunción y \\+ con ejemplos y notas sobre unificación."
+    },
+    {
+        "id": "intermedio/variables",
+        "orden": 10,
+        "título": "Variables en Prolog",
+        "descripción": "Aprende cómo funcionan las variables en Prolog: unificación, inmutabilidad, backtracking y la variable anónima. Guía completa sobre el concepto fundamental de variables en programación lógica."
+    },
+    {
+        "id": "intermedio/recursividad",
+        "orden": 11,
+        "título": "Más variables y recursividad en Prolog",
+        "descripción": "Introducción a la recursividad en Prolog: comparación con iteración, ejemplos de factorial, sumatorio y funciones recursivas, y explicación de casos base y acumuladores."
+    },
+    {
+        "id": "intermedio/estructuras",
+        "orden": 12,
+        "título": "Estructuras de datos en Prolog",
+        "descripción": "Aprende sobre estructuras de datos en Prolog: tuplas, diccionarios, pilas, colas y árboles. Guía completa con ejemplos de código para representar y manipular estas estructuras en Prolog."
+    },
+    {
+        "id": "avanzado/meta",
+        "orden": 13,
+        "título": "Metapredicados y predicados de control",
+        "descripción": "Aprende sobre metapredicados (call, maplist, findall, bagof, setof, forall) y predicados de control (once, negación, fail, true, corte) en Prolog. Descubre cómo manipular dinámicamente la base de hechos con assert y retract."
+    },
+    {
+        "id": "avanzado/listas",
+        "orden": 14,
+        "título": "Listas en Prolog",
+        "descripción": "Aprende sobre listas en Prolog, la estructura de datos más importante del lenguaje. Descubre cómo descomponer listas en cabeza y cola, recorrerlas recursivamente, e implementar predicados como member y nth_element."
+    },
+    {
+        "id": "avanzado/sermón",
+        "orden": 15,
+        "título": "Buenas prácticas, complejidad y eficiencia en Prolog",
+        "descripción": "Guía de buenas prácticas, eficiencia y complejidad en Prolog. Aprende metodología declarativa, divide y vencerás, y ejemplos prácticos como torres de Hanoi y Diablotín."
+    }
+]

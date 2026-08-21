@@ -1,21 +1,10 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
-
-export const datos: Datos = {
-    título: "Metapredicados y predicados de control",
-    descripción: "Aprende sobre metapredicados (call, maplist, findall, bagof, setof, forall) y predicados de control (once, negación, fail, true, corte) en Prolog. Descubre cómo manipular dinámicamente la base de hechos con assert y retract."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="avanzado/meta">
 
     <h1>Metapredicados y predicados de control</h1>
     <p>
@@ -277,7 +266,4 @@ export const datos: Datos = {
 
     <Quiz ruta="avanzado/meta/quiz14" />
 
-    <EnlacesPie slot="footer"
-                anterior="/intermedio/estructuras"
-                siguiente="/avanzado/listas" />
 </DiseñoBásico>

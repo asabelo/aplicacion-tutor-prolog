@@ -1,19 +1,8 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
-
-export const datos: Datos = {
-    título: "Utilidad práctica de Prolog",
-    descripción: "Descubre los beneficios de aprender Prolog más allá del ámbito académico: mejora tu pensamiento lateral, capacidad de modelado y comprensión de la programación declarativa."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="introducción/beneficios">
 
     <h1>¿Pero para qué quiero Prolog si no lo voy a utilizar nunca?</h1>
     <section>
@@ -107,7 +96,4 @@ export const datos: Datos = {
         </p>
     </section>
 
-    <EnlacesPie slot="footer"
-                anterior="/introducción/antecedentes"
-                siguiente="/introducción/paradigmas" />
 </DiseñoBásico>

@@ -1,21 +1,10 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
-
-export const datos: Datos = {
-    título: "Operadores de comparación y de unificación",
-    descripción: "Explicación de operadores de comparación y unificación en Prolog: =, is, ==, \\==, \\=, conjunción, disyunción y \\+ con ejemplos y notas sobre unificación."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="básico/operadores">
 
     <h1>Operadores de comparación y operadores de unificación</h1>
     <p>
@@ -149,7 +138,4 @@ X == 5 true.</code></pre>
 
     <Quiz ruta="básico/operadores/quiz9" />
 
-    <EnlacesPie slot="footer"
-                anterior="/básico/elementos"
-                siguiente="/intermedio/variables" />
 </DiseñoBásico>

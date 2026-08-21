@@ -1,41 +1,23 @@
 ---
-import type { AstroInstance2 } from '../env';
+import { getCollection, type CollectionEntry } from "astro:content";
 
 interface Props {
-    anterior?: string,
-    siguiente?: string
+    capítulo: CollectionEntry<"capítulos">
 }
 
-const { anterior: rutaAnterior, siguiente: rutaSiguiente } = Astro.props;
+const { capítulo } = Astro.props;
 
-function buscarPágina(ruta: string): AstroInstance2 {
-    const astros = Object.values(import.meta.glob<AstroInstance2>("../pages/**/*.astro", { eager: true }));
-    const filtradas = astros.filter(astro => astro.file.includes(ruta));
+const capítulos = (await getCollection("capítulos")).sort((a, b) => a.data.orden - b.data.orden);
+const posición = capítulos.findIndex(c => c.id === capítulo.id);
 
-    if (filtradas.length === 0) {
-        throw Error(`La ruta "${ruta}" no coincide con ninguna página.`);
-    }
-    if (filtradas.length > 1) {
-        throw Error(`La ruta "${ruta}" coincide con más de una página.`);
-    }
-
-    const laBuena = filtradas[0];
-
-    if (typeof laBuena.datos === "undefined") {
-        throw Error(`La página "${ruta}" existe, pero no implementa AstroInstance2 (falta la propiedad datos de tipo Datos).`)
-    }
-
-    return laBuena;
-}
-
-const páginaAnterior = rutaAnterior && buscarPágina(rutaAnterior);
-const páginaSiguiente = rutaSiguiente && buscarPágina(rutaSiguiente);
+const capítuloAnterior = posición > 0 ? capítulos[posición - 1] : undefined;
+const capítuloSiguiente = capítulos[posición + 1];
 ---
 
 <nav>
     <ul>
-        { páginaSiguiente && <li><a rel="next" href={páginaSiguiente.url}><span>Siguiente</span> {páginaSiguiente.datos.título}</a></li> }
+        { capítuloSiguiente && <li><a rel="next" href={`/${capítuloSiguiente.id}`}><span>Siguiente</span> {capítuloSiguiente.data.título}</a></li> }
         <li><a href="/">Volver al índice</a></li>
-        { páginaAnterior && <li><a rel="prev" href={páginaAnterior.url}><span>Anterior</span> {páginaAnterior.datos.título}</a></li> }
+        { capítuloAnterior && <li><a rel="prev" href={`/${capítuloAnterior.id}`}><span>Anterior</span> {capítuloAnterior.data.título}</a></li> }
     </ul>
 </nav>

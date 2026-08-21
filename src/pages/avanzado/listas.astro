@@ -1,21 +1,10 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
-
-export const datos: Datos = {
-    título: "Listas en Prolog",
-    descripción: "Aprende sobre listas en Prolog, la estructura de datos más importante del lenguaje. Descubre cómo descomponer listas en cabeza y cola, recorrerlas recursivamente, e implementar predicados como member y nth_element."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="avanzado/listas">
 
     <h1>Listas</h1>
     <p>
@@ -104,7 +93,4 @@ export const datos: Datos = {
 
     <Quiz ruta="avanzado/listas/quiz15" />
 
-    <EnlacesPie slot="footer"
-                anterior="/avanzado/meta"
-                siguiente="/avanzado/sermón" />
 </DiseñoBásico>

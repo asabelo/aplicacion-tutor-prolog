@@ -1,19 +1,8 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
-
-export const datos: Datos = {
-    título: "Antecedentes de Prolog",
-    descripción: "Introducción a Prolog: origen, enfoque declarativo, unificación, diferencias con lenguajes imperativos y motivación de esta guía para estudiantes."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="introducción/antecedentes">
 
     <h1>Introducción</h1>
     <section>
@@ -166,6 +155,4 @@ export const datos: Datos = {
         </p>
     </section>
 
-    <EnlacesPie slot="footer"
-                siguiente="/introducción/beneficios" />
 </DiseñoBásico>

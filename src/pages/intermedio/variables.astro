@@ -1,20 +1,9 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
-
-export const datos: Datos = {
-    título: "Variables en Prolog",
-    descripción: "Aprende cómo funcionan las variables en Prolog: unificación, inmutabilidad, backtracking y la variable anónima. Guía completa sobre el concepto fundamental de variables en programación lógica."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="intermedio/variables">
 
     <h1>Variables en Prolog</h1>
     <p>
@@ -118,7 +107,4 @@ export const datos: Datos = {
 
     <Quiz ruta="intermedio/variables/quiz10" />
 
-    <EnlacesPie slot="footer"
-                anterior="/básico/operadores"
-                siguiente="/intermedio/recursividad" />
 </DiseñoBásico>

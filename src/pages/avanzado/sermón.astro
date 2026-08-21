@@ -1,22 +1,11 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Prolog from "../../components/Prolog.astro"
 import { Image } from "astro:assets"
 import imagenDiablotín from "../../assets/images/avanzado/sermón/diablotín.jpg"
-
-export const datos: Datos = {
-    título: "Buenas prácticas, complejidad y eficiencia en Prolog",
-    descripción: "Guía de buenas prácticas, eficiencia y complejidad en Prolog. Aprende metodología declarativa, divide y vencerás, y ejemplos prácticos como torres de Hanoi y Diablotín."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="avanzado/sermón">
 
     <h1>Despedida</h1>
     <p>
@@ -229,6 +218,4 @@ export const datos: Datos = {
         </li>
     </ul>
 
-    <EnlacesPie slot="footer"
-                anterior="/avanzado/listas" />
-<DiseñoBásico>
+</DiseñoBásico>

@@ -1,24 +1,13 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
 import { Image } from "astro:assets"
 import imagenSustito from "../../assets/images/composición/unificación/sustito.jpg"
 import sustito from "../../assets/audio/composición/unificación/sustito.mp3"
-
-export const datos: Datos = {
-    título: "Unificación",
-    descripción: "Aprende qué es la unificación en Prolog, el mecanismo fundamental para igualar términos. Descubre tipos de términos, cláusulas de Horn y el algoritmo Robinson."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="composición/unificación">
 
     <h1>Unificación</h1>
     <p>
@@ -401,9 +390,6 @@ export const datos: Datos = {
         No. Aquí debajo no hay nada. Tira parriba y hazle caso al pobre Eufrasio.
     </p>
 
-    <EnlacesPie slot="footer"
-                anterior="/composición/backtracking"
-                siguiente="/básico/predicados" />
 </DiseñoBásico>
 
 <style>

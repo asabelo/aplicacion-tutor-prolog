@@ -1,20 +1,9 @@
 ---
-import EnlacesPie from "../../components/EnlacesPie.astro"
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
 import Prolog from "../../components/Prolog.astro"
-
-export const datos: Datos = {
-    título: "Estructuras de datos en Prolog",
-    descripción: "Aprende sobre estructuras de datos en Prolog: tuplas, diccionarios, pilas, colas y árboles. Guía completa con ejemplos de código para representar y manipular estas estructuras en Prolog."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="intermedio/estructuras">
 
     <h1>Estructuras de datos</h1>
     <p>
@@ -116,7 +105,4 @@ export const datos: Datos = {
         cuando llegues.
     </p>
 
-    <EnlacesPie slot="footer"
-                anterior="/intermedio/recursividad"
-                siguiente="/avanzado/meta" />
 </DiseñoBásico>

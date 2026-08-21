@@ -1,21 +1,10 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
-
-export const datos: Datos = {
-    título: "Sistemas basados en reglas",
-    descripción: "Comparación entre paradigmas de programación imperativo y declarativo. Aprende las diferencias fundamentales entre lenguajes como Python y Prolog mediante ejemplos prácticos de código."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="introducción/sbr">
 
     <div style="height: 100dvh;">
         <h1>Introducción a los Sistemas Basados en Reglas</h1>
@@ -138,7 +127,4 @@ export const datos: Datos = {
 
     <Quiz ruta="introducción/sbr/quiz2" />
 
-    <EnlacesPie slot="footer"
-                anterior="/introducción/paradigmas"
-                siguiente="/composición/backtracking" />
 </DiseñoBásico>

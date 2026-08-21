@@ -1,21 +1,10 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
-
-export const datos: Datos = {
-    título: "Predicados",
-    descripción: "Aprende sobre predicados en Prolog: hechos, reglas, consultas y buenas prácticas de eficiencia. Guía completa sobre la sintaxis y funcionamiento de predicados lógicos."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="básico/predicados">
 
     <h1>Predicados, o ¿cómo funciona esta cosa?</h1>
     <p>
@@ -131,7 +120,4 @@ export const datos: Datos = {
 
     <Quiz ruta="básico/predicados/quiz5" />
 
-    <EnlacesPie slot="footer"
-                anterior="/composición/unificación"
-                siguiente="/básico/elementos" />
 </DiseñoBásico>

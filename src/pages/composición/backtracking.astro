@@ -1,24 +1,13 @@
 ---
-import type { Datos } from "../../env"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Python from "../../components/Python.astro"
 import Prolog from "../../components/Prolog.astro"
 import { Image } from "astro:assets"
 import imagenÁrbolBúsqueda from "../../assets/images/composición/backtracking/árbol-búsqueda.png"
-
-export const datos: Datos = {
-    título: "Backtracking",
-    descripción: "Aprende qué es el backtracking en Prolog: búsqueda en profundidad, recursividad, casos base y cómo evitar bucles infinitos."
-}
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="composición/backtracking">
 
     <h1>¿Palante, patrás? Hablemos de <strong>backtracking</strong></h1>
     <p>
@@ -134,7 +123,4 @@ export const datos: Datos = {
 
     <Quiz ruta="composición/backtracking/quiz3" />
 
-    <EnlacesPie slot="footer"
-                anterior="/introducción/sbr"
-                siguiente="/composición/unificación" />
 </DiseñoBásico>

@@ -1,26 +1,15 @@
 ---
-import type { Datos } from "../../env"
 import { getCollection } from "astro:content"
 import DiseñoBásico from "../../layouts/DiseñoBásico.astro"
-import EnlacesPie from "../../components/EnlacesPie.astro"
 import Quiz from "../../components/Quiz.astro"
 import Prolog from "../../components/Prolog.astro"
 import Python from "../../components/Python.astro"
-
-export const datos: Datos = {
-    título: "Más variables y recursividad en Prolog",
-    descripción: "Introducción a la recursividad en Prolog: comparación con iteración, ejemplos de factorial, sumatorio y funciones recursivas, y explicación de casos base y acumuladores."
-}
 
 const factorial = (await getCollection("factorial"))
     .sort((a, b) => a.data.orden - b.data.orden);
 ---
 
-<DiseñoBásico>
-    <Fragment slot="head">
-        <title>{datos.título}</title>
-        <meta name="description" content={datos.descripción}>
-    </Fragment>
+<DiseñoBásico capítulo="intermedio/recursividad">
 
     <h1>Recursividad</h1>
     <p>
@@ -261,9 +250,6 @@ const factorial = (await getCollection("factorial"))
 
     <Quiz ruta="intermedio/recursividad/quiz13" />
 
-    <EnlacesPie slot="footer"
-                anterior="/intermedio/variables"
-                siguiente="/intermedio/estructuras" />
 </DiseñoBásico>
 
 <script>
