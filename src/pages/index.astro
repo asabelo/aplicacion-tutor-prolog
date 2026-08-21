@@ -1,8 +1,24 @@
 ---
+import { getCollection, type CollectionEntry } from "astro:content";
 import DiseñoBásico from "../layouts/DiseñoBásico.astro"
+
+const capítulos = (await getCollection("capítulos")).sort((a, b) => a.data.orden - b.data.orden);
+
+const grupos: { nombre: string, capítulos: CollectionEntry<"capítulos">[] }[] = [];
+
+for (const capítulo of capítulos) {
+    const grupo = grupos.at(-1);
+
+    if (grupo?.nombre === capítulo.data.grupoÍndice) {
+        grupo.capítulos.push(capítulo);
+    } else {
+        grupos.push({ nombre: capítulo.data.grupoÍndice, capítulos: [capítulo] });
+    }
+}
 ---
 
 <DiseñoBásico>
+
     <Fragment slot="head">
         <title>Prolog 27 mg</title>
         <meta name="description" content="Aplicación tutor interactiva para el aprendizaje de Prolog de forma amena e intuitiva.">
@@ -11,46 +27,19 @@ import DiseñoBásico from "../layouts/DiseñoBásico.astro"
     <h1>Prolog 27 mg</h1>
     <nav aria-label="Tabla de contenidos">
         <ol>
-            <li>
-                <h2>¿Qué es Prolog 27 mg y para qué se utiliza?</h2>
-                <ul>
-                    <li><a href="/introducción/antecedentes.html">Antecedentes</a></li>
-                    <li><a href="/introducción/beneficios.html">Utilidad práctica de Prolog</a></li>
-                    <li><a href="/introducción/paradigmas.html">Paradigmas de programación</a></li>
-                </ul>
-            </li>
-            <li>
-                <h2>Composición de Prolog 27 mg</h2>
-                <ul>
-                    <li><a href="/introducción/sbr.html">Sistemas basados en reglas</a></li>
-                    <li><a href="/composición/backtracking.html"><i>Backtracking</i></a></li>
-                    <li><a href="/composición/unificación.html">Unificación</a></li>
-                </ul>
-            </li>
-            <li>
-                <h2>Modo de uso</h2>
-                <ul>
-                    <li><a href="/básico/predicados.html">Cómo utilizar Prolog</a></li>
-                    <li><a href="/básico/elementos.html">Posología de Prolog</a></li>
-                    <li><a href="/básico/operadores.html">Operadores de Prolog</a></li>
-                </ul>
-            </li>
-            <li>
-                <h2>Modo de uso <em>intermedio</em></h2>
-                <ul>
-                    <li><a href="/intermedio/variables.html">Variables</a></li>
-                    <li><a href="/intermedio/recursividad.html"><em>Más</em> variables y recursividad</a></li>
-                    <li><a href="/intermedio/estructuras.html">Estructuras de datos</a></li>
-                </ul>
-            </li>
-            <li>
-                <h2>Modo de uso <strong>avanzado</strong></h2>
-                <ul>
-                    <li><a href="/avanzado/meta.html">Metapredicados y predicados de control</a></li>
-                    <li><a href="/avanzado/listas.html">Listas</a></li>
-                    <li><a href="/avanzado/sermón.html">Buenas prácticas, complejidad y eficiencia en Prolog</a></li>
-                </ul>
-            </li>
+            {grupos.map(grupo =>
+                <li>
+                    <h2 set:html={grupo.nombre} />
+                    <ul>
+                        {grupo.capítulos.map(capítulo =>
+                            <li>
+                                <a href={`/${capítulo.id}`} set:html={capítulo.data.títuloÍndice ?? capítulo.data.título} />
+                            </li>
+                        )}
+                    </ul>
+                </li>
+            )}
         </ol>
     </nav>
+
 </DiseñoBásico>
